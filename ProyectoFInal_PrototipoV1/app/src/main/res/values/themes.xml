@@ -1,0 +1,16 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.ProyectoFInal_PrototipoV1" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.ProyectoFInal_PrototipoV1" parent="Base.Theme.ProyectoFInal_PrototipoV1" />
+
+    <style name="Theme.App.Starting" parent="Theme.ProyectoFInal_PrototipoV1">
+        <item name="android:windowBackground">@drawable/splash_fondo</item>
+       <!-- <item name="windowSplashScreenAnimatedIcon">@drawable/logonormal</item>-->
+        <item name="windowSplashScreenAnimationDuration">2000</item>
+        <item name="postSplashScreenTheme">@style/Base.Theme.ProyectoFInal_PrototipoV1</item>
+    </style>
+</resources>
