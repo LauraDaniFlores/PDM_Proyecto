@@ -7,24 +7,22 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : AppCompatActivity() {
+class Modulos : AppCompatActivity(){
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        var buttonJugar: ImageButton = findViewById(R.id.jugar)
+        setContentView(R.layout.modulos)
+        var continentes: ImageButton = findViewById(R.id.continentes)
 
-        buttonJugar.setOnClickListener(evento)
+        continentes.setOnClickListener(evento)
     }
     private val evento = View.OnClickListener { v ->
-        Toast.makeText(applicationContext, "Click botón", Toast.LENGTH_SHORT)
+        Toast.makeText(applicationContext, "Click botón continentes", Toast.LENGTH_SHORT)
             .show()
-            startActivity(intent)
+        startActivity(intent)
         val i: Intent = Intent(
-            this@MainActivity,
-            Modulos::class.java
+            this@Modulos,
+            ContinentesInter::class.java
         )
         startActivity(i)
-
     }
 }
-

@@ -29,5 +29,10 @@
             android:name=".MainActivity"
             android:exported="false" />
 
+        <activity android:name=".Modulos"
+            android:exported="false"/>
+
+        <activity android:name=".ContinentesInter"
+            android:exported="false"/>
     </application>
 </manifest>
