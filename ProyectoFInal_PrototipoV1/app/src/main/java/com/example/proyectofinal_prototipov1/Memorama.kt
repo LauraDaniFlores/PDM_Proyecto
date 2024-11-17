@@ -7,8 +7,8 @@ import android.view.View.OnClickListener
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Toast
+import com.dgfp.juego1.R
 import com.dgfp.practica14kt_controlp3.OnSelectedMemorama
-import com.example.proyectofinal_prototipov1.R
 
 class Memorama: LinearLayout {
     var btn1: ImageButton? = null
@@ -25,6 +25,7 @@ class Memorama: LinearLayout {
     private var touchBool = arrayOf(false, false, false, false, false, false, false, false)
     private var touch = 0
     private var select = 0
+    private var flag:Boolean = false
 
     private var listener: OnSelectedMemorama? = null
     fun setOnDateChangeListener(l: OnSelectedMemorama){
@@ -53,6 +54,7 @@ class Memorama: LinearLayout {
 
         asignarEventos()
         changeImage()
+
     }
 
     fun setArray(array: Array<String>){
@@ -101,13 +103,11 @@ class Memorama: LinearLayout {
         }else if(v == btn8){
             select(7,touch)
         }
-        changeImage()
 
     }
 
 
     fun select (pos: Int, veces: Int){
-        var flag = false
         if(veces == 1 ){
             if(touchBool[pos]){
                 touch = 0
@@ -126,16 +126,8 @@ class Memorama: LinearLayout {
                 }else if(touchBool[pos]){
                     touch = 1
                 }else {
-                    when (pos) {
-                        0 -> btn1!!.setImageResource(context.getResources().getIdentifier(par.get(0).toString(),"drawable", context.getPackageName()))
-                        1 -> btn2!!.setImageResource(context.getResources().getIdentifier(par.get(1).toString(),"drawable", context.getPackageName()))
-                        2 -> btn3!!.setImageResource(context.getResources().getIdentifier(par.get(2).toString(),"drawable", context.getPackageName()))
-                        3 -> btn4!!.setImageResource(context.getResources().getIdentifier(par.get(3).toString(),"drawable", context.getPackageName()))
-                        4 -> btn5!!.setImageResource(context.getResources().getIdentifier(par.get(4).toString(),"drawable", context.getPackageName()))
-                        5 -> btn6!!.setImageResource(context.getResources().getIdentifier(par.get(5).toString(),"drawable", context.getPackageName()))
-                        6 -> btn7!!.setImageResource(context.getResources().getIdentifier(par.get(6).toString(),"drawable", context.getPackageName()))
-                        7 -> btn8!!.setImageResource(context.getResources().getIdentifier(par.get(7).toString(),"drawable", context.getPackageName()))
-                    }
+                    touchBool[pos] = true
+                    changeImage()
                     flag = true
                 }
                 touch = 0
@@ -144,9 +136,11 @@ class Memorama: LinearLayout {
             }
         }
         if(flag){
-            Thread.sleep(500)
             touchBool[select] = false
+            touchBool[pos] = false
             flag = false
+        }else{
+            changeImage()
         }
     }
 
