@@ -7,8 +7,8 @@ import android.view.View.OnClickListener
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Toast
-import com.dgfp.juego1.R
 import com.dgfp.practica14kt_controlp3.OnSelectedMemorama
+import com.example.proyectofinal_prototipov1.R
 
 class Memorama: LinearLayout {
     var btn1: ImageButton? = null
