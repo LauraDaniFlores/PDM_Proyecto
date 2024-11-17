@@ -5,14 +5,15 @@ import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
+import android.media.MediaPlayer
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.content.res.ResourcesCompat
+
 
 class ContinentesNiveles : View {
     //Imagen de fondo
@@ -42,10 +43,17 @@ class ContinentesNiveles : View {
     }
     private fun inicializa() {
         textPaint.isAntiAlias = true
-        textPaint.textSize = 40f
+        textPaint.textSize = 60f
+        textPaint.color = Color.WHITE
         textNivel.isAntiAlias = true
-        textNivel.textSize = 60f
+        textNivel.textSize = 150f
         textNivel.color = Color.WHITE
+//        val tf = Typeface.create(context, resources.getIdentifier("america", "font", context?.getPackageName()))
+        val customTypeface = resources.getFont(R.font.impact)
+        textNivel.typeface = customTypeface
+
+        val courier = resources.getFont(R.font.courier)
+        textPaint.typeface = courier
 
 
         cuadrado.style = Paint.Style.FILL
@@ -66,11 +74,12 @@ class ContinentesNiveles : View {
         nivel4!!.draw(canvas)
         nivel5!!.draw(canvas)
 
-//        nivel3!!.setBounds((anchonivel*2)+30, (altonivel + ((altonivel1*2)) - 140), ((anchonivel*2)+30+286), (altonivel + ((altonivel1*2))- 140 + 219))
-
-//        canvas.drawText("1",130f, (altonivel + ((altonivel1*2))-30+100), textNivel)
-//        canvas.drawText("2",(anchonivel+30+115), (altonivel + ((altonivel1*3))+ 100), textNivel)
-//        canvas.drawText("3",((anchonivel*2)+30+125),  (altonivel + ((altonivel1*2)) + 50), textNivel)
+        canvas.drawText("Continentes", 170f, 500f, textNivel)
+        canvas.drawText("1",155f, (altonivel + ((altonivel1*2))-30+110), textPaint)
+        canvas.drawText("2",(anchonivel+30+110), (altonivel + ((altonivel1*3))+ 75), textPaint)
+        canvas.drawText("3",((anchonivel*2)+30+125),  (altonivel + ((altonivel1*2))), textPaint)
+        canvas.drawText("4",((anchonivel*3)+70),  (altonivel + ((altonivel1*3)) + 150), textPaint)
+        canvas.drawText("5",((anchonivel*4)-70f+125),  (altonivel + ((altonivel1*2)) + 30+110), textPaint)
 
         invalidate()
     }
@@ -99,7 +108,7 @@ class ContinentesNiveles : View {
         nivel4!!.setBounds((anchonivel*3)-30, (altonivel + ((altonivel1*3)) + 50), ((anchonivel*3)-50+268), (altonivel + ((altonivel1*3)) + 50 + 171))
 
         nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.coral)
-        nivel5!!.setBounds((anchonivel*4)-50, (altonivel + ((altonivel1*2)) + 30), ((anchonivel*4)-50+286), (altonivel + ((altonivel1*2)) + 30 + 219))
+        nivel5!!.setBounds((anchonivel*4)-70, (altonivel + ((altonivel1*2)) + 30), ((anchonivel*4)-50+286), (altonivel + ((altonivel1*2)) + 30 + 199))
 
 
     }
@@ -140,5 +149,6 @@ class ContinentesNiveles : View {
         }
         return res
     }
+
 
 }

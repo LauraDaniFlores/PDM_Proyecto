@@ -18,7 +18,6 @@ class Modulos : AppCompatActivity(){
     private val evento = View.OnClickListener { v ->
         Toast.makeText(applicationContext, "Click botón continentes", Toast.LENGTH_SHORT)
             .show()
-        startActivity(intent)
         val i: Intent = Intent(
             this@Modulos,
             ContinentesInter::class.java
