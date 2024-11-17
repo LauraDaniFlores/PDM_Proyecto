@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Configuracion">
+        <attr name="casa" format="string"/>
+        <attr name="pausar" format="string"/>
+        <attr name="musica" format="string"/>
+    </declare-styleable>
+</resources>

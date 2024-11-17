@@ -10,9 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 class ContinentesInter: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.modulos)
-        var continentes = ContinentesNiveles(this)
-        setContentView(continentes)
+        setContentView(R.layout.continentes)
 
     }
 
