@@ -11,6 +11,7 @@ import android.media.MediaPlayer
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.content.res.AppCompatResources
 
@@ -50,7 +51,7 @@ class ContinentesNiveles : View {
         textNivel.color = Color.WHITE
         textNivel.textAlign = Paint.Align.CENTER
 //        val tf = Typeface.create(context, resources.getIdentifier("america", "font", context?.getPackageName()))
-        val customTypeface = resources.getFont(R.font.impact)
+        val customTypeface = resources.getFont(R.font.pact)
         textNivel.typeface = customTypeface
 
         val courier = resources.getFont(R.font.courier)
@@ -108,7 +109,7 @@ class ContinentesNiveles : View {
         nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.coral1)
         nivel4!!.setBounds((anchonivel*3)-30, (altonivel + ((altonivel1*3)) + 50), ((anchonivel*3)-50+268), (altonivel + ((altonivel1*3)) + 50 + 171))
 
-        nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.coral)
+        nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.coralcandado)
         nivel5!!.setBounds((anchonivel*4)-70, (altonivel + ((altonivel1*2)) + 30), ((anchonivel*4)-50+286), (altonivel + ((altonivel1*2)) + 30 + 199))
 
 
@@ -125,6 +126,15 @@ class ContinentesNiveles : View {
             val intent = Intent(context, Modulos::class.java)
             context.startActivity(intent)
         }
+
+        //Nivel 2
+        if(event.x >= anchonivel+30 && event.x <= ((anchonivel*2)+30+286) && event.y >= (altonivel + ((altonivel1*2)) - 140) && event.y <= (altonivel + ((altonivel1*2))- 140 + 219)){
+            val i = Intent(context, Memorama_Inter::class.java)
+            i.putExtra("modulo", "1")
+            context.startActivity(i)
+        }
+
+
         return true
     }
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

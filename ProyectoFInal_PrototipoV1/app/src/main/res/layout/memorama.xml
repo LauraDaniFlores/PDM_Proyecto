@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <com.example.proyectofinal_prototipov1.Configuracion
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:id="@+id/configuracion"
+        app:casa="true"
+        app:pausar="true"
+        app:musica="lauvparis"
+        android:layout_marginBottom="10dp"
+        />
+
+    <com.dgfp.proyectojuego1.Memorama
+        android:id="@+id/juego"
+        android:layout_width="400dp"
+        android:layout_height="610dp"
+        android:layout_gravity="center" />
+</LinearLayout>

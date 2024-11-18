@@ -4,20 +4,18 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.example.proyectofinal_prototipov1.ContinentesNiveles
-<<<<<<< Updated upstream:ProyectoFInal_PrototipoV1/app/src/main/res/layout/continentes.xml
-=======
         android:id="@+id/continenteslayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
         />
-
     <com.example.proyectofinal_prototipov1.OceanoNiveles
         android:id="@+id/oceanolayout"
->>>>>>> Stashed changes:ProyectoFInal_PrototipoV1/app/src/main/res/layout/pantalla_niveles.xml
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/continentelayout"/>
+        android:visibility="gone"
+        />
+
     <com.example.proyectofinal_prototipov1.Configuracion
         android:layout_width="match_parent"
         android:layout_height="225dp"

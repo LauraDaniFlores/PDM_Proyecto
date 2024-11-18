@@ -78,6 +78,7 @@ class OceanoNiveles: View {
 //        canvas.drawText("4",((anchonivel*3)+70),  (altonivel + ((altonivel1*3)) + 150), textPaint)
 //        canvas.drawText("5",((anchonivel*4)-70f+125),  (altonivel + ((altonivel1*2)) + 30+110), textPaint)
 
+
         invalidate()
     }
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -107,7 +108,6 @@ class OceanoNiveles: View {
         nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.coralcandado)
         nivel5!!.setBounds((anchonivel*4)-70, (altonivel + ((altonivel1*2)) + 30), ((anchonivel*4)-70+286), (altonivel + ((altonivel1*2)) + 30 + 219))
 
-
     }
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val alto = measuredHeight.toFloat()
@@ -119,6 +119,7 @@ class OceanoNiveles: View {
         //Nivel 3
         if(event.x >= (anchonivel*2)+30 && event.x <= ((anchonivel*2)+30+286) && event.y >= (altonivel + ((altonivel1*2)) - 140) && event.y <= (altonivel + ((altonivel1*2))- 140 + 219)){
 //            val intent = Intent(context, EscogerInterm::class.java)
+//            val intent = Intent(context, Modulos::class.java)
 //            context.startActivity(intent)
         }
         return true

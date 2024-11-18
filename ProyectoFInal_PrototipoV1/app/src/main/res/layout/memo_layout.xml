@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/imagen8"
+        android:layout_width="175dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imagen7"
+        app:layout_constraintTop_toBottomOf="@+id/imagen6"
+        app:srcCompat="@drawable/ic_launcher_background"
+        android:backgroundTint="@color/white"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/imagen6"
+        android:layout_width="175dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toTopOf="@+id/imagen8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imagen5"
+        app:layout_constraintTop_toBottomOf="@+id/imagen4"
+        app:srcCompat="@drawable/ic_launcher_background"
+        android:backgroundTint="@color/white"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/imagen4"
+        android:layout_width="175dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toTopOf="@+id/imagen6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imagen3"
+        app:layout_constraintTop_toBottomOf="@+id/imagen2"
+        app:srcCompat="@drawable/ic_launcher_background"
+        android:backgroundTint="@color/white"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/imagen3"
+        android:layout_width="175dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toTopOf="@+id/imagen5"
+        app:layout_constraintEnd_toStartOf="@+id/imagen4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagen1"
+        app:srcCompat="@drawable/ic_launcher_background"
+        android:backgroundTint="@color/white"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/imagen7"
+        android:layout_width="175dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imagen8"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagen5"
+        app:srcCompat="@drawable/ic_launcher_background"
+        android:backgroundTint="@color/white"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/imagen2"
+        android:layout_width="175dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toTopOf="@+id/imagen4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/imagen1"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/white"
+        app:srcCompat="@drawable/ic_launcher_background"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/imagen1"
+        android:layout_width="175dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toTopOf="@+id/imagen3"
+        app:layout_constraintEnd_toStartOf="@+id/imagen2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_launcher_background"
+        android:backgroundTint="@color/white"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <ImageButton
+        android:id="@+id/imagen5"
+        android:layout_width="175dp"
+        android:layout_height="150dp"
+        app:layout_constraintBottom_toTopOf="@+id/imagen7"
+        app:layout_constraintEnd_toStartOf="@+id/imagen6"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagen3"
+        app:srcCompat="@drawable/ic_launcher_background"
+        android:backgroundTint="@color/white"
+        tools:ignore="SpeakableTextPresentCheck" />
+</androidx.constraintlayout.widget.ConstraintLayout>
