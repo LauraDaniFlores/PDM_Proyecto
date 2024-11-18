@@ -9,10 +9,7 @@ import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.ContextCompat.startActivity
-import androidx.core.content.res.ResourcesCompat
 
 class ContinentesNiveles : View {
     //Imagen de fondo
@@ -115,6 +112,15 @@ class ContinentesNiveles : View {
             val intent = Intent(context, Modulos::class.java)
             context.startActivity(intent)
         }
+
+        //Nivel 2
+        if(event.x >= anchonivel+30 && event.x <= ((anchonivel*2)+30+286) && event.y >= (altonivel + ((altonivel1*2)) - 140) && event.y <= (altonivel + ((altonivel1*2))- 140 + 219)){
+            val i = Intent(context, Memorama_Inter::class.java)
+            i.putExtra("modulo", "1")
+            context.startActivity(i)
+        }
+
+
         return true
     }
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

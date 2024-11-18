@@ -20,6 +20,8 @@ class Memorama: LinearLayout {
     var btn7: ImageButton? = null
     var btn8: ImageButton? = null
 
+    var imagenCard = "cards"
+
     private var original = emptyArray<String>()
     private var par: Array<String?> = arrayOfNulls(8)
     private var touchBool = arrayOf(false, false, false, false, false, false, false, false)
