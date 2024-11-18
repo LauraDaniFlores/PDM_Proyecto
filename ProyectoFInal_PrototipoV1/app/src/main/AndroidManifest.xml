@@ -35,6 +35,7 @@
         <activity android:name=".ContinentesInter"
             android:exported="false"/>
         <activity android:name=".Memorama_Inter"
+            android:exported="false"/>
         <activity android:name=".Cards_Inter"
             android:exported="false"/>
     </application>
