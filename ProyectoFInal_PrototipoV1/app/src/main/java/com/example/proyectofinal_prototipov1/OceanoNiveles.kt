@@ -5,17 +5,13 @@ import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.Typeface
 import android.graphics.drawable.Drawable
-import android.media.MediaPlayer
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
-import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.content.res.AppCompatResources
 
-
-class ContinentesNiveles : View {
+class OceanoNiveles: View {
     //Imagen de fondo
     private var fondo: Drawable? = null
     private var nivel1: Drawable? = null
@@ -121,8 +117,8 @@ class ContinentesNiveles : View {
 
         //Nivel 3
         if(event.x >= (anchonivel*2)+30 && event.x <= ((anchonivel*2)+30+286) && event.y >= (altonivel + ((altonivel1*2)) - 140) && event.y <= (altonivel + ((altonivel1*2))- 140 + 219)){
-            val intent = Intent(context, Modulos::class.java)
-            context.startActivity(intent)
+//            val intent = Intent(context, Modulos::class.java)
+//            context.startActivity(intent)
         }
         return true
     }

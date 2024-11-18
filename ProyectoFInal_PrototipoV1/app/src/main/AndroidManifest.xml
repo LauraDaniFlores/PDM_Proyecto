@@ -32,7 +32,7 @@
         <activity android:name=".Modulos"
             android:exported="false"/>
 
-        <activity android:name=".ContinentesInter"
+        <activity android:name=".ModulosIntermedio"
             android:exported="false"/>
     </application>
 </manifest>
