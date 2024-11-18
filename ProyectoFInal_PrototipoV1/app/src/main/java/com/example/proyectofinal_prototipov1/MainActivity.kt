@@ -11,20 +11,31 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var buttonJugar: ImageButton = findViewById(R.id.jugar)
 
+        // Encontrar los botones en el layout
+        val buttonJugar: ImageButton = findViewById(R.id.jugar)
+        val buttonLogros: ImageButton = findViewById(R.id.logros)
+
+        // Asignar el mismo listener a ambos botones
         buttonJugar.setOnClickListener(evento)
+        buttonLogros.setOnClickListener(evento)
     }
-    private val evento = View.OnClickListener { v ->
-        Toast.makeText(applicationContext, "Click botón", Toast.LENGTH_SHORT)
-            .show()
-            startActivity(intent)
-        val i: Intent = Intent(
-            this@MainActivity,
-            Modulos::class.java
-        )
-        startActivity(i)
 
+    private val evento = View.OnClickListener { v ->
+        when (v.id) {
+            R.id.jugar -> {
+                Toast.makeText(applicationContext, "Iniciando juego...", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@MainActivity, Modulos::class.java)
+                startActivity(intent)
+            }
+            R.id.logros -> {
+                Toast.makeText(applicationContext, "Abriendo logros...", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@MainActivity, maravillasMundo::class.java)
+                startActivity(intent)
+            }
+            else -> {
+                Toast.makeText(applicationContext, "Botón desconocido", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 }
-
