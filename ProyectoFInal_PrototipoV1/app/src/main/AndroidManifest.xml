@@ -28,11 +28,9 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
-
         <activity android:name=".Modulos"
             android:exported="false"/>
-
-        <activity android:name=".ContinentesInter"
+        <activity android:name=".ModulosIntermedio"
             android:exported="false"/>
         <activity android:name=".EscogerInterm"
             android:exported="false"/>
