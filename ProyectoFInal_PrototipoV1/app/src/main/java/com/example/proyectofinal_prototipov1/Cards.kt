@@ -102,6 +102,8 @@ class Cards : View {
         // Cuadrados
         canvas.drawRoundRect(60f, 300f, ancho-60f, alto-150f, 20f, 20f, cuadro)
         canvas.drawRoundRect(60f, 300f, ancho-60f, 460f, 20f, 20f, pRelleno)
+        siguiente!!.draw(canvas)
+
 
         // Si el juego no ha acabado
         if(!acabo){
@@ -152,8 +154,6 @@ class Cards : View {
             mTextLayout.draw(canvas)
             canvas.restore()
         }
-
-        siguiente!!.draw(canvas)
 
     }
 
