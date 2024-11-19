@@ -5,6 +5,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
+import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextPaint
 import android.util.AttributeSet
@@ -13,9 +14,11 @@ import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.res.ResourcesCompat
 
+
 class Cards : View {
 
     val pText = TextPaint()
+    val pTextPequeno = TextPaint()
     val pRelleno = Paint()
     val cuadro = Paint()
     var fondo: Drawable? = null
@@ -26,13 +29,11 @@ class Cards : View {
     var respuesta:Boolean = false
     var acabo: Boolean = false
 //
-    private var original = emptyArray<String>()
-//    private var preguntas = emptyArray<String>()
-//    private var respuestaText = emptyArray<String>()
+    private var original = emptyArray<Array<String>>()
 
     private var tema:String = "Océanos"
-    private var preguntas = arrayOf("Pregunta 1", "Pregunta 2", "Pregunta 3")
-    private var respuestaText = arrayOf("Respuesta 1", "Respuesta 2", "Respuesta 3")
+    private var preguntas = emptyArray<String>()
+    private var respuestaText =  emptyArray<String>()
 
     constructor(context: Context?) : super(context){
         inicializa()
@@ -48,6 +49,20 @@ class Cards : View {
     private fun inicializa() {
         // Asignamos los colores
         pRelleno.color = ResourcesCompat.getColor(resources, R.color.lightblue, null)
+
+        pRelleno.style = Paint.Style.FILL
+        cuadro.style = Paint.Style.STROKE
+        cuadro.strokeWidth = 2f
+
+        // Tema
+        pText.style = Paint.Style.FILL
+        pText.color = Color.BLACK
+        pText.textSize = 70f
+
+        // Pregunta y respuesta
+        pTextPequeno.style = Paint.Style.FILL
+        pTextPequeno.color = Color.BLACK
+        pTextPequeno.textSize = 60f
     }
 
 
@@ -82,35 +97,60 @@ class Cards : View {
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
 
-//        fondo!!.draw(canvas)
+//       fondo!!.draw(canvas)
 
-        pRelleno.style = Paint.Style.FILL
-        cuadro.style = Paint.Style.STROKE
-        cuadro.strokeWidth = 2f
-        canvas.drawRoundRect(60f, 60f, ancho-60f, alto/2+ 400f, 20f, 20f, cuadro)
-//        canvas.drawRoundRect(60f, alto/2, ancho-60f, alto/2+400, 20f, 20f, cuadro)
-        canvas.drawRoundRect(60f, 60f, ancho-60f, 200f, 20f, 20f, pRelleno)
+        // Cuadrados
+        canvas.drawRoundRect(60f, 300f, ancho-60f, alto-150f, 20f, 20f, cuadro)
+        canvas.drawRoundRect(60f, 300f, ancho-60f, 460f, 20f, 20f, pRelleno)
 
-        // Pregunta
-        pText.style = Paint.Style.FILL
-        pText.color = Color.BLACK
-        pText.textSize = 70f
-
+        // Si el juego no ha acabado
         if(!acabo){
-            canvas.drawText(preguntas[index], 90f, 300f, pText)
-            canvas.drawText(tema, ancho/2-180, 140f, pText)
+
+            pText.textAlign = Paint.Align.CENTER
+            val xPos = (canvas.width / 2)
+            canvas.drawText(tema, xPos.toFloat(), 400f, pText)
+
+//            canvas.drawText(tema, ancho/2-180, 400f, pText)
+//            canvas.drawText(preguntas[index], 90f, 540f, pText)
+            val mTextLayout = StaticLayout(
+                preguntas[index],
+                pTextPequeno,
+                ancho.toInt()-200,
+                Layout.Alignment.ALIGN_CENTER,
+                1.0f,
+                0.0f,
+                false
+            )
+            canvas.save()
+
+            // calculate x and y position where your text will be placed
+            var textX = 100f
+            var textY = 530f
+
+            canvas.translate(textX, textY)
+            mTextLayout.draw(canvas)
+            canvas.restore()
         }
 
-
-
-//        var staticLayout = StaticLayout.Builder
-//            .obtain("Pregunta", 90, ((alto/2)-100).toInt(), pText, (ancho-90).toInt())
-//            .build()
-//
-//        staticLayout.draw(canvas)
-
         if(respuesta){
-            canvas.drawText(respuestaText[index], 90f, alto/2 +100, pText)
+            val mTextLayout = StaticLayout(
+                respuestaText[index],
+                pTextPequeno,
+                ancho.toInt()-200,
+                Layout.Alignment.ALIGN_CENTER,
+                1.0f,
+                0.0f,
+                false
+            )
+            canvas.save()
+
+            // calculate x and y position where your text will be placed
+            var textX = 100f
+            var textY = alto/2 +200
+
+            canvas.translate(textX, textY)
+            mTextLayout.draw(canvas)
+            canvas.restore()
         }
 
         siguiente!!.draw(canvas)
@@ -128,7 +168,7 @@ class Cards : View {
         fondo!!.setAlpha(100)
 
         siguiente = AppCompatResources.getDrawable(getContext(), R.drawable.siguiente)
-        siguiente!!.setBounds((ancho-250).toInt(), (alto/2).toInt()-350, (ancho).toInt()-50, (alto/2).toInt()-150)
+        siguiente!!.setBounds((ancho-250).toInt(), (alto/2).toInt(), (ancho).toInt()-50, (alto/2).toInt()+200)
     }
 
     override fun onTouchEvent(event: MotionEvent) : Boolean {
@@ -136,16 +176,15 @@ class Cards : View {
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
 
-        if(event.x >= (ancho-250).toInt() && event.x <= (ancho).toInt()-50 && event.y >= (alto/2).toInt()-350 && event.y <= (alto/2).toInt()-150){
+        if(event.x >= (ancho-250).toInt() && event.x <= (ancho).toInt()-50 && event.y >= (alto/2).toInt() && event.y <= (alto/2).toInt()+200){
             nextScreen = true
             respuesta = false
             index ++
         }else if(event.x >= 60f && event.x <= ancho-60f){
-            if(event.y >= 60f && event.y <= alto/2 + 400f){
+            if(event.y >= 300f && event.y <= alto-150f){
                 respuesta = !respuesta
             }
         }
-
 //        if(index > original.size){
 //            acabo = true
 //            respuesta = false
@@ -156,15 +195,26 @@ class Cards : View {
     }
 
 
-//    fun setArray(array: Array<String>){
-//        var pos = 0
-//        original = array
-//        original.shuffle()
-//        for(i in 0..3){
-//            for (j in 0..1){
-//                preguntas[pos] = original.get(i)
-//                pos++
-//            }
-//        }
-//    }
+    fun setArray(array: Array<Array<String>>, tema: Int){
+        when (tema){
+            1 -> this.tema = "Continentes"
+            2 -> this.tema = "Océanos"
+            3 -> this.tema = "Ártica y Antártica"
+            4 -> this.tema = "México estados"
+            5 -> this.tema = "México capitales"
+            6 -> this.tema = "América"
+            7 -> this.tema = "Asia"
+        }
+
+        var pos = 0
+        original = array
+        original.shuffle()
+        for(i in 0..original.size){
+            preguntas[pos] = original.get(i).get(0)
+            respuestaText[pos] = original.get(i).get(1)
+            pos++
+        }
+
+    }
+
 }
