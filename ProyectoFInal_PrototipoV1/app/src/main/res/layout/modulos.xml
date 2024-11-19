@@ -47,13 +47,13 @@
         android:layout_marginRight="30dp"
         android:layout_marginLeft="30dp">
         <ImageButton
-            android:id="@+id/mexicoEs"
+            android:id="@+id/mexicoEsCap"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_weight="1"
             android:src="@color/black"/>
         <ImageButton
-            android:id="@+id/mexicoEsCap"
+            android:id="@+id/mexicoEs"
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:layout_weight="1"

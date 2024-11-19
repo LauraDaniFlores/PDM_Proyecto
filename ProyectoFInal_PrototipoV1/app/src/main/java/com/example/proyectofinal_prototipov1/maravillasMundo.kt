@@ -32,7 +32,7 @@ class maravillasMundo: View {
     var MachuPichu: Drawable? = null
 
     var maravillasText = arrayOf("ChinChén Itzá", "Coliseo Romano", "Cristo Redendor", "Muralla China", "Taj Mahal", "Petra", "Machu Pichu")
-    var paises = arrayOf("México", "Italia", "Brasil", "CHina", "India", "Jordania", "Perú")
+    var paises = arrayOf("México", "Italia", "Brasil", "China", "India", "Jordania", "Perú")
     var desbloqueados = arrayOf(true, false , false, false, false, false, false)
     constructor(context: Context?) : super(context){
         inicializa()

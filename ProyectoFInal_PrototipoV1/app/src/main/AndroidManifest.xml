@@ -32,11 +32,7 @@
         <activity android:name=".Modulos"
             android:exported="false"/>
 
-        <activity android:name=".ModulosIntermedio"
-            android:exported="false"/>
-        <activity android:name=".Memorama_Inter"
-            android:exported="false"/>
-        <activity android:name=".Cards_Inter"
+        <activity android:name=".ContinentesInter"
             android:exported="false"/>
         <activity android:name=".EscogerInterm"
             android:exported="false"/>
