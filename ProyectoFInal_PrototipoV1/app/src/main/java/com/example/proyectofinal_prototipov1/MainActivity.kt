@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
     private val evento = View.OnClickListener { v ->
         Toast.makeText(applicationContext, "Click botón", Toast.LENGTH_SHORT)
             .show()
+            startActivity(intent)
         val i: Intent = Intent(
             this@MainActivity,
             Modulos::class.java

@@ -28,7 +28,7 @@ class Modulos : AppCompatActivity(){
         america.setOnClickListener(evento)
         Asia.setOnClickListener(evento)
     }
-    val evento = View.OnClickListener { v ->
+    private val evento = View.OnClickListener { v ->
         val i: Intent = Intent(
             this@Modulos,
             ModulosIntermedio::class.java
@@ -58,29 +58,4 @@ class Modulos : AppCompatActivity(){
         }
         startActivity(i)
     }
-
-//    private val evento = View.OnClickListener { v ->
-//        val i: Intent = Intent(
-//            this@Modulos,
-//            ModulosIntermedio::class.java
-//        )
-//        if(v == continentes){
-//            i.putExtra("tiponivel", "0")
-//        }else if(v == oceanos){
-//            i.putExtra("tiponivel", "1")
-//        }else if(v == aryan){
-//            i.putExtra("tiponivel", "2")
-//        }else if(v == mexicoEsCap){
-//            i.putExtra("tiponivel", "3")
-//        }else if(v == mexicoEs){
-//            i.putExtra("tiponivel", "4")
-//        }else if(v == america){
-//            i.putExtra("tiponivel", "5")
-//        }else if(v == Asia){
-//            i.putExtra("tiponivel", "6")
-//        }
-//        startActivity(i)
-//
-//    }
-
 }

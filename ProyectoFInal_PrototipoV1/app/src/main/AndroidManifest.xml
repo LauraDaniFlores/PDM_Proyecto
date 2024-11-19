@@ -28,10 +28,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
-
         <activity android:name=".Modulos"
             android:exported="false"/>
-
         <activity android:name=".ModulosIntermedio"
             android:exported="false"/>
 
@@ -40,5 +38,9 @@
 
         <activity android:name=".Cards_Inter"
             android:exported="false"/>
+
+        <activity android:name=".EscogerInterm"
+            android:exported="false"/>
+
     </application>
 </manifest>
