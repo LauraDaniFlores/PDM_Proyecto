@@ -15,18 +15,16 @@ class Modulos : AppCompatActivity(){
         var continentes: ImageButton = findViewById(R.id.continentes)
         var oceanos: ImageButton = findViewById(R.id.oceanos)
         var aryan: ImageButton = findViewById(R.id.aryan)
-        var mexicoEsCap: ImageButton = findViewById(R.id.mexicoEsCap)
-        var mexicoEs: ImageButton = findViewById(R.id.mexicoEs)
+        var mexico: ImageButton = findViewById(R.id.mexico)
         var america: ImageButton = findViewById(R.id.america)
-        var Asia: ImageButton = findViewById(R.id.Asia)
+//        var Asia: ImageButton = findViewById(R.id.Asia)
 
         continentes.setOnClickListener(evento)
         oceanos.setOnClickListener(evento)
         aryan.setOnClickListener(evento)
-        mexicoEsCap.setOnClickListener(evento)
-        mexicoEs.setOnClickListener(evento)
+        mexico.setOnClickListener(evento)
         america.setOnClickListener(evento)
-        Asia.setOnClickListener(evento)
+//        Asia.setOnClickListener(evento)
     }
     private val evento = View.OnClickListener { v ->
         val i: Intent = Intent(
@@ -43,18 +41,15 @@ class Modulos : AppCompatActivity(){
             R.id.aryan -> {
                 i.putExtra("tiponivel", "2")
             }
-            R.id.mexicoEsCap -> {
+            R.id.mexico -> {
                 i.putExtra("tiponivel", "3")
-            }
-            R.id.mexicoEs -> {
-                i.putExtra("tiponivel", "4")
             }
             R.id.america -> {
                 i.putExtra("tiponivel", "5")
             }
-            R.id.Asia -> {
-                i.putExtra("tiponivel", "6")
-            }
+//            R.id.Asia -> {
+//                i.putExtra("tiponivel", "6")
+//            }
         }
         startActivity(i)
     }
