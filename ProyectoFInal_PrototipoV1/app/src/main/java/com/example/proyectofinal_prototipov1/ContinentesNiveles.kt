@@ -13,7 +13,6 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.activity.OnBackPressedCallback
-import androidx.appcompat.content.res.AppCompatResources
 
 
 class ContinentesNiveles : View {
@@ -77,11 +76,6 @@ class ContinentesNiveles : View {
         nivel5!!.draw(canvas)
 
         canvas.drawText("Continentes", ancho/2, 500f, textNivel)
-        canvas.drawText("1",155f, (altonivel + ((altonivel1*2))-30+110), textPaint)
-        canvas.drawText("2",(anchonivel+30+110), (altonivel + ((altonivel1*3))+ 75), textPaint)
-        canvas.drawText("3",((anchonivel*2)+30+125),  (altonivel + ((altonivel1*2))), textPaint)
-        canvas.drawText("4",((anchonivel*3)+70),  (altonivel + ((altonivel1*3)) + 150), textPaint)
-        canvas.drawText("5",((anchonivel*4)-70f+125),  (altonivel + ((altonivel1*2)) + 30+110), textPaint)
 
         invalidate()
     }
@@ -89,7 +83,7 @@ class ContinentesNiveles : View {
         super.onSizeChanged(w, h, oldw, oldh)
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
-        var anchonivel = (ancho/5).toInt()
+        var anchonivel = (ancho/3).toInt()
         var altonivel = (alto/2).toInt()
         var altonivel1 = (altonivel/4).toInt()
 
@@ -98,41 +92,61 @@ class ContinentesNiveles : View {
         fondo!!.setBounds(0, 0, ancho.toInt(), alto.toInt())
 
         nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan1)
-        nivel1!!.setBounds(30, (altonivel + ((altonivel1*2))-50), 316, (altonivel + ((altonivel1*2))-50+219))
+        nivel1!!.setBounds(((ancho/2)-100).toInt(), ((alto/2)-80).toInt(), ((ancho/2)+100).toInt(), ((alto/2)+200-80).toInt())
 
-        nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.coral1)
-        nivel2!!.setBounds(anchonivel+30, (altonivel + ((altonivel1*3)) - 30), (anchonivel+30+268), (altonivel + ((altonivel1*3))- 30 + 171))
+        nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan2)
+        nivel2!!.setBounds(((ancho - 200 - 40).toInt()), (( altonivel + altonivel1- 120).toInt()), ((ancho - 40).toInt()), (( altonivel + altonivel1- 120 + 200).toInt()))
 
-        nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.coral)
-        nivel3!!.setBounds((anchonivel*2)+30, (altonivel + ((altonivel1*2)) - 140), ((anchonivel*2)+30+286), (altonivel + ((altonivel1*2))- 140 + 219))
+        nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan3)
+        nivel3!!.setBounds(((ancho - 200 - 40).toInt()), (( altonivel + altonivel1 + 300).toInt()), ((ancho - 40).toInt()), (( altonivel + altonivel1 + 300 + 200).toInt()))
 
-        nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.coral1)
-        nivel4!!.setBounds((anchonivel*3)-30, (altonivel + ((altonivel1*3)) + 50), ((anchonivel*3)-50+268), (altonivel + ((altonivel1*3)) + 50 + 171))
+        nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan4)
+        nivel4!!.setBounds(((150).toInt()), (( altonivel + altonivel1 + 390).toInt()), ((200 + 150).toInt()), (( altonivel + altonivel1 + 390 + 200).toInt()))
 
-        nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.coralcandado)
-        nivel5!!.setBounds((anchonivel*4)-70, (altonivel + ((altonivel1*2)) + 30), ((anchonivel*4)-50+286), (altonivel + ((altonivel1*2)) + 30 + 199))
+        nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.planetacandado)
+        nivel5!!.setBounds(((40).toInt()), (( altonivel + altonivel1- 170).toInt()), ((200 + 40).toInt()), (( altonivel + altonivel1- 170 + 200).toInt()))
 
 
     }
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
-        var anchonivel = (ancho/5).toInt()
+        var anchonivel = (ancho/3).toInt()
         var altonivel = (alto/2).toInt()
-        var altonivel1 = (altonivel/4)
+        var altonivel1 = (altonivel/4).toInt()
 
-        //Nivel 3
-        if(event.x >= (anchonivel*2)+30 && event.x <= ((anchonivel*2)+30+286) && event.y >= (altonivel + ((altonivel1*2)) - 140) && event.y <= (altonivel + ((altonivel1*2))- 140 + 219)){
+        //Nivel 1
+        if(event.x >= ((ancho/2)-100) && event.x <= (ancho/2)+100 && event.y >= ((alto/2)-80) - 140 && event.y <= ((alto/2)+200-80)){
             val intent = Intent(context, Modulos::class.java)
             context.startActivity(intent)
         }
 
-        //Nivel 2
-        if(event.x >= anchonivel+30 && event.x <= ((anchonivel*2)+30+286) && event.y >= (altonivel + ((altonivel1*2)) - 140) && event.y <= (altonivel + ((altonivel1*2))- 140 + 219)){
-            val i = Intent(context, Memorama_Inter::class.java)
-            i.putExtra("modulo", "1")
-            context.startActivity(i)
-        }
+//        nivel1!!.setBounds(((ancho/2)-100).toInt(), ((alto/2)-80).toInt(), ((ancho/2)+100).toInt(), ((alto/2)+200-80).toInt())
+//
+//        nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan2)
+//        nivel2!!.setBounds(((ancho - 200 - 40).toInt()), (( altonivel + altonivel1- 120).toInt()), ((ancho - 40).toInt()), (( altonivel + altonivel1- 120 + 200).toInt()))
+//
+//        nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan3)
+//        nivel3!!.setBounds(((ancho - 200 - 40).toInt()), (( altonivel + altonivel1 + 300).toInt()), ((ancho - 40).toInt()), (( altonivel + altonivel1 + 300 + 200).toInt()))
+//
+//        nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan4)
+//        nivel4!!.setBounds(((150).toInt()), (( altonivel + altonivel1 + 390).toInt()), ((200 + 150).toInt()), (( altonivel + altonivel1 + 390 + 200).toInt()))
+//
+//        nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.planetacandado)
+//        nivel5!!.setBounds(((40).toInt()), (( altonivel + altonivel1- 170).toInt()), ((200 + 40).toInt()), (( altonivel + altonivel1- 170 + 200).toInt()))
+
+//        //Nivel 3
+//        if(event.x >= (anchonivel*2)+30 && event.x <= ((anchonivel*2)+30+286) && event.y >= (altonivel + ((altonivel1*2)) - 140) && event.y <= (altonivel + ((altonivel1*2))- 140 + 219)){
+//            val intent = Intent(context, Modulos::class.java)
+//            context.startActivity(intent)
+//        }
+//
+//        //Nivel 2
+//        if(event.x >= anchonivel+30 && event.x <= ((anchonivel*2)+30+286) && event.y >= (altonivel + ((altonivel1*2)) - 140) && event.y <= (altonivel + ((altonivel1*2))- 140 + 219)){
+//            val i = Intent(context, Memorama_Inter::class.java)
+//            i.putExtra("modulo", "1")
+//            context.startActivity(i)
+//        }
 
 
         return true
