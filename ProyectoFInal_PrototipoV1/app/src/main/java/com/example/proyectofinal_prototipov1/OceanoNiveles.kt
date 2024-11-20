@@ -28,7 +28,9 @@ class OceanoNiveles: View {
     private val textPaint = Paint()
     private val textNivel = Paint()
 
-
+    //SQLite
+    var db: DBSQLite = DBSQLite(context)
+    var dbBoolean = arrayOf(false, false, false, false, false)
 
     constructor(context: Context?): super(context){
         inicializa()
@@ -55,7 +57,13 @@ class OceanoNiveles: View {
 
         cuadrado.style = Paint.Style.FILL
         cuadrado.color = Color.RED
+        comprobarBaseDeDatos()
+    }
 
+    fun comprobarBaseDeDatos(){
+        for (i in 1..5){
+            dbBoolean[i-1] = db.nivelDesbloqueado(2, i)
+        }
     }
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -88,19 +96,43 @@ class OceanoNiveles: View {
         fondo = AppCompatResources.getDrawable(getContext(), R.drawable.ocean)
         fondo!!.setBounds(0, 0, ancho.toInt(), alto.toInt())
 
-        nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.coraln1)
+        if(dbBoolean[0]) {
+            nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.coraln1)
+        }else{
+            nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.coralcandado)
+        }
         nivel1!!.setBounds(30, (altonivel + ((altonivel1*2))-50), 316, (altonivel + ((altonivel1*2))-50+219))
 
-        nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.coral1n2)
+
+        if(dbBoolean[1]) {
+            nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.coral1n2)
+        }else{
+            nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.coralcandado)
+        }
         nivel2!!.setBounds(anchonivel+30, (altonivel + ((altonivel1*3)) - 30), (anchonivel+30+286), (altonivel + ((altonivel1*3))- 30 + 219))
 
-        nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.coraln3)
+
+        if(dbBoolean[2]) {
+            nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.coraln3)
+        }else{
+            nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.coralcandado)
+        }
         nivel3!!.setBounds((anchonivel*2)+30, (altonivel + ((altonivel1*2)) - 140), ((anchonivel*2)+30+286), (altonivel + ((altonivel1*2))- 140 + 219))
 
-        nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.coral1n4)
+
+        if(dbBoolean[3]) {
+            nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.coral1n4)
+        }else{
+            nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.coral1candado)
+        }
         nivel4!!.setBounds((anchonivel*3)-30, (altonivel + ((altonivel1*3)) + 50), ((anchonivel*3)-30+286), (altonivel + ((altonivel1*3)) + 50 + 219))
 
-        nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.coralcandado)
+
+        if(dbBoolean[4]) {
+            nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.coralcandado)
+        }else{
+            nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.coralcandado)
+        }
         nivel5!!.setBounds((anchonivel*4)-70, (altonivel + ((altonivel1*2)) + 30), ((anchonivel*4)-70+286), (altonivel + ((altonivel1*2)) + 30 + 219))
 
     }
@@ -112,26 +144,25 @@ class OceanoNiveles: View {
         var altonivel1 = (altonivel/4)
 
         //Nivel 1
-        if(event.x >= 30 && event.x <= 316 && event.y >= (altonivel + ((altonivel1*2))-50) && event.y <= (altonivel + ((altonivel1*2))-50+219)){
+        if(event.x >= 30 && event.x <= 316 && event.y >= (altonivel + ((altonivel1*2))-50) && event.y <= (altonivel + ((altonivel1*2))-50+219) && dbBoolean[0]){
         }
 
         //Nivel 2
-        if(event.x >= anchonivel+30 && event.x <= (anchonivel+30+286) && event.y >= (altonivel + ((altonivel1*3)) - 30) && event.y <= (altonivel + ((altonivel1*3))- 30 + 219)){
+        if(event.x >= anchonivel+30 && event.x <= (anchonivel+30+286) && event.y >= (altonivel + ((altonivel1*3)) - 30) && event.y <= (altonivel + ((altonivel1*3))- 30 + 219) && dbBoolean[1]){
         }
 
         //Nivel 3
-        if(event.x >= (anchonivel*2)+30 && event.x <= ((anchonivel*2)+30+286) && event.y >= (altonivel + ((altonivel1*2)) - 140) && event.y <= (altonivel + ((altonivel1*2))- 140 + 219)){
+        if(event.x >= (anchonivel*2)+30 && event.x <= ((anchonivel*2)+30+286) && event.y >= (altonivel + ((altonivel1*2)) - 140) && event.y <= (altonivel + ((altonivel1*2))- 140 + 219) && dbBoolean[2]){
 //            val intent = Intent(context, EscogerInterm::class.java)
-//            val intent = Intent(context, Modulos::class.java)
 //            context.startActivity(intent)
         }
 
         //Nivel 4
-        if(event.x >= (anchonivel*3)-30 && event.x <= ((anchonivel*3)-30+286) && event.y >= (altonivel + ((altonivel1*3)) + 50) && event.y <= (altonivel + ((altonivel1*3)) + 50 + 219)){
+        if(event.x >= (anchonivel*3)-30 && event.x <= ((anchonivel*3)-30+286) && event.y >= (altonivel + ((altonivel1*3)) + 50) && event.y <= (altonivel + ((altonivel1*3)) + 50 + 219) && dbBoolean[3]){
         }
 
         //Nivel 5
-        if(event.x >= (anchonivel*4)-70 && event.x <= ((anchonivel*4)-70+286) && event.y >= (altonivel + ((altonivel1*2)) + 30) && event.y <= (altonivel + ((altonivel1*2)) + 30 + 219)){
+        if(event.x >= (anchonivel*4)-70 && event.x <= ((anchonivel*4)-70+286) && event.y >= (altonivel + ((altonivel1*2)) + 30) && event.y <= (altonivel + ((altonivel1*2)) + 30 + 219) && dbBoolean[4]){
         }
 
 

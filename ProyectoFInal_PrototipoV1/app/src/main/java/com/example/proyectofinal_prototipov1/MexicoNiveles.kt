@@ -26,13 +26,16 @@ class MexicoNiveles : View {
     private var nivel10: Drawable? = null
 
 
-    //Rectangulos
+    //Rectángulos
     private val cuadrado = Paint()
 
     //Textos
     private val textPaint = Paint()
     private val textNivel = Paint()
 
+    //SQLite
+    var db: DBSQLite = DBSQLite(context)
+    var dbBoolean = arrayOf(false, false, false, false, false, false, false, false, false, false)
 
     constructor(context: Context?) : super(context) {
         inicializa()
@@ -62,6 +65,12 @@ class MexicoNiveles : View {
         cuadrado.style = Paint.Style.FILL
         cuadrado.color = Color.RED
 
+        comprobarBaseDeDatos()
+    }
+    fun comprobarBaseDeDatos(){
+        for (i in 1..10){
+            dbBoolean[i-1] = db.nivelDesbloqueado(4, i)
+        }
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -99,7 +108,11 @@ class MexicoNiveles : View {
         fondo = AppCompatResources.getDrawable(getContext(), R.drawable.mexico)
         fondo!!.setBounds(0, 0, ancho.toInt(), alto.toInt())
 
-        nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.cactusn1)
+        if(dbBoolean[0]) {
+            nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.cactusn1)
+        }else{
+            nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.cactuscandado)
+        }
         nivel1!!.setBounds(
             30,
             (altonivel + ((altonivel1 * 2)) - 100),
@@ -107,7 +120,12 @@ class MexicoNiveles : View {
             (altonivel + ((altonivel1 * 2)) - 100 + 260)
         )
 
-        nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.cactusn2)
+
+        if(dbBoolean[1]) {
+            nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.cactusn2)
+        }else{
+            nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.cactuscandado)
+        }
         nivel2!!.setBounds(
             30 + 230,
             (altonivel + ((altonivel1 * 2)) - 50),
@@ -115,7 +133,12 @@ class MexicoNiveles : View {
             (altonivel + ((altonivel1 * 2)) - 50 + 260)
         )
 
-        nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.cactusn3)
+
+        if(dbBoolean[2]) {
+            nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.cactusn3)
+        }else{
+            nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.cactuscandado)
+        }
         nivel3!!.setBounds(
             (anchonivel * 2) + 30,
             (altonivel + ((altonivel1 * 2)) - 170),
@@ -123,7 +146,12 @@ class MexicoNiveles : View {
             (altonivel + ((altonivel1 * 2)) - 170 + 260)
         )
 
-        nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.cactusn4)
+
+        if(dbBoolean[3]) {
+            nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.cactusn4)
+        }else{
+            nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.cactuscandado)
+        }
         nivel4!!.setBounds(
             (anchonivel * 3) - 10,
             (altonivel + ((altonivel1 * 2)) + 10),
@@ -131,7 +159,12 @@ class MexicoNiveles : View {
             (altonivel + ((altonivel1 * 2)) + 10 + 260)
         )
 
-        nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.cactuscandado)
+
+        if(dbBoolean[4]) {
+            nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.cactuscandado)
+        }else{
+            nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.cactuscandado)
+        }
         nivel5!!.setBounds(
             (anchonivel * 4) - 10,
             (altonivel + ((altonivel1 * 2)) - 130),
@@ -139,7 +172,12 @@ class MexicoNiveles : View {
             (altonivel + ((altonivel1 * 2)) - 130 + 260)
         )
 
-        nivel10 = AppCompatResources.getDrawable(getContext(), R.drawable.rocan10)
+
+        if(dbBoolean[9]) {
+            nivel10 = AppCompatResources.getDrawable(getContext(), R.drawable.rocan10)
+        }else{
+            nivel10 = AppCompatResources.getDrawable(getContext(), R.drawable.rocacandado)
+        }
         nivel10!!.setBounds(
             10,
             (altonivel + ((altonivel1 * 2)) + 190),
@@ -147,7 +185,12 @@ class MexicoNiveles : View {
             (altonivel + ((altonivel1 * 2)) + 190 + 176)
         )
 
-        nivel9 = AppCompatResources.getDrawable(getContext(), R.drawable.rocacandado)
+
+        if(dbBoolean[8]) {
+            nivel9 = AppCompatResources.getDrawable(getContext(), R.drawable.rocan9)
+        }else{
+            nivel9 = AppCompatResources.getDrawable(getContext(), R.drawable.rocacandado)
+        }
         nivel9!!.setBounds(
             30 + 200,
             (altonivel + ((altonivel1 * 2)) + 280),
@@ -155,14 +198,25 @@ class MexicoNiveles : View {
             (altonivel + ((altonivel1 * 2)) + 280 + 176)
         )
 
-        nivel8 = AppCompatResources.getDrawable(getContext(), R.drawable.rocan8)
+
+        if(dbBoolean[7]) {
+            nivel8 = AppCompatResources.getDrawable(getContext(), R.drawable.rocan8)
+        }else{
+            nivel8 = AppCompatResources.getDrawable(getContext(), R.drawable.rocacandado)
+        }
         nivel8!!.setBounds(
             (anchonivel * 2) + 10,
             (altonivel + ((altonivel1 * 2)) + 170),
             ((anchonivel * 2) + 10 + 227),
             (altonivel + ((altonivel1 * 2)) + 170 + 176)
         )
-        nivel7 = AppCompatResources.getDrawable(getContext(), R.drawable.rocan7)
+
+
+        if(dbBoolean[6]) {
+            nivel7 = AppCompatResources.getDrawable(getContext(), R.drawable.rocan7)
+        }else{
+            nivel7 = AppCompatResources.getDrawable(getContext(), R.drawable.rocacandado)
+        }
         nivel7!!.setBounds(
             (anchonivel * 3) - 10,
             (altonivel + ((altonivel1 * 2)) + 290),
@@ -170,7 +224,12 @@ class MexicoNiveles : View {
             (altonivel + ((altonivel1 * 2)) + 290 + 176)
         )
 
-        nivel6 = AppCompatResources.getDrawable(getContext(), R.drawable.rocan6)
+
+        if(dbBoolean[5]) {
+            nivel6 = AppCompatResources.getDrawable(getContext(), R.drawable.rocan6)
+        }else{
+            nivel6 = AppCompatResources.getDrawable(getContext(), R.drawable.rocacandado)
+        }
         nivel6!!.setBounds(
             (anchonivel * 4) - 10,
             (altonivel + ((altonivel1 * 2)) + 180),

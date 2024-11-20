@@ -13,6 +13,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.activity.OnBackPressedCallback
+import java.util.Date
 
 
 class ContinentesNiveles : View {
@@ -23,6 +24,10 @@ class ContinentesNiveles : View {
     private var nivel3: Drawable? = null
     private var nivel4: Drawable? = null
     private var nivel5: Drawable? = null
+
+    //SQLite
+    var db: DBSQLite = DBSQLite(context)
+    var dbBoolean = arrayOf(false, false, false, false)
 
 
     //Rectangulos
@@ -59,8 +64,16 @@ class ContinentesNiveles : View {
 
         cuadrado.style = Paint.Style.FILL
         cuadrado.color = Color.RED
-
+//        db.guardarRegistro(1, 2, 10, 100, Date(), true)
+        comprobarBaseDeDatos()
     }
+
+    fun comprobarBaseDeDatos(){
+        for (i in 2..5){
+            dbBoolean[i-2] = db.nivelDesbloqueado(1, i)
+        }
+    }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         val alto = measuredHeight.toFloat()
@@ -75,6 +88,9 @@ class ContinentesNiveles : View {
         nivel4!!.draw(canvas)
         nivel5!!.draw(canvas)
 
+//        if(db.nivelDesbloqueado(1, 2)){
+//            canvas.drawText("Desbloqueado", ancho/2, 800f, textNivel)
+//        }
         canvas.drawText("Continentes", ancho/2, 500f, textNivel)
 
         invalidate()
@@ -94,16 +110,32 @@ class ContinentesNiveles : View {
         nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan1)
         nivel1!!.setBounds(((ancho/2)-100).toInt(), ((alto/2)-80).toInt(), ((ancho/2)+100).toInt(), ((alto/2)+200-80).toInt())
 
-        nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan2)
+        if(dbBoolean[0]){
+            nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan2)
+        }else{
+            nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.planetacandado)
+        }
         nivel2!!.setBounds(((ancho - 200 - 40).toInt()), (( altonivel + altonivel1- 120).toInt()), ((ancho - 40).toInt()), (( altonivel + altonivel1- 120 + 200).toInt()))
 
-        nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan3)
+        if(dbBoolean[1]){
+            nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan3)
+        }else{
+            nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan3)
+        }
         nivel3!!.setBounds(((ancho - 200 - 40).toInt()), (( altonivel + altonivel1 + 300).toInt()), ((ancho - 40).toInt()), (( altonivel + altonivel1 + 300 + 200).toInt()))
 
-        nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan4)
+        if(dbBoolean[2]){
+            nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan4)
+        }else{
+            nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.planetacandado)
+        }
         nivel4!!.setBounds(((150).toInt()), (( altonivel + altonivel1 + 390).toInt()), ((200 + 150).toInt()), (( altonivel + altonivel1 + 390 + 200).toInt()))
 
-        nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.planetacandado)
+        if(dbBoolean[3]){
+            nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan5)
+        }else{
+            nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.planetacandado)
+        }
         nivel5!!.setBounds(((40).toInt()), (( altonivel + altonivel1- 170).toInt()), ((200 + 40).toInt()), (( altonivel + altonivel1- 170 + 200).toInt()))
 
 
@@ -119,13 +151,15 @@ class ContinentesNiveles : View {
         if(event.x >= ((ancho/2)-100) && event.x <= (ancho/2)+100 && event.y >= ((alto/2)-80) && event.y <= ((alto/2)+200-80)){
             val intent = Intent(context, Modulos::class.java)
             context.startActivity(intent)
-        }else if(event.x >= (ancho - 200 - 40) && event.x <= (ancho - 40) && event.y >= ( altonivel + altonivel1- 120) && event.y <= ( altonivel + altonivel1- 120 + 200)){
+        }else if(event.x >= (ancho - 200 - 40) && event.x <= (ancho - 40) && event.y >= ( altonivel + altonivel1- 120) && event.y <= ( altonivel + altonivel1- 120 + 200) && dbBoolean[0]){
 
-        }else if(event.x >= (ancho - 200 - 40) && event.x <= (ancho - 40) && event.y >= ( altonivel + altonivel1 + 300) && event.y <= ( altonivel + altonivel1 + 300 + 200)){
-
-        }else if(event.x >= (150) && event.x <= (200 + 150) && event.y >= ( altonivel + altonivel1 + 390) && event.y <= ( altonivel + altonivel1 + 390 + 200)){
-
-        }else if(event.x >= (40) && event.x <= (200 + 40) && event.y >= ( altonivel + altonivel1- 170) && event.y <= ( altonivel + altonivel1- 170 + 200)){
+        }else if(event.x >= (ancho - 200 - 40) && event.x <= (ancho - 40) && event.y >= ( altonivel + altonivel1 + 300) && event.y <= ( altonivel + altonivel1 + 300 + 200) && dbBoolean[1]){
+            val intent = Intent(context, EscogerInterm::class.java)
+            context.startActivity(intent)
+        }else if(event.x >= (150) && event.x <= (200 + 150) && event.y >= ( altonivel + altonivel1 + 390) && event.y <= ( altonivel + altonivel1 + 390 + 200) && dbBoolean[2]){
+            val intent = Intent(context, EscogerInterm::class.java)
+            context.startActivity(intent)
+        }else if(event.x >= (40) && event.x <= (200 + 40) && event.y >= ( altonivel + altonivel1- 170) && event.y <= ( altonivel + altonivel1- 170 + 200) && dbBoolean[3]){
 
         }
 

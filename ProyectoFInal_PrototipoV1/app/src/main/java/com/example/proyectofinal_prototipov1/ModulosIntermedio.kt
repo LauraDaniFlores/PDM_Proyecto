@@ -23,7 +23,6 @@ class ModulosIntermedio: AppCompatActivity() {
             3 ->  mexico.visibility = View.VISIBLE
             4 ->  america.visibility = View.VISIBLE
             5 ->  asia.visibility = View.VISIBLE
-
         }
 
     }
