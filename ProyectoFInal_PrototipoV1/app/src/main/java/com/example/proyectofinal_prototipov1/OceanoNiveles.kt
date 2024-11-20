@@ -72,11 +72,6 @@ class OceanoNiveles: View {
         nivel5!!.draw(canvas)
 
         canvas.drawText("Océano", ancho/2, 500f, textNivel)
-//        canvas.drawText("1",155f, (altonivel + ((altonivel1*2))-30+110), textPaint)
-//        canvas.drawText("2",(anchonivel+30+110), (altonivel + ((altonivel1*3))+ 75), textPaint)
-//        canvas.drawText("3",((anchonivel*2)+30+125),  (altonivel + ((altonivel1*2))), textPaint)
-//        canvas.drawText("4",((anchonivel*3)+70),  (altonivel + ((altonivel1*3)) + 150), textPaint)
-//        canvas.drawText("5",((anchonivel*4)-70f+125),  (altonivel + ((altonivel1*2)) + 30+110), textPaint)
 
 
         invalidate()
@@ -116,12 +111,30 @@ class OceanoNiveles: View {
         var altonivel = (alto/2).toInt()
         var altonivel1 = (altonivel/4)
 
+        //Nivel 1
+        if(event.x >= 30 && event.x <= 316 && event.y >= (altonivel + ((altonivel1*2))-50) && event.y <= (altonivel + ((altonivel1*2))-50+219)){
+        }
+
+        //Nivel 2
+        if(event.x >= anchonivel+30 && event.x <= (anchonivel+30+286) && event.y >= (altonivel + ((altonivel1*3)) - 30) && event.y <= (altonivel + ((altonivel1*3))- 30 + 219)){
+        }
+
         //Nivel 3
         if(event.x >= (anchonivel*2)+30 && event.x <= ((anchonivel*2)+30+286) && event.y >= (altonivel + ((altonivel1*2)) - 140) && event.y <= (altonivel + ((altonivel1*2))- 140 + 219)){
 //            val intent = Intent(context, EscogerInterm::class.java)
 //            val intent = Intent(context, Modulos::class.java)
 //            context.startActivity(intent)
         }
+
+        //Nivel 4
+        if(event.x >= (anchonivel*3)-30 && event.x <= ((anchonivel*3)-30+286) && event.y >= (altonivel + ((altonivel1*3)) + 50) && event.y <= (altonivel + ((altonivel1*3)) + 50 + 219)){
+        }
+
+        //Nivel 5
+        if(event.x >= (anchonivel*4)-70 && event.x <= ((anchonivel*4)-70+286) && event.y >= (altonivel + ((altonivel1*2)) + 30) && event.y <= (altonivel + ((altonivel1*2)) + 30 + 219)){
+        }
+
+
         return true
     }
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
