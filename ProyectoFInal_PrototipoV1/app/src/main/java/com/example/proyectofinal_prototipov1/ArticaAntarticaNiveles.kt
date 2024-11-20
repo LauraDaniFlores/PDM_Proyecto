@@ -88,20 +88,20 @@ class ArticaAntarticaNiveles: View {
         fondo = AppCompatResources.getDrawable(getContext(), R.drawable.polos)
         fondo!!.setBounds(0, 0, ancho.toInt(), alto.toInt())
 
-        nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.iglue)
+        nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.iglue1)
         nivel1!!.setBounds(10, (altonivel + ((altonivel1*2))-50), 460, (altonivel + ((altonivel1*2))-50+340))
 
-        nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.pino)
+        nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.pino2)
         nivel2!!.setBounds(anchonivel+50, (altonivel + (altonivel1) - 90), (anchonivel+50+268), (altonivel + (altonivel1- 30 + 250)))
 
-        nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.pino)
+        nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.pino3)
         nivel3!!.setBounds((anchonivel*2)+110, (altonivel + 30), ((anchonivel*2)+110+240), (altonivel + 60 + 250))
 
-        nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.pino)
-        nivel4!!.setBounds((anchonivel*3)-30, (altonivel + ((altonivel1*2)) + 100), ((anchonivel*3)-50+268), (altonivel + ((altonivel1*3)) + 250))
+        nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.pino4)
+        nivel4!!.setBounds((anchonivel*4)-80, (altonivel + 100), ((anchonivel*4)-70+286), (altonivel + 100 + 370))
 
-        nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.pinos)
-        nivel5!!.setBounds((anchonivel*4)-80, (altonivel + 100), ((anchonivel*4)-70+286), (altonivel + 100 + 370))
+        nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.pinoscandado)
+        nivel5!!.setBounds((anchonivel*3)-30, (altonivel + ((altonivel1*2)) + 100), ((anchonivel*3)-50+268), (altonivel + ((altonivel1*3)) + 250))
 
 
     }
