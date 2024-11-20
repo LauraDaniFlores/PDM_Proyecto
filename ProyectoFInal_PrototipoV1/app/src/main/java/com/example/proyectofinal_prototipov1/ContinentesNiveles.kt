@@ -116,37 +116,18 @@ class ContinentesNiveles : View {
         var altonivel1 = (altonivel/4).toInt()
 
         //Nivel 1
-        if(event.x >= ((ancho/2)-100) && event.x <= (ancho/2)+100 && event.y >= ((alto/2)-80) - 140 && event.y <= ((alto/2)+200-80)){
+        if(event.x >= ((ancho/2)-100) && event.x <= (ancho/2)+100 && event.y >= ((alto/2)-80) && event.y <= ((alto/2)+200-80)){
             val intent = Intent(context, Modulos::class.java)
             context.startActivity(intent)
+        }else if(event.x >= (ancho - 200 - 40) && event.x <= (ancho - 40) && event.y >= ( altonivel + altonivel1- 120) && event.y <= ( altonivel + altonivel1- 120 + 200)){
+
+        }else if(event.x >= (ancho - 200 - 40) && event.x <= (ancho - 40) && event.y >= ( altonivel + altonivel1 + 300) && event.y <= ( altonivel + altonivel1 + 300 + 200)){
+
+        }else if(event.x >= (150) && event.x <= (200 + 150) && event.y >= ( altonivel + altonivel1 + 390) && event.y <= ( altonivel + altonivel1 + 390 + 200)){
+
+        }else if(event.x >= (40) && event.x <= (200 + 40) && event.y >= ( altonivel + altonivel1- 170) && event.y <= ( altonivel + altonivel1- 170 + 200)){
+
         }
-
-//        nivel1!!.setBounds(((ancho/2)-100).toInt(), ((alto/2)-80).toInt(), ((ancho/2)+100).toInt(), ((alto/2)+200-80).toInt())
-//
-//        nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan2)
-//        nivel2!!.setBounds(((ancho - 200 - 40).toInt()), (( altonivel + altonivel1- 120).toInt()), ((ancho - 40).toInt()), (( altonivel + altonivel1- 120 + 200).toInt()))
-//
-//        nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan3)
-//        nivel3!!.setBounds(((ancho - 200 - 40).toInt()), (( altonivel + altonivel1 + 300).toInt()), ((ancho - 40).toInt()), (( altonivel + altonivel1 + 300 + 200).toInt()))
-//
-//        nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan4)
-//        nivel4!!.setBounds(((150).toInt()), (( altonivel + altonivel1 + 390).toInt()), ((200 + 150).toInt()), (( altonivel + altonivel1 + 390 + 200).toInt()))
-//
-//        nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.planetacandado)
-//        nivel5!!.setBounds(((40).toInt()), (( altonivel + altonivel1- 170).toInt()), ((200 + 40).toInt()), (( altonivel + altonivel1- 170 + 200).toInt()))
-
-//        //Nivel 3
-//        if(event.x >= (anchonivel*2)+30 && event.x <= ((anchonivel*2)+30+286) && event.y >= (altonivel + ((altonivel1*2)) - 140) && event.y <= (altonivel + ((altonivel1*2))- 140 + 219)){
-//            val intent = Intent(context, Modulos::class.java)
-//            context.startActivity(intent)
-//        }
-//
-//        //Nivel 2
-//        if(event.x >= anchonivel+30 && event.x <= ((anchonivel*2)+30+286) && event.y >= (altonivel + ((altonivel1*2)) - 140) && event.y <= (altonivel + ((altonivel1*2))- 140 + 219)){
-//            val i = Intent(context, Memorama_Inter::class.java)
-//            i.putExtra("modulo", "1")
-//            context.startActivity(i)
-//        }
 
 
         return true
