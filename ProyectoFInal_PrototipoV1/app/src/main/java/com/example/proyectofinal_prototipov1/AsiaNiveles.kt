@@ -10,7 +10,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 
-class AmericaNiveles : View {
+class AsiaNiveles : View {
     //Imagen de fondo
     private var fondo: Drawable? = null
 
@@ -70,7 +70,7 @@ class AmericaNiveles : View {
         textNivel.textAlign = Paint.Align.CENTER
         val xPos = (ancho / 2)
 
-        canvas.drawText("América", xPos, 450f, textNivel)
+        canvas.drawText("Asia", xPos, 450f, textNivel)
 
         invalidate()
     }
@@ -84,24 +84,27 @@ class AmericaNiveles : View {
 
 
 
-        fondo = AppCompatResources.getDrawable(getContext(), R.drawable.americaback1)
+        fondo = AppCompatResources.getDrawable(getContext(), R.drawable.asiaback)
         fondo!!.setBounds(0, 0, ancho.toInt(), alto.toInt())
 
-        nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.pin1)
-        nivel1!!.setBounds(anchonivel-40, (altonivel - altonivel1), anchonivel-40+200, (altonivel - altonivel1)+250)
+        nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.latern1)
+        nivel1!!.setBounds(anchonivel*3, (altonivel - (altonivel1) - 100), anchonivel*3+175, (altonivel - (altonivel1) - 100+240))
 
-        nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.pin2)
-        nivel2!!.setBounds(anchonivel*3-50, (altonivel - (altonivel1) - 150), anchonivel*3-50+200, (altonivel - (altonivel1) - 150+250))
+        nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.latern2)
+        nivel2!!.setBounds(anchonivel+20, (altonivel - (altonivel1*2)+30), anchonivel+20+175,  (altonivel - (altonivel1*2)+30)+240)
 
-        nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.pin3)
-        nivel3!!.setBounds((anchonivel*2)-90, (altonivel + 100), ((anchonivel*2)-90+200), (altonivel + 100 + 250))
+        nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.latern3)
+        nivel3!!.setBounds(60, (altonivel-100), (60+175), (altonivel-100 + 240))
 
-        nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.pin4)
-        nivel4!!.setBounds((anchonivel*3 -50), (altonivel+(altonivel1*2)-140), ((anchonivel*3)-50+200), (altonivel+(altonivel1*2))-140 + 250)
+        nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.latern4)
+        nivel4!!.setBounds(anchonivel*2-100, ((alto-(altonivel1*3)).toInt()), (anchonivel*2-100+175),
+            ((alto-(altonivel1*3)) + 240).toInt()
+        )
 
-        nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.pin5)
-        nivel5!!.setBounds((anchonivel*2 +60), (altonivel+(altonivel1*2) +100), ((anchonivel*2)+60+200), (altonivel+(altonivel1*2)+100) + 250)
-
+        nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.latern5)
+        nivel5!!.setBounds((anchonivel*3)+80, ((alto-(altonivel1*3)+40).toInt()), (anchonivel*3)+80+175,
+            ((alto-(altonivel1*3)+40+240).toInt())
+        )
 
     }
     override fun onTouchEvent(event: MotionEvent): Boolean {
@@ -112,27 +115,27 @@ class AmericaNiveles : View {
         var altonivel1 = (altonivel/4)
 
         //Nivel 1
-        if(event.x >= anchonivel-40 && event.x <= anchonivel-40+200 && event.y >= (altonivel - altonivel1) && event.y <= (altonivel - altonivel1)+250){
+        if(event.x >= anchonivel*3 && event.x <= anchonivel*3+175 && event.y >= (altonivel - (altonivel1) - 100) && event.y <= (altonivel - (altonivel1) - 100)+240){
 
         }
 
         //Nivel 2
-        if(event.x >= anchonivel*3-50 && event.x <= anchonivel*3-50+200 && event.y >= altonivel - (altonivel1) && event.y <= (altonivel - (altonivel1) - 150+250)){
+        if(event.x >= anchonivel+20 && event.x <= anchonivel+20+175 && event.y >= (altonivel - (altonivel1*2)+30) && event.y <= (altonivel - (altonivel1*2)+30)+240){
 
         }
 
         //Nivel 3
-        if(event.x >= (anchonivel*2)-90 && event.x <= ((anchonivel*2)-90+200) && event.y >= (altonivel + 100) && event.y <= (altonivel + 100 + 250)){
+        if(event.x >= 60 && event.x <= 235 && event.y >= (altonivel-100) && event.y <= (altonivel-100 + 240)){
 
         }
 
         //Nivel 4
-        if(event.x >= (anchonivel*3 -50) && event.x <= ((anchonivel*3)-50+200) && event.y >=  (altonivel+(altonivel1*2)-140) && event.y <= (altonivel+(altonivel1*2))-140 + 250){
+        if(event.x >= anchonivel*2-100 && event.x <= anchonivel*2+75 && event.y >= ((alto-(altonivel1*3)).toInt()) && event.y <= ((alto-(altonivel1*3)).toInt()) +240){
 
         }
 
         //Nivel 5
-        if(event.x >= (anchonivel*2 +60) && event.x <=  ((anchonivel*2)+60+200) && event.y >= (altonivel+(altonivel1*2) +100) && event.y <= (altonivel+(altonivel1*2)+100) + 250){
+        if(event.x >= (anchonivel*3)+80 && event.x <= (anchonivel*3)+80+175 && event.y >= ((alto-(altonivel1*3)+40).toInt()) && event.y <= ((alto-(altonivel1*3)+40).toInt())+240){
 
         }
 
@@ -162,5 +165,4 @@ class AmericaNiveles : View {
         }
         return res
     }
-
 }
