@@ -15,6 +15,13 @@
         android:layout_height="match_parent"
         android:visibility="gone"
         />
+    <com.example.proyectofinal_prototipov1.MexicoNiveles
+        android:id="@+id/mexicolayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        />
+
 
     <com.example.proyectofinal_prototipov1.Configuracion
         android:layout_width="match_parent"
