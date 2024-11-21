@@ -11,20 +11,30 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+
         var buttonJugar: ImageButton = findViewById(R.id.jugar)
+        var manual: ImageButton = findViewById(R.id.tutorial)
 
         buttonJugar.setOnClickListener(evento)
+        manual.setOnClickListener(evento)
     }
     private val evento = View.OnClickListener { v ->
-        Toast.makeText(applicationContext, "Click botón", Toast.LENGTH_SHORT)
-            .show()
-            startActivity(intent)
-        val i: Intent = Intent(
-            this@MainActivity,
-            Modulos::class.java
-        )
-        startActivity(i)
-
+        when (v.getId()) {
+            R.id.jugar -> {
+                val i: Intent = Intent(
+                    this@MainActivity,
+                    Modulos::class.java
+                )
+                startActivity(i)
+            }
+            R.id.tutorial ->{
+                val i: Intent = Intent(this@MainActivity,
+                    Manual::class.java
+                )
+                startActivity(i)
+            }
+        }
     }
 }
 
