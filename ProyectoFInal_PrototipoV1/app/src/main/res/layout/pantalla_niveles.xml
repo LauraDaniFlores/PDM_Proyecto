@@ -15,6 +15,34 @@
         android:layout_height="match_parent"
         android:visibility="gone"
         />
+    <com.example.proyectofinal_prototipov1.MexicoNiveles
+        android:id="@+id/mexicolayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        />
+
+
+    <com.example.proyectofinal_prototipov1.ArticaAntarticaNiveles
+        android:id="@+id/aryanlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        />
+
+    <com.example.proyectofinal_prototipov1.AmericaNiveles
+        android:id="@+id/americalayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        />
+
+    <com.example.proyectofinal_prototipov1.AsiaNiveles
+        android:id="@+id/asialayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        />
 
     <com.example.proyectofinal_prototipov1.Configuracion
         android:layout_width="match_parent"

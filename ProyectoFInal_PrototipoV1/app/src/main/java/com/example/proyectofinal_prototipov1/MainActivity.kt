@@ -11,22 +11,41 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        
+
         // Referencia a los botones
         val buttonJugar: ImageButton = findViewById(R.id.jugar)
         val buttonCreditos: ImageButton = findViewById(R.id.creditos)
+        var buttonLogros: ImageButton = findViewById(R.id.logros)
 
-        // Asignar eventos a los botones
-        buttonJugar.setOnClickListener {
-            Toast.makeText(applicationContext, "Botón Jugar presionado", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this@MainActivity, Modulos::class.java)
-            startActivity(intent) // Abre la actividad "Modulos"
-        }
-
-        buttonCreditos.setOnClickListener {
-            Toast.makeText(applicationContext, "Botón Créditos presionado", Toast.LENGTH_SHORT).show()
-            val intent = Intent(this@MainActivity, CreditosAct::class.java)
-            startActivity(intent) // Abre la actividad de Créditos
+        buttonJugar.setOnClickListener(evento)
+        buttonLogros.setOnClickListener(evento)
+    }
+    private val evento = View.OnClickListener { v ->
+        Toast.makeText(applicationContext, "Click botón", Toast.LENGTH_SHORT)
+            .show()
+        when (v.getId()) {
+            R.id.jugar -> {
+                val i: Intent = Intent(
+                    this@MainActivity,
+                    Modulos::class.java
+                )
+                startActivity(i)
+            }
+            R.id.logros -> {
+                val i: Intent = Intent(
+                    this@MainActivity,
+                    Maravillas_Inter::class.java
+                )
+                startActivity(i)
+            }
+            R.id.creditos-> {
+                Toast.makeText(applicationContext, "Botón Créditos presionado", Toast.LENGTH_SHORT).show()
+                val i: Intent = Intent(
+                    this@MainActivity,
+                    CreditosAct::class.java
+                )
+                startActivity(i)
+            }
         }
     }
 }
