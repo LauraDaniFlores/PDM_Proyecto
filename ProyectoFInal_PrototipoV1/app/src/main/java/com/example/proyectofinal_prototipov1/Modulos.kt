@@ -47,9 +47,9 @@ class Modulos : AppCompatActivity(){
             R.id.america -> {
                 i.putExtra("tiponivel", "4")
             }
-//            R.id.Asia -> {
-//                i.putExtra("tiponivel", "6")
-//            }
+            R.id.Asia -> {
+                i.putExtra("tiponivel", "6")
+            }
         }
         startActivity(i)
     }

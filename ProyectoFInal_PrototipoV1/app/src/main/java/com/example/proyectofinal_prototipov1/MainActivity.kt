@@ -19,6 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         buttonJugar.setOnClickListener(evento)
         buttonLogros.setOnClickListener(evento)
+        buttonCreditos.setOnClickListener(evento)
     }
     private val evento = View.OnClickListener { v ->
         Toast.makeText(applicationContext, "Click botón", Toast.LENGTH_SHORT)
