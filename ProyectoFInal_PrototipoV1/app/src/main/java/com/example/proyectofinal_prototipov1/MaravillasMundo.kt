@@ -1,12 +1,10 @@
 package com.example.proyectofinal_prototipov1
 
-import android.app.PendingIntent.getActivity
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.Paint
-import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.text.TextPaint
 import android.util.AttributeSet
@@ -14,15 +12,15 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.res.ResourcesCompat
 
 
-class maravillasMundo: View {
+class MaravillasMundo: View {
     val pText = TextPaint()
     val pRelleno = Paint()
     val cuadro = Paint()
     var fondo: Drawable? = null
 
+    // Imágenes
     var ChinChenItza: Drawable? = null
     var Coliseo: Drawable? = null
     var CristoRedendor: Drawable? = null
@@ -31,9 +29,15 @@ class maravillasMundo: View {
     var Hordania: Drawable? = null
     var MachuPichu: Drawable? = null
 
+    // Texto
     var maravillasText = arrayOf("ChinChén Itzá", "Coliseo Romano", "Cristo Redendor", "Muralla China", "Taj Mahal", "Petra", "Machu Pichu")
     var paises = arrayOf("México", "Italia", "Brasil", "China", "India", "Jordania", "Perú")
-    var desbloqueados = arrayOf(true, false , false, false, false, false, false)
+
+    //SQLite
+    var db: DBSQLite = DBSQLite(context)
+    var desbloqueados = arrayOf(false, false , false, false, false, false, false)
+
+
     constructor(context: Context?) : super(context){
         inicializa()
     }
@@ -47,13 +51,20 @@ class maravillasMundo: View {
 
     private fun inicializa() {
         // Asignamos los colores
-        pText.textSize = 30f
+        pText.textSize = 40f
         pText.style = Paint.Style.FILL
 //        val plain = Typeface.createFromAsset(context.assets, "kumbhsans.ttf")
 //        pText.setTypeface(plain)
 
         val typeface = getResources().getFont(R.font.kumbhsans_extrabold)
         pText.setTypeface(typeface)
+//        comprobarBaseDeDatos()
+    }
+
+    fun comprobarBaseDeDatos(){
+        for (i in 1..7){
+            desbloqueados[i-1] = db.maravillaDesbloqueada(i)
+        }
     }
 
     override fun onMeasure(widthMeasureSpect: Int, heightMeasureSpect: Int) {
@@ -96,14 +107,16 @@ class maravillasMundo: View {
         Hordania!!.draw(canvas)
         MachuPichu!!.draw(canvas)
 
-        var xtext = (ancho/4-120)
+        var xtext = (ancho/4-160)
         var ytext = (alto/4 -100)
         for(i in 0..6){
             if(i == 3){
-                xtext = (ancho/2+250)
+                xtext = (ancho/2+210)
                 ytext = (alto/4 -100)
             }else if(i == 6){
-                xtext = 490f
+                xtext = 440f
+            }else if(i == 5){
+                xtext = (ancho/2+260)
             }
             canvas.drawText(maravillasText[i], xtext, ytext, pText)
             ytext += (alto/4 -100)

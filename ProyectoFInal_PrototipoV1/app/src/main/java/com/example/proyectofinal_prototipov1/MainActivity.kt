@@ -12,19 +12,33 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         var buttonJugar: ImageButton = findViewById(R.id.jugar)
+        var buttonLogros: ImageButton = findViewById(R.id.logros)
 
         buttonJugar.setOnClickListener(evento)
+        buttonLogros.setOnClickListener(evento)
     }
     private val evento = View.OnClickListener { v ->
         Toast.makeText(applicationContext, "Click botón", Toast.LENGTH_SHORT)
             .show()
-            startActivity(intent)
-        val i: Intent = Intent(
-            this@MainActivity,
-            Modulos::class.java
-        )
-        startActivity(i)
+        when (v.getId()) {
+            R.id.jugar -> {
+                val i: Intent = Intent(
+                    this@MainActivity,
+                    Modulos::class.java
+                )
+                startActivity(i)
+            }
+            R.id.logros -> {
+                val i: Intent = Intent(
+                    this@MainActivity,
+                    Maravillas_Inter::class.java
+                )
+                startActivity(i)
+            }
+        }
 
     }
+
+
 }
 

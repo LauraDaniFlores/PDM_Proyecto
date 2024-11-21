@@ -152,7 +152,9 @@ class ContinentesNiveles : View {
             val intent = Intent(context, Modulos::class.java)
             context.startActivity(intent)
         }else if(event.x >= (ancho - 200 - 40) && event.x <= (ancho - 40) && event.y >= ( altonivel + altonivel1- 120) && event.y <= ( altonivel + altonivel1- 120 + 200) && dbBoolean[0]){
-
+            val intent = Intent(context, Memorama_Inter::class.java)
+            intent.putExtra("modulo", 1);
+            context.startActivity(intent)
         }else if(event.x >= (ancho - 200 - 40) && event.x <= (ancho - 40) && event.y >= ( altonivel + altonivel1 + 300) && event.y <= ( altonivel + altonivel1 + 300 + 200) && dbBoolean[1]){
             val intent = Intent(context, EscogerInterm::class.java)
             context.startActivity(intent)

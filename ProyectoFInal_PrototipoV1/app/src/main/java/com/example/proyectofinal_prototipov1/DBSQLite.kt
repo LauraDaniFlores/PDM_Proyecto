@@ -92,4 +92,34 @@ class DBSQLite(context: Context?) : SQLiteOpenHelper(context, TABLE_NAME, null, 
         return false
     }
 
+    fun maravillaDesbloqueada(modulo: Int): Boolean{
+        val db = readableDatabase
+
+        var rows = 0
+        var moduloaux = modulo
+        var niveles = 5
+
+        if(moduloaux == 4){
+            niveles = 10
+            moduloaux = 3
+        }else if(moduloaux > 4){
+            moduloaux -= 1
+        }
+
+        var cursor = db.rawQuery(
+            "SELECT COUNT(*) " +
+                    "FROM " + TABLE_NAME + " WHERE modulo = $moduloaux AND nivel = $niveles ", null
+        )
+        while (cursor.moveToNext()){
+            rows = cursor.getInt(0)
+        }
+        cursor.close()
+        if(rows > 0){
+            return true
+        }else if(rows == 0){
+            return false
+        }
+        return false
+    }
+
 }

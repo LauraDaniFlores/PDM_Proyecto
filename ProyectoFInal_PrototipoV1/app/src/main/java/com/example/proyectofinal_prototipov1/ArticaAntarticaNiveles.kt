@@ -1,6 +1,7 @@
 package com.example.proyectofinal_prototipov1
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -21,13 +22,16 @@ class ArticaAntarticaNiveles: View {
     private var nivel4: Drawable? = null
     private var nivel5: Drawable? = null
 
-
     //Rectangulos
     private val cuadrado = Paint()
 
     //Textos
     private val textPaint = Paint()
     private val textNivel = Paint()
+
+    //SQLite
+    var db: DBSQLite = DBSQLite(context)
+    var dbBoolean = arrayOf(false, false, false, false, false)
 
     constructor(context: Context?): super(context){
         inicializa()
@@ -52,8 +56,15 @@ class ArticaAntarticaNiveles: View {
 
         cuadrado.style = Paint.Style.FILL
         cuadrado.color = Color.RED
-
+//        comprobarBaseDeDatos()
     }
+
+    fun comprobarBaseDeDatos(){
+        for (i in 1..5){
+            dbBoolean[i-1] = db.nivelDesbloqueado(3, i)
+        }
+    }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         val alto = measuredHeight.toFloat()
@@ -88,19 +99,39 @@ class ArticaAntarticaNiveles: View {
         fondo = AppCompatResources.getDrawable(getContext(), R.drawable.polos)
         fondo!!.setBounds(0, 0, ancho.toInt(), alto.toInt())
 
-        nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.iglue1)
+        if(dbBoolean[0]) {
+            nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.iglue1)
+        }else{
+            nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.igluecandado)
+        }
         nivel1!!.setBounds(10, (altonivel + ((altonivel1*2))-50), 460, (altonivel + ((altonivel1*2))-50+340))
 
-        nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.pino2)
+        if(dbBoolean[1]) {
+            nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.pino2)
+        }else{
+            nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.pinocandado)
+        }
         nivel2!!.setBounds(anchonivel+50, (altonivel + (altonivel1) - 90), (anchonivel+50+268), (altonivel + (altonivel1- 30 + 250)))
 
-        nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.pino3)
+        if(dbBoolean[2]) {
+            nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.pino3)
+        }else{
+            nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.pinocandado)
+        }
         nivel3!!.setBounds((anchonivel*2)+110, (altonivel + 30), ((anchonivel*2)+110+240), (altonivel + 60 + 250))
 
-        nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.pino4)
+        if(dbBoolean[3]) {
+            nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.pino4)
+        }else{
+            nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.pinocandado)
+        }
         nivel4!!.setBounds((anchonivel*4)-80, (altonivel + 100), ((anchonivel*4)-70+286), (altonivel + 100 + 370))
 
-        nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.pinoscandado)
+        if(dbBoolean[4]) {
+            nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.pinos)
+        }else{
+            nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.pinoscandado)
+        }
         nivel5!!.setBounds((anchonivel*3)-30, (altonivel + ((altonivel1*2)) + 100), ((anchonivel*3)-50+268), (altonivel + ((altonivel1*3)) + 250))
 
 
@@ -113,27 +144,29 @@ class ArticaAntarticaNiveles: View {
         var altonivel1 = (altonivel/4)
 
         //Nivel 1
-        if(event.x >= 10 && event.x <= 460 && event.y >=  (altonivel + ((altonivel1*2))-50) && event.y <= (altonivel + ((altonivel1*2))-50+340)){
+        if(event.x >= 10 && event.x <= 460 && event.y >=  (altonivel + ((altonivel1*2))-50) && event.y <= (altonivel + ((altonivel1*2))-50+340) && dbBoolean[0]){
 
         }
 
         //Nivel 2
-        if(event.x >= anchonivel+50 && event.x <= (anchonivel+50+268) && event.y >= (altonivel + (altonivel1) - 90) && event.y <= (altonivel + (altonivel1- 30 + 250))){
-
+        if(event.x >= anchonivel+50 && event.x <= (anchonivel+50+268) && event.y >= (altonivel + (altonivel1) - 90) && event.y <= (altonivel + (altonivel1- 30 + 250)) && dbBoolean[1]){
+            val intent = Intent(context, Memorama_Inter::class.java)
+            intent.putExtra("modulo", 3);
+            context.startActivity(intent)
         }
 
         //Nivel 3
-        if(event.x >= (anchonivel*2)+110 && event.x <= ((anchonivel*2)+110+240) && event.y >= (altonivel + 30) && event.y <= (altonivel + 60 + 250)){
+        if(event.x >= (anchonivel*2)+110 && event.x <= ((anchonivel*2)+110+240) && event.y >= (altonivel + 30) && event.y <= (altonivel + 60 + 250) && dbBoolean[2]){
 
         }
 
         //Nivel 4
-        if(event.x >= (anchonivel*3)-30 && event.x <= ((anchonivel*3)-50+268) && event.y >= (altonivel + ((altonivel1*2)) + 100) && event.y <= (altonivel + ((altonivel1*3)) + 250)){
+        if(event.x >= (anchonivel*3)-30 && event.x <= ((anchonivel*3)-50+268) && event.y >= (altonivel + ((altonivel1*2)) + 100) && event.y <= (altonivel + ((altonivel1*3)) + 250) && dbBoolean[3]){
 
         }
 
         //Nivel 5
-        if(event.x >= (anchonivel*4)-80 && event.x <=  ((anchonivel*4)-70+286) && event.y >= (altonivel + 100) && event.y <= (altonivel + 100 + 370)){
+        if(event.x >= (anchonivel*4)-80 && event.x <=  ((anchonivel*4)-70+286) && event.y >= (altonivel + 100) && event.y <= (altonivel + 100 + 370) && dbBoolean[4]){
 
         }
 

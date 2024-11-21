@@ -149,6 +149,9 @@ class OceanoNiveles: View {
 
         //Nivel 2
         if(event.x >= anchonivel+30 && event.x <= (anchonivel+30+286) && event.y >= (altonivel + ((altonivel1*3)) - 30) && event.y <= (altonivel + ((altonivel1*3))- 30 + 219) && dbBoolean[1]){
+            val intent = Intent(context, Memorama_Inter::class.java)
+            intent.putExtra("modulo", 2);
+            context.startActivity(intent)
         }
 
         //Nivel 3
