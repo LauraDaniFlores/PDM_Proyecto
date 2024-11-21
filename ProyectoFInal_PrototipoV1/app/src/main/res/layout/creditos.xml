@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fondogeo2">
+
+    <ImageView
+        android:id="@+id/logoview"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:src="@drawable/logonormal"
+        android:layout_centerHorizontal="true"
+        />
+
+    <RelativeLayout
+        android:id="@+id/context"
+        android:layout_below="@+id/logoview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/redondeado"
+        android:padding="30dp"
+        android:layout_margin="15dp"
+        >
+
+        <TextView
+            android:id="@+id/textcred"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/creditoss"
+            android:textAlignment="center"/>
+
+        <ImageView
+            android:id="@+id/imaturis"
+            android:layout_below="@+id/textcred"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/turistas"
+            />
+
+    </RelativeLayout>
+
+
+
+
+
+</RelativeLayout>

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">ProyectoFInal_PrototipoV1</string>
+
+    <string name="creditoss">En nombre de todo el equipo de desarrollo de GEO STUDENT, queremos expresar nuestro más
+        sincero agradecimiento por permitirnos compartir nuestra pasión por la geografía contigo. Cada uno de nosotros, desde los
+        programadores hasta los diseñadores gráficos, hemos puesto nuestro corazón y alma en este proyecto. Nuestra meta era crear
+        una experiencia de aprendizaje no solo informativa, sino también divertida y memorable. Esperamos que hayamos logrado
+        nuestro objetivo y que GEO STUDENT te haya inspirado a explorar los rincones más remotos de nuestro planeta.</string>
 </resources>
