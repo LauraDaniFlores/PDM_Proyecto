@@ -144,29 +144,29 @@ class AmericaNiveles : View {
         var altonivel1 = (altonivel/4)
 
         //Nivel 1
-        if(event.x >= anchonivel-40 && event.x <= anchonivel-40+200 && event.y >= (altonivel - altonivel1) && event.y <= (altonivel - altonivel1)+250 && dbBoolean[0]){
+        if(event.x >= anchonivel-70 && event.x <= anchonivel+70+200 && event.y >= (altonivel - altonivel1-75) && event.y <= (altonivel - altonivel1-75)+250 && dbBoolean[0]){
 
         }
 
         //Nivel 2
-        if(event.x >= anchonivel*3-50 && event.x <= anchonivel*3-50+200 && event.y >= altonivel - (altonivel1) && event.y <= (altonivel - (altonivel1) - 150+250) && dbBoolean[1]){
+        if(event.x >= anchonivel*3-140 && event.x <= anchonivel*3-140+200 && event.y >= (altonivel - (altonivel1) - 150) && event.y <= (altonivel - (altonivel1) - 150+250) && dbBoolean[1]){
             val intent = Intent(context, Memorama_Inter::class.java)
             intent.putExtra("modulo", 6);
             context.startActivity(intent)
         }
 
         //Nivel 3
-        if(event.x >= (anchonivel*2)-90 && event.x <= ((anchonivel*2)-90+200) && event.y >= (altonivel + 100) && event.y <= (altonivel + 100 + 250) && dbBoolean[2]){
+        if(event.x >= (anchonivel*3-110) && event.x <= ((anchonivel*3-110)+200) && event.y >= (altonivel-50) && event.y <= (altonivel-50 + 250) && dbBoolean[2]){
 
         }
 
         //Nivel 4
-        if(event.x >= (anchonivel*3 -50) && event.x <= ((anchonivel*3)-50+200) && event.y >=  (altonivel+(altonivel1*2)-140) && event.y <= (altonivel+(altonivel1*2))-140 + 250 && dbBoolean[3]){
+        if(event.x >= (anchonivel*3 +160) && event.x <= ((anchonivel*3)+160+200) && event.y >= (altonivel) && event.y <= (altonivel + 250) && dbBoolean[3]){
 
         }
-
+        
         //Nivel 5
-        if(event.x >= (anchonivel*2 +60) && event.x <=  ((anchonivel*2)+60+200) && event.y >= (altonivel+(altonivel1*2) +100) && event.y <= (altonivel+(altonivel1*2)+100) + 250 && dbBoolean[4]){
+        if(event.x >= (anchonivel*3+20) && event.x <= ((anchonivel*3+20)+200) && event.y >= (altonivel+(altonivel1*2)-40) && event.y <= (altonivel+(altonivel1*2)-40) + 250 && dbBoolean[4]){
 
         }
 

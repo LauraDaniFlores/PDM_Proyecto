@@ -120,7 +120,7 @@ class ContinentesNiveles : View {
         if(dbBoolean[1]){
             nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan3)
         }else{
-            nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan3)
+            nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.planetacandado)
         }
         nivel3!!.setBounds(((ancho - 200 - 40).toInt()), (( altonivel + altonivel1 + 300).toInt()), ((ancho - 40).toInt()), (( altonivel + altonivel1 + 300 + 200).toInt()))
 

@@ -11,11 +11,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        var buttonJugar: ImageButton = findViewById(R.id.jugar)
+
+        // Referencia a los botones
+        val buttonJugar: ImageButton = findViewById(R.id.jugar)
+        val buttonCreditos: ImageButton = findViewById(R.id.creditos)
         var buttonLogros: ImageButton = findViewById(R.id.logros)
 
         buttonJugar.setOnClickListener(evento)
         buttonLogros.setOnClickListener(evento)
+        buttonCreditos.setOnClickListener(evento)
     }
     private val evento = View.OnClickListener { v ->
         Toast.makeText(applicationContext, "Click botón", Toast.LENGTH_SHORT)
@@ -35,10 +39,14 @@ class MainActivity : AppCompatActivity() {
                 )
                 startActivity(i)
             }
+            R.id.creditos-> {
+                Toast.makeText(applicationContext, "Botón Créditos presionado", Toast.LENGTH_SHORT).show()
+                val i: Intent = Intent(
+                    this@MainActivity,
+                    CreditosAct::class.java
+                )
+                startActivity(i)
+            }
         }
-
     }
-
-
 }
-

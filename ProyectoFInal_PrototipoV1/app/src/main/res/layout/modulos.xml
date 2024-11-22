@@ -4,20 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/modulos"
-    android:layout_marginTop="70dp">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginLeft="23dp">
-        <ImageButton
-            android:id="@+id/oceanos"
-            android:layout_width="350dp"
-            android:layout_height="120dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:src="@drawable/boceanos" />
-    </LinearLayout>
+    android:layout_marginTop="40dp">
+
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -30,7 +18,22 @@
             android:layout_width="350dp"
             android:layout_height="120dp"
             android:layout_weight="1"
-            android:src="@drawable/bcontinentesbloq"/>
+            android:src="@drawable/bcontinentes"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="23dp"
+        android:layout_marginTop="8dp">
+        <ImageButton
+            android:id="@+id/oceanos"
+            android:layout_width="350dp"
+            android:layout_height="120dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:src="@drawable/boceanosbloq" />
     </LinearLayout>
 
     <LinearLayout
@@ -45,6 +48,21 @@
             android:layout_height="120dp"
             android:layout_weight="1"
             android:src="@drawable/barticayabloq"/>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="8dp">
+        <ImageButton
+            android:id="@+id/mexico"
+            android:layout_width="350dp"
+            android:layout_height="120dp"
+            android:src="@drawable/bmexicobloq"/>
     </LinearLayout>
 
     <LinearLayout
@@ -68,10 +86,10 @@
         android:layout_marginLeft="25dp"
         android:layout_marginTop="8dp">
         <ImageButton
-            android:id="@+id/mexico"
+            android:id="@+id/Asia"
             android:layout_width="350dp"
             android:layout_height="120dp"
-            android:src="@drawable/bmexicobloq"/>
+            android:src="@drawable/basiabloq"/>
     </LinearLayout>
 
 </LinearLayout>
