@@ -27,7 +27,6 @@ class Escoger: View {
     var text: Paint = Paint()
     var textmas: Paint = Paint()
     var puntajetext: Paint = Paint()
-    var numbers = arrayOf(0, 1, 2, 3, 4)
 
 
     private var circleColor: Int = 0
@@ -39,28 +38,32 @@ class Escoger: View {
 
 
     var puntaje = 0
-    var estadoCon = arrayOf(0,0,0,0,0)
+    var estadoCon = arrayOf(0,0,0,0,0,0,0,0,0,0)
 
-    var conti = arrayOf("América", "Europa", "Asia", "África", "Oceanía")
-    var coordx = arrayOf(220f,580f,730f,570f,870f)
-    var coordy = arrayOf(260f,225f,260f,400f,470f)
-    var image = "mapa"
-    var coorimage = 707
+//    var numbers = arrayOf(0, 1, 2, 3, 4)
+//    var conti = arrayOf("Baja California", "Sonora", "Sinaloa", "Chihuahua", "Coahuila", "Durango", "Nuevo León", "Tamaulipas", "Zacatecas", "Jalisco")
+//    var coordx = arrayOf(145f,280f,370f,400f,520f, 435f, 590f, 632f, 500f, 472f)
+//    var coordy = arrayOf(170f,230f,400f,300f,330f,410f, 370f, 420f, 445f, 547f)
+//    var image = "mexicomapa"
+//    var coorimage = 819f
 
-//    var conti = emptyArray<String>()
-//    var coordx = emptyArray<Float>()
-//    var coordy = emptyArray<Float>()
-//    var image: String? = null
-//    var coorimage = null
+    var numbers = emptyArray<Int>()
+    var conti = emptyArray<String>()
+    var coordx = emptyArray<Float>()
+    var coordy = emptyArray<Float>()
+    var image: String? = null
+    var coorimage: Float? = null
 
 
-//    fun setArrays(nombres: Array<String>, imagen: String?, coordx1: Array<Float>, coordy1: Array<Float>, coor: Float){
-//        image = imagen
-//        conti = nombres
-//        coordx = coordx1
-//        coordy = coordy1
-//        coorimage = coor
-//    }
+    fun setArrays(nombres: Array<String>, imagen: String?, coordx1: Array<Float>, coordy1: Array<Float>, coor: Float, num: Array<Int>){
+        image = imagen
+        conti = nombres
+        coordx = coordx1
+        coordy = coordy1
+        coorimage = coor
+        numbers = num
+        ordenar()
+    }
 
     constructor(context: Context?): super(context){
         inicializa()
@@ -111,13 +114,13 @@ class Escoger: View {
         val customTypeface = resources.getFont(R.font.courier)
         text.typeface = customTypeface
 
-        textmas.textSize = 45f
+        textmas.textSize = 35f
         textmas.color = Color.WHITE
         textmas.textAlign = Paint.Align.CENTER
         textmas.typeface = customTypeface
 
 
-        puntajetext.textSize = 45f
+        puntajetext.textSize = 35f
         puntajetext.color = Color.BLACK
 
 
@@ -130,7 +133,7 @@ class Escoger: View {
         imagen = AppCompatResources.getDrawable(getContext(), context.getResources().getIdentifier(image,"drawable", context.getPackageName()))
 
 //        imagen = AppCompatResources.getDrawable(getContext(), R.drawable.mapa)
-        imagen!!.setBounds(30, 30, (ancho-30).toInt(), coorimage)
+        imagen!!.setBounds(30, 30, (ancho-30).toInt(), coorimage!!.toInt())
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -140,37 +143,39 @@ class Escoger: View {
 
         canvas.drawColor(-1);
         imagen!!.draw(canvas)
-        canvas.drawRect(30f, 30f, ancho-30, coorimage.toFloat(), margen)
-        for(i in 0..4){
+        canvas.drawRect(30f, 30f, ancho-30, coorimage!!.toFloat(), margen)
+        var length = conti.size - 1
+        length = 4
+        for(i in 0..length){
             canvas.drawCircle (
-                coordx.get(i)!!,coordy.get(i)!!, 15f, circle
+                coordx.get(i)!!,coordy.get(i)!!, 18f, circle
             )
             if(estadoCon.get(i) == 0){
                 canvas.drawCircle (
-                    coordx.get(i)!!,coordy.get(i)!!, 8f, circlepeq
+                    coordx.get(i)!!,coordy.get(i)!!, 10f, circlepeq
                 )
             }else if(estadoCon.get(i) == 1){
                 canvas.drawCircle (
-                    coordx.get(i)!!,coordy.get(i)!!, 8f, circlepeq1
+                    coordx.get(i)!!,coordy.get(i)!!, 10f, circlepeq1
                 )
             }else if(estadoCon.get(i) == 2){
                 canvas.drawCircle (
-                    coordx.get(i)!!,coordy.get(i)!!, 8f, circlepeq2
+                    coordx.get(i)!!,coordy.get(i)!!, 10f, circlepeq2
                 )
             }
         }
         canvas.drawRect (
-            30f,coorimage + 100f, ancho - 30f, coorimage + 100f + 180f, boton
+            30f,coorimage!! + 100f, ancho - 30f, coorimage!! + 100f + 180f, boton
         )
-        canvas.drawText(conti.get((numbers.get(no)))!!, ancho/2, coorimage + 200f ,text)
+        canvas.drawText(conti.get(numbers.get(no))!!, ancho/2, coorimage!! + 200f ,text)
 
         var j = 0
         var h = 0
         for(i in 0..no){
             if(estadoCon.get(numbers.get(i)) == 1){
 //                canvas.drawRoundRect(50f, coorimage + (300f + (h*50)), ((ancho/3)*j) - 50f, coorimage + (400f + (h*100)), 20f, 20f, boton)
-                canvas.drawRoundRect(30f + (j * (ancho/3)), coorimage + (330f + (h*150)), ((ancho/3) + (j * ((ancho/3)))) - 30f, coorimage + (430f + (h*150)), 40f, 40f, boton)
-                canvas.drawText(conti.get((numbers.get(i))), ((ancho/6) + (j * (ancho/3))), coorimage + (400f + (h*150)) ,textmas)
+                canvas.drawRoundRect(20f + (j * (ancho/3)) + (h *(ancho/6)), coorimage!! + (330f + (h*150)), ((ancho/3) + (j * ((ancho/3)))) - 20f + (h *(ancho/6)), coorimage!! + (430f + (h*150)), 40f, 40f, boton)
+                canvas.drawText(conti.get((numbers.get(i))), ((ancho/6) + (j * (ancho/3))) + (h *(ancho/6)), coorimage!! + (400f + (h*150)) ,textmas)
                 j++
                 if(j == 3){
                     h = 1
@@ -178,8 +183,8 @@ class Escoger: View {
                 }
             }
         }
-//        canvas.drawText(puntaje.toString(), 30f, 1500f,puntajetext)
-
+        canvas.drawText(numbers.contentToString(), 30f, 1500f,puntajetext)
+        canvas.drawText(numbers.get(no).toString(), 30f, 1600f,puntajetext)
 
         invalidate()
     }
