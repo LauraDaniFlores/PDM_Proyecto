@@ -41,7 +41,8 @@ class Escoger: View {
     var estadoCon = arrayOf(0,0,0,0,0,0,0,0,0,0)
 
 //    var numbers = arrayOf(0, 1, 2, 3, 4)
-//    var conti = arrayOf("Baja California", "Sonora", "Sinaloa", "Chihuahua", "Coahuila", "Durango", "Nuevo León", "Tamaulipas", "Zacatecas", "Jalisco")
+//    var numbers = arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+//    var conti = arrayOf("Baja California", "Sonora", "Sinaloa", "Chihuahua", "Coahuila", "Durango", "Nuevo León", "Tamaulipas", "Zacatecas")
 //    var coordx = arrayOf(145f,280f,370f,400f,520f, 435f, 590f, 632f, 500f, 472f)
 //    var coordy = arrayOf(170f,230f,400f,300f,330f,410f, 370f, 420f, 445f, 547f)
 //    var image = "mexicomapa"
@@ -148,19 +149,19 @@ class Escoger: View {
         length = 4
         for(i in 0..length){
             canvas.drawCircle (
-                coordx.get(i)!!,coordy.get(i)!!, 18f, circle
+                coordx.get(numbers[i])!!,coordy.get(numbers[i])!!, 18f, circle
             )
-            if(estadoCon.get(i) == 0){
+            if(estadoCon.get(numbers[i]) == 0){
                 canvas.drawCircle (
-                    coordx.get(i)!!,coordy.get(i)!!, 10f, circlepeq
+                    coordx.get(numbers[i])!!,coordy.get(numbers[i])!!, 10f, circlepeq
                 )
-            }else if(estadoCon.get(i) == 1){
+            }else if(estadoCon.get(numbers[i]) == 1){
                 canvas.drawCircle (
-                    coordx.get(i)!!,coordy.get(i)!!, 10f, circlepeq1
+                    coordx.get(numbers[i])!!,coordy.get(numbers[i])!!, 10f, circlepeq1
                 )
-            }else if(estadoCon.get(i) == 2){
+            }else if(estadoCon.get(numbers[i]) == 2){
                 canvas.drawCircle (
-                    coordx.get(i)!!,coordy.get(i)!!, 10f, circlepeq2
+                    coordx.get(numbers[i])!!,coordy.get(numbers[i])!!, 10f, circlepeq2
                 )
             }
         }
@@ -183,18 +184,19 @@ class Escoger: View {
                 }
             }
         }
-        canvas.drawText(numbers.contentToString(), 30f, 1500f,puntajetext)
-        canvas.drawText(numbers.get(no).toString(), 30f, 1600f,puntajetext)
+//        canvas.drawText(numbers.contentToString(), 30f, 1500f,puntajetext)
+//        canvas.drawText(numbers.get(no).toString(), 30f, 1600f,puntajetext)
+//        canvas.drawText(estadoCon.contentToString(), 30f, 1700f,puntajetext)
 
         invalidate()
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         for(i in 0..4){
-            if(event.x >= (coordx.get(i)!! - 30f) && event.x <= (coordx.get(i)!! + 30f) && event.y >= (coordy.get(i)!! - 30f) && event.y <= (coordy.get(i)!! + 30f)){
-                if(estadoCon[i] != 1) {
-                    if (numbers.get(no) == i) {
-                        estadoCon[i] = 1
+            if(event.x >= (coordx.get(numbers[i])!! - 30f) && event.x <= (coordx.get(numbers[i])!! + 30f) && event.y >= (coordy.get(numbers[i])!! - 30f) && event.y <= (coordy.get(numbers[i])!! + 30f)){
+                if(estadoCon[numbers[i]] != 1) {
+                    if (numbers.get(no) == numbers[i]) {
+                        estadoCon[numbers[i]] = 1
                         puntaje += 20
                         if(no < 5){
                             no++
@@ -206,7 +208,7 @@ class Escoger: View {
                         }
                         limpiar()
                     } else {
-                        estadoCon[i] = 2
+                        estadoCon[numbers[i]] = 2
                         puntaje -= 5
                     }
                 }
@@ -226,8 +228,8 @@ class Escoger: View {
 
     fun limpiar(){
         for(i in 0..4){
-            if(estadoCon[i] == 2){
-                estadoCon[i] = 0
+            if(estadoCon[numbers[i]] == 2){
+                estadoCon[numbers[i]] = 0
             }
         }
         invalidate()

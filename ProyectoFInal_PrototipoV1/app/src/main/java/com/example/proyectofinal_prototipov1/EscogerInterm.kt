@@ -24,7 +24,7 @@ class EscogerInterm: AppCompatActivity() {
         if (modulo != null) {
             modulo -= 1
         }
-        modulo = 1
+        modulo = 2
 
 
         Toast.makeText(this, "Intent " + modulo.toString(),
