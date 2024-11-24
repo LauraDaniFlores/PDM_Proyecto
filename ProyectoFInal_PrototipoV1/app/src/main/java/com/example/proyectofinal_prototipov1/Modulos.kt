@@ -12,19 +12,33 @@ class Modulos : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.modulos)
 
+        var db: DBSQLite = DBSQLite(this)
+
         var continentes: ImageButton = findViewById(R.id.continentes)
         var oceanos: ImageButton = findViewById(R.id.oceanos)
         var aryan: ImageButton = findViewById(R.id.aryan)
         var mexico: ImageButton = findViewById(R.id.mexico)
         var america: ImageButton = findViewById(R.id.america)
-//        var Asia: ImageButton = findViewById(R.id.Asia)
+        var Asia: ImageButton = findViewById(R.id.Asia)
+
+        if(db.moduloDesbloqueado(2)) {
+            oceanos.setImageResource(R.drawable.boceanos)
+        }else if(db.moduloDesbloqueado(3)) {
+            aryan.setImageResource(R.drawable.barticaya)
+        }else if(db.moduloDesbloqueado(4)) {
+            mexico.setImageResource(R.drawable.bmexico)
+        }else if(db.moduloDesbloqueado(5)) {
+            america.setImageResource(R.drawable.bamerica)
+        }else if(db.moduloDesbloqueado(6)) {
+            Asia.setImageResource(R.drawable.basia)
+        }
 
         continentes.setOnClickListener(evento)
         oceanos.setOnClickListener(evento)
         aryan.setOnClickListener(evento)
         mexico.setOnClickListener(evento)
         america.setOnClickListener(evento)
-//        Asia.setOnClickListener(evento)
+        Asia.setOnClickListener(evento)
     }
     private val evento = View.OnClickListener { v ->
         val i: Intent = Intent(
@@ -48,7 +62,7 @@ class Modulos : AppCompatActivity(){
                 i.putExtra("tiponivel", "4")
             }
             R.id.Asia -> {
-                i.putExtra("tiponivel", "6")
+                i.putExtra("tiponivel", "5")
             }
         }
         startActivity(i)

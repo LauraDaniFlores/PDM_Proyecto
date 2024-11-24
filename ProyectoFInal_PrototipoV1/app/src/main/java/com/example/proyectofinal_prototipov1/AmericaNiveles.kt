@@ -159,7 +159,9 @@ class AmericaNiveles : View {
 
         //Nivel 3
         if(event.x >= (anchonivel*3-110) && event.x <= ((anchonivel*3-110)+200) && event.y >= (altonivel-50) && event.y <= (altonivel-50 + 250) && dbBoolean[2]){
-
+            val intent = Intent(context, EscogerInterm::class.java)
+            intent.putExtra("modulo", "5");
+            context.startActivity(intent)
         }
 
         //Nivel 4

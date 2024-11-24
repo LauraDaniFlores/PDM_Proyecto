@@ -159,8 +159,9 @@ class OceanoNiveles: View {
 
         //Nivel 3
         if(event.x >= (anchonivel*2)+30 && event.x <= ((anchonivel*2)+30+286) && event.y >= (altonivel + ((altonivel1*2)) - 140) && event.y <= (altonivel + ((altonivel1*2))- 140 + 219) && dbBoolean[2]){
-//            val intent = Intent(context, EscogerInterm::class.java)
-//            context.startActivity(intent)
+            val intent = Intent(context, EscogerInterm::class.java)
+            intent.putExtra("modulo", "2");
+            context.startActivity(intent)
         }
 
         //Nivel 4

@@ -257,7 +257,9 @@ class MexicoNiveles : View {
             intent.putExtra("modulo", "4")
             context.startActivity(intent)
         }else if(event.x >= (anchonivel * 2) + 50 && event.x <= ((anchonivel * 2) + 210) && event.y >= (altonivel + ((altonivel1 * 2)) - 170) && event.y <= (altonivel + ((altonivel1 * 2)) + 90)){
-
+            val intent = Intent(context, EscogerInterm::class.java)
+            intent.putExtra("modulo", "4");
+            context.startActivity(intent)
         }else if(event.x >= (anchonivel * 3) + 10 && event.x <= ((anchonivel * 3) + 170) && event.y >= (altonivel + ((altonivel1 * 2)) + 10) && event.y <= (altonivel + ((altonivel1 * 2)) + 270)){
 
         }else if(event.x >= (anchonivel * 4) + 10 && event.x <= ((anchonivel * 4) + 170) && event.y >= (altonivel + ((altonivel1 * 2)) - 130) && event.y <= (altonivel + ((altonivel1 * 2)) - 130 + 260)){
@@ -274,7 +276,9 @@ class MexicoNiveles : View {
             intent.putExtra("modulo", "5")
             context.startActivity(intent)
         }else if(event.x >= (anchonivel * 2) + 30 && event.x <= ((anchonivel * 2) + 207) && event.y >= (altonivel + ((altonivel1 * 2)) + 170) && event.y <= (altonivel + ((altonivel1 * 2)) + 170 + 176)){
-
+            val intent = Intent(context, EscogerInterm::class.java)
+            intent.putExtra("modulo", "4");
+            context.startActivity(intent)
         }else if(event.x >= 250 && event.x <= 437 && event.y >= (altonivel + ((altonivel1 * 2)) + 280) && event.y <= (altonivel + ((altonivel1 * 2)) + 280 + 176)){
 
         }else if(event.x >= 30 && event.x <=  217 && event.y >= (altonivel + ((altonivel1 * 2)) + 190) && event.y <= (altonivel + ((altonivel1 * 2)) + 190 + 176)){
