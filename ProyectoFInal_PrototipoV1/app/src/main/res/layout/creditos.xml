@@ -30,11 +30,22 @@
             android:text="@string/creditoss"
             android:textAlignment="center"/>
 
-        <ImageView
-            android:id="@+id/imaturis"
+        <TextView
+            android:id="@+id/textfirma"
             android:layout_below="@+id/textcred"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/firma"
+            android:textAlignment="center"/>
+
+        <ImageView
+            android:id="@+id/imaturis"
+            android:layout_below="@+id/textcred"
+            android:layout_width="230dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="48dp"
             android:src="@drawable/turistas"
             />
 

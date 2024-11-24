@@ -25,6 +25,9 @@ class ContinentesNiveles : View {
     private var nivel4: Drawable? = null
     private var nivel5: Drawable? = null
 
+    //Sonido
+    private var clickSound: MediaPlayer? = null
+
     //SQLite
     var db: DBSQLite = DBSQLite(context)
     var dbBoolean = arrayOf(false, false, false, false)
@@ -47,6 +50,8 @@ class ContinentesNiveles : View {
 
     }
     private fun inicializa() {
+        // Inicializar el MediaPlayer con el sonido deseado
+        clickSound = MediaPlayer.create(context, R.raw.efectobtn)
         textPaint.isAntiAlias = true
         textPaint.textSize = 60f
         textPaint.color = Color.WHITE
@@ -150,14 +155,17 @@ class ContinentesNiveles : View {
         //Nivel 1
         if (event.actionMasked == MotionEvent.ACTION_DOWN || event.actionMasked == MotionEvent.ACTION_POINTER_DOWN) {
             if (event.x >= ((ancho / 2) - 100) && event.x <= (ancho / 2) + 100 && event.y >= ((alto / 2) - 80) && event.y <= ((alto / 2) + 200 - 80)) {
+                clickSound?.start() // Reproduce el sonido
                 val intent = Intent(context, EscogerInterm::class.java)
                 intent.putExtra("modulo", "1");
                 context.startActivity(intent)
             } else if (event.x >= (ancho - 200 - 40) && event.x <= (ancho - 40) && event.y >= (altonivel + altonivel1 - 120) && event.y <= (altonivel + altonivel1 - 120 + 200) && dbBoolean[0]) {
+                clickSound?.start() // Reproduce el sonido
                 val intent = Intent(context, Memorama_Inter::class.java)
                 intent.putExtra("modulo", "2");
                 context.startActivity(intent)
             } else if (event.x >= (ancho - 200 - 40) && event.x <= (ancho - 40) && event.y >= (altonivel + altonivel1 + 300) && event.y <= (altonivel + altonivel1 + 300 + 200) && dbBoolean[1]) {
+                clickSound?.start() // Reproduce el sonido
                 val intent = Intent(context, EscogerInterm::class.java)
                 intent.putExtra("modulo", "1");
                 context.startActivity(intent)
@@ -192,6 +200,11 @@ class ContinentesNiveles : View {
             res = limite
         }
         return res
+    }
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        clickSound?.release()
+        clickSound = null
     }
 
 
