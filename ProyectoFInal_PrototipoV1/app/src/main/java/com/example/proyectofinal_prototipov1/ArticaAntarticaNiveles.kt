@@ -157,7 +157,9 @@ class ArticaAntarticaNiveles: View {
 
         //Nivel 3
         if(event.x >= (anchonivel*2)+110 && event.x <= ((anchonivel*2)+110+240) && event.y >= (altonivel + 30) && event.y <= (altonivel + 60 + 250) && dbBoolean[2]){
-
+            val intent = Intent(context, EscogerInterm::class.java)
+            intent.putExtra("modulo", "3");
+            context.startActivity(intent)
         }
 
         //Nivel 4

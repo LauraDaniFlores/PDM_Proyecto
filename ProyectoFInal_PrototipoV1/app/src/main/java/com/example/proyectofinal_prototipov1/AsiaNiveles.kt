@@ -159,8 +159,8 @@ class AsiaNiveles : View {
 
         //Nivel 3
         if(event.x >= 60 && event.x <= 235 && event.y >= (altonivel-100) && event.y <= (altonivel-100 + 240) && dbBoolean[2]){
-            val intent = Intent(context, Memorama_Inter::class.java)
-            intent.putExtra("modulo", 7);
+            val intent = Intent(context, EscogerInterm::class.java)
+            intent.putExtra("modulo", "6");
             context.startActivity(intent)
         }
 

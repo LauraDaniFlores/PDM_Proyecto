@@ -158,7 +158,9 @@ class ContinentesNiveles : View {
                 intent.putExtra("modulo", "2");
                 context.startActivity(intent)
             } else if (event.x >= (ancho - 200 - 40) && event.x <= (ancho - 40) && event.y >= (altonivel + altonivel1 + 300) && event.y <= (altonivel + altonivel1 + 300 + 200) && dbBoolean[1]) {
-
+                val intent = Intent(context, EscogerInterm::class.java)
+                intent.putExtra("modulo", "1");
+                context.startActivity(intent)
             } else if (event.x >= (150) && event.x <= (200 + 150) && event.y >= (altonivel + altonivel1 + 390) && event.y <= (altonivel + altonivel1 + 390 + 200) && dbBoolean[2]) {
 
             } else if (event.x >= (40) && event.x <= (200 + 40) && event.y >= (altonivel + altonivel1 - 170) && event.y <= (altonivel + altonivel1 - 170 + 200) && dbBoolean[3]) {
