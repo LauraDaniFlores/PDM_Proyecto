@@ -19,18 +19,8 @@
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="140dp"
             android:src="@drawable/emblema" />
 
-        <ImageButton
-            android:id="@+id/sonido"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="90dp"
-            android:layout_marginTop="20dp"
-            android:layout_alignParentEnd="true"
-            android:background="@android:color/transparent"
-            android:src="@drawable/sonido2" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -39,8 +29,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="100dp">
+        android:layout_marginTop="20dp"
+        >
 
         <ImageButton
             android:id="@+id/jugar"
@@ -65,7 +55,7 @@
             android:layout_toRightOf="@id/tutorial"
             android:layout_width="170dp"
             android:layout_height="110dp"
-            android:src="@drawable/creditos"
+            android:src="@drawable/nbotoncred"
             android:background="@android:color/transparent" />
 
         <ImageButton

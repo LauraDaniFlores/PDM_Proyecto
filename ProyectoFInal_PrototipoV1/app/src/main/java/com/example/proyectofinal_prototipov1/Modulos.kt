@@ -1,38 +1,46 @@
 package com.example.proyectofinal_prototipov1
 
 import android.content.Intent
+import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-class Modulos : AppCompatActivity(){
+class Modulos : AppCompatActivity() {
+
+    private lateinit var mediaPlayer: MediaPlayer
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.modulos)
 
-        var db: DBSQLite = DBSQLite(this)
+        val db: DBSQLite = DBSQLite(this)
 
-        var continentes: ImageButton = findViewById(R.id.continentes)
-        var oceanos: ImageButton = findViewById(R.id.oceanos)
-        var aryan: ImageButton = findViewById(R.id.aryan)
-        var mexico: ImageButton = findViewById(R.id.mexico)
-        var america: ImageButton = findViewById(R.id.america)
-        var Asia: ImageButton = findViewById(R.id.Asia)
+        // Inicializar MediaPlayer con el efecto de sonido
+        mediaPlayer = MediaPlayer.create(this, R.raw.efectobtn)
 
-        if(db.moduloDesbloqueado(2)) {
+        val continentes: ImageButton = findViewById(R.id.continentes)
+        val oceanos: ImageButton = findViewById(R.id.oceanos)
+        val aryan: ImageButton = findViewById(R.id.aryan)
+        val mexico: ImageButton = findViewById(R.id.mexico)
+        val america: ImageButton = findViewById(R.id.america)
+        val Asia: ImageButton = findViewById(R.id.Asia)
+
+        // Cambiar imágenes según el estado del módulo
+        if (db.moduloDesbloqueado(2)) {
             oceanos.setImageResource(R.drawable.boceanos)
-        }else if(db.moduloDesbloqueado(3)) {
+        } else if (db.moduloDesbloqueado(3)) {
             aryan.setImageResource(R.drawable.barticaya)
-        }else if(db.moduloDesbloqueado(4)) {
+        } else if (db.moduloDesbloqueado(4)) {
             mexico.setImageResource(R.drawable.bmexico)
-        }else if(db.moduloDesbloqueado(5)) {
+        } else if (db.moduloDesbloqueado(5)) {
             america.setImageResource(R.drawable.bamerica)
-        }else if(db.moduloDesbloqueado(6)) {
+        } else if (db.moduloDesbloqueado(6)) {
             Asia.setImageResource(R.drawable.basia)
         }
 
+        // Asignar eventos de clic
         continentes.setOnClickListener(evento)
         oceanos.setOnClickListener(evento)
         aryan.setOnClickListener(evento)
@@ -40,31 +48,31 @@ class Modulos : AppCompatActivity(){
         america.setOnClickListener(evento)
         Asia.setOnClickListener(evento)
     }
+
     private val evento = View.OnClickListener { v ->
-        val i: Intent = Intent(
-            this@Modulos,
-            ModulosIntermedio::class.java
-        )
-        when (v.getId()) {
-            R.id.continentes -> {
-                i.putExtra("tiponivel", "0")
-            }
-            R.id.oceanos -> {
-                i.putExtra("tiponivel", "1")
-            }
-            R.id.aryan -> {
-                i.putExtra("tiponivel", "2")
-            }
-            R.id.mexico -> {
-                i.putExtra("tiponivel", "3")
-            }
-            R.id.america -> {
-                i.putExtra("tiponivel", "4")
-            }
-            R.id.Asia -> {
-                i.putExtra("tiponivel", "5")
-            }
+        // Reproducir el sonido
+        if (mediaPlayer.isPlaying) {
+            mediaPlayer.stop()
+            mediaPlayer.prepare()
+        }
+        mediaPlayer.start()
+
+        // Lanzar la actividad con el dato correspondiente
+        val i = Intent(this@Modulos, ModulosIntermedio::class.java)
+        when (v.id) {
+            R.id.continentes -> i.putExtra("tiponivel", "0")
+            R.id.oceanos -> i.putExtra("tiponivel", "1")
+            R.id.aryan -> i.putExtra("tiponivel", "2")
+            R.id.mexico -> i.putExtra("tiponivel", "3")
+            R.id.america -> i.putExtra("tiponivel", "4")
+            R.id.Asia -> i.putExtra("tiponivel", "5")
         }
         startActivity(i)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Liberar recursos de MediaPlayer
+        mediaPlayer.release()
     }
 }
