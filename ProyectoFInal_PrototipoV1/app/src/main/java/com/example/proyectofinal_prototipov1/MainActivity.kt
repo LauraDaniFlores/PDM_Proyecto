@@ -16,10 +16,12 @@ class MainActivity : AppCompatActivity() {
         val buttonJugar: ImageButton = findViewById(R.id.jugar)
         val buttonCreditos: ImageButton = findViewById(R.id.creditos)
         var buttonLogros: ImageButton = findViewById(R.id.logros)
+        var buttonCarrera: ImageButton = findViewById(R.id.carrera)
 
         buttonJugar.setOnClickListener(evento)
         buttonLogros.setOnClickListener(evento)
         buttonCreditos.setOnClickListener(evento)
+        buttonCarrera.setOnClickListener(evento)
     }
     private val evento = View.OnClickListener { v ->
         Toast.makeText(applicationContext, "Click botón", Toast.LENGTH_SHORT)
@@ -36,6 +38,13 @@ class MainActivity : AppCompatActivity() {
                 val i: Intent = Intent(
                     this@MainActivity,
                     Maravillas_Inter::class.java
+                )
+                startActivity(i)
+            }
+            R.id.carrera -> {
+                val i: Intent = Intent(
+                    this@MainActivity,
+                    Trayecto_Inter::class.java
                 )
                 startActivity(i)
             }

@@ -149,18 +149,22 @@ class AsiaNiveles : View {
 
         //Nivel 1
         if(event.x >= anchonivel*3 && event.x <= anchonivel*3+175 && event.y >= (altonivel - (altonivel1) - 100) && event.y <= (altonivel - (altonivel1) - 100)+240 && dbBoolean[0]){
-
+            val intent = Intent(context, Cards_Inter::class.java)
+            intent.putExtra("modulo", "7")
+            context.startActivity(intent)
         }
 
         //Nivel 2
         if(event.x >= anchonivel+20 && event.x <= anchonivel+20+175 && event.y >= (altonivel - (altonivel1*2)+30) && event.y <= (altonivel - (altonivel1*2)+30)+240 && dbBoolean[1]){
-
+            val intent = Intent(context, Memorama_Inter::class.java)
+            intent.putExtra("modulo", "7")
+            context.startActivity(intent)
         }
 
         //Nivel 3
         if(event.x >= 60 && event.x <= 235 && event.y >= (altonivel-100) && event.y <= (altonivel-100 + 240) && dbBoolean[2]){
             val intent = Intent(context, Memorama_Inter::class.java)
-            intent.putExtra("modulo", 7);
+            intent.putExtra("modulo", 7)
             context.startActivity(intent)
         }
 

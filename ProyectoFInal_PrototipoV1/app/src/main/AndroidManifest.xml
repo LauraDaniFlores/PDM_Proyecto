@@ -47,5 +47,8 @@
         <activity android:name=".Maravillas_Inter"
             android:exported="false"/>
 
+        <activity android:name=".Trayecto_Inter"
+            android:exported="false"/>
+
     </application>
 </manifest>

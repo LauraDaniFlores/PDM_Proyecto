@@ -145,13 +145,15 @@ class AmericaNiveles : View {
 
         //Nivel 1
         if(event.x >= anchonivel-70 && event.x <= anchonivel+70+200 && event.y >= (altonivel - altonivel1-75) && event.y <= (altonivel - altonivel1-75)+250 && dbBoolean[0]){
-
+            val intent = Intent(context, Cards_Inter::class.java)
+            intent.putExtra("modulo", "6")
+            context.startActivity(intent)
         }
 
         //Nivel 2
         if(event.x >= anchonivel*3-140 && event.x <= anchonivel*3-140+200 && event.y >= (altonivel - (altonivel1) - 150) && event.y <= (altonivel - (altonivel1) - 150+250) && dbBoolean[1]){
             val intent = Intent(context, Memorama_Inter::class.java)
-            intent.putExtra("modulo", 6);
+            intent.putExtra("modulo", "6");
             context.startActivity(intent)
         }
 
@@ -164,7 +166,7 @@ class AmericaNiveles : View {
         if(event.x >= (anchonivel*3 +160) && event.x <= ((anchonivel*3)+160+200) && event.y >= (altonivel) && event.y <= (altonivel + 250) && dbBoolean[3]){
 
         }
-        
+
         //Nivel 5
         if(event.x >= (anchonivel*3+20) && event.x <= ((anchonivel*3+20)+200) && event.y >= (altonivel+(altonivel1*2)-40) && event.y <= (altonivel+(altonivel1*2)-40) + 250 && dbBoolean[4]){
 

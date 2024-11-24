@@ -2,20 +2,20 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/main"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.example.proyectofinal_prototipov1.Cards
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/cardsJuego"/>
-    <com.example.proyectofinal_prototipov1.Configuracion
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:id="@+id/configuracion"
-        app:casa="true"
-        app:pausar="true"
-        app:musica="lauvparis"
-        />
+
+<!--    <com.example.proyectofinal_prototipov1.Configuracion-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:id="@+id/configuracion"-->
+<!--        app:casa="true"-->
+<!--        app:pausar="true"-->
+<!--        app:musica="lauvparis"-->
+<!--        />-->
 
 </FrameLayout>

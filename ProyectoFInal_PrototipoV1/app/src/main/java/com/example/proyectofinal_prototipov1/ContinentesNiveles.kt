@@ -27,7 +27,7 @@ class ContinentesNiveles : View {
 
     //SQLite
     var db: DBSQLite = DBSQLite(context)
-    var dbBoolean = arrayOf(false, false, false, false)
+    var dbBoolean = arrayOf(true, true, false, false)
 
 
     //Rectangulos
@@ -65,7 +65,7 @@ class ContinentesNiveles : View {
         cuadrado.style = Paint.Style.FILL
         cuadrado.color = Color.RED
 //        db.guardarRegistro(1, 2, 10, 100, Date(), true)
-        comprobarBaseDeDatos()
+//        comprobarBaseDeDatos()
     }
 
     fun comprobarBaseDeDatos(){
@@ -149,11 +149,12 @@ class ContinentesNiveles : View {
 
         //Nivel 1
         if(event.x >= ((ancho/2)-100) && event.x <= (ancho/2)+100 && event.y >= ((alto/2)-80) && event.y <= ((alto/2)+200-80)){
-            val intent = Intent(context, Modulos::class.java)
+            val intent = Intent(context, Cards_Inter::class.java)
+            intent.putExtra("modulo", "1")
             context.startActivity(intent)
         }else if(event.x >= (ancho - 200 - 40) && event.x <= (ancho - 40) && event.y >= ( altonivel + altonivel1- 120) && event.y <= ( altonivel + altonivel1- 120 + 200) && dbBoolean[0]){
             val intent = Intent(context, Memorama_Inter::class.java)
-            intent.putExtra("modulo", 1);
+            intent.putExtra("modulo", "1")
             context.startActivity(intent)
         }else if(event.x >= (ancho - 200 - 40) && event.x <= (ancho - 40) && event.y >= ( altonivel + altonivel1 + 300) && event.y <= ( altonivel + altonivel1 + 300 + 200) && dbBoolean[1]){
             val intent = Intent(context, EscogerInterm::class.java)

@@ -23,10 +23,10 @@ class Memorama_Inter : AppCompatActivity() {
 
         var juego = findViewById<Memorama>(R.id.juego)
 
-        var continentes = arrayOf("america", "africa", "asia", "europa", "oceania")
+        var continentes = arrayOf("mcontinente1", "mcontinente2", "mcontinente3", "mcontinente4", "mcontinente5")
         var aryan = arrayOf("maryan1", "maryan2", "maryan3", "maryan4", "maryan5")
         var america = arrayOf("mamerica1", "mamerica2", "mamerica3", "mamerica4", "mamerica5", "mamerica6", "mamerica7", "mamerica8")
-        var asia = arrayOf("masia1", "masia2", "masia3", "masia4", "masia5", "masia6")
+        var asia = arrayOf("masia1", "masia2", "masia3", "masia4", "masia5", "masia6", "bchina", "bjapon", "bcorea", "btailandia", "bindonesia", "brusia", "bindia")
         var mexico1 = arrayOf("m1mex1", "m1mex2", "m1mex3", "m1mex4", "m1mex5", "m1mex6", "m1mex7", "m1mex8", "m1mex9")
         var mexico2 = arrayOf("m2mex1", "m2mex2", "m2mex3", "m2mex4", "m2mex5", "m2mex6", "m2mex7", "m2mex8")
         var oceanos = arrayOf("mocean1", "mocean2", "mocean3", "mocean4", "mocean5")

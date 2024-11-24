@@ -1,5 +1,6 @@
 package com.example.proyectofinal_prototipov1
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
@@ -18,10 +19,10 @@ import androidx.core.content.res.ResourcesCompat
 class Cards : View {
 
     val pText = TextPaint()
-    val pTextPequeno = TextPaint()
+    var pTextPequeno: TextPaint = TextPaint()
+    var PtextoRespuesta: TextPaint = TextPaint()
     val pRelleno = Paint()
     val cuadro = Paint()
-    var fondo: Drawable? = null
     var siguiente: Drawable? = null
     var nextScreen: Boolean = false
     var index:Int = 0
@@ -58,11 +59,136 @@ class Cards : View {
         pText.style = Paint.Style.FILL
         pText.color = Color.BLACK
         pText.textSize = 70f
+        pText.textAlign = Paint.Align.CENTER
 
         // Pregunta y respuesta
         pTextPequeno.style = Paint.Style.FILL
         pTextPequeno.color = Color.BLACK
         pTextPequeno.textSize = 60f
+        pTextPequeno.color = ResourcesCompat.getColor(resources, R.color.lightblue, null)
+
+        PtextoRespuesta.style = Paint.Style.FILL
+        PtextoRespuesta.color = Color.BLACK
+        PtextoRespuesta.textSize = 60f
+
+    }
+
+    override fun onDraw(canvas: Canvas){
+        val alto = measuredHeight.toFloat()
+        val ancho = measuredWidth.toFloat()
+
+        // Cuadrados
+//        canvas.drawRoundRect(60f, 300f, ancho-60f, alto-150f, 20f, 20f, cuadro)
+        canvas.drawRoundRect(60f, 300f, ancho-60f, 460f, 20f, 20f, pRelleno)
+        canvas.drawRoundRect(60f, 500f, ancho-60f, (alto/2), 20f, 20f, cuadro)
+//        canvas.drawRoundRect(60f, (alto/2)+300f, ancho-60f, alto-200, 20f, 20f, cuadro)
+
+        siguiente!!.draw(canvas)
+
+
+        // Si el juego no ha acabado
+        if(!acabo &&  original.size != 0){
+            canvas.drawText(tema, (canvas.width / 2).toFloat(), 400f, pText)
+
+//            canvas.drawText(preguntas[index], 90f, 540f, pText)
+            val mTextLayout = StaticLayout(
+                original[index].get(0),
+                pTextPequeno,
+                canvas.width-150,
+                Layout.Alignment.ALIGN_NORMAL,
+                1.0f,
+                0.0f,
+                false
+            )
+
+            canvas.save()
+
+            // calculate x and y position where your text will be placed
+            var textX = 100f
+            var textY = 530f
+
+            canvas.translate(textX, textY)
+            mTextLayout.draw(canvas)
+            canvas.restore()
+        }
+
+        if(respuesta && original.size != 0){
+            val mTextLayout = StaticLayout(
+                original[index].get(1),
+                pTextPequeno,
+                canvas.width-200,
+                Layout.Alignment.ALIGN_CENTER,
+                1.0f,
+                0.0f,
+                false
+            )
+
+            canvas.save()
+
+            // calculate x and y position where your text will be placed
+            var textX = 100f
+            var textY = alto/2 + 600f
+
+            canvas.translate(textX, textY)
+            mTextLayout.draw(canvas)
+            canvas.restore()
+        }
+
+    }
+
+    override fun onSizeChanged (w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        //obtenemos las dimensiones del control
+        val alto = measuredHeight.toFloat()
+        val ancho = measuredWidth.toFloat()
+
+        siguiente = AppCompatResources.getDrawable(getContext(), R.drawable.siguiente1)
+        siguiente!!.setBounds((ancho-240).toInt(), (alto/2).toInt()+50, (ancho).toInt()-60, (alto/2).toInt()+250)
+    }
+
+    override fun onTouchEvent(event: MotionEvent) : Boolean {
+        //obtenemos las dimensiones del control
+        val alto = measuredHeight.toFloat()
+        val ancho = measuredWidth.toFloat()
+
+        if(event.x >= (ancho-240).toInt() && event.x <= (ancho).toInt()-60 && event.y >= (alto/2).toInt()-50 && event.y <= (alto/2).toInt()+250 && !acabo && respuesta){
+            nextScreen = true
+            respuesta = false
+            index ++
+        }else if(event.x >= 60f && event.x <= ancho-60f){
+            if(event.y >= (alto/2)+300f && event.y <= alto-200){
+                respuesta = !respuesta
+            }
+        }
+
+        if(index > original.size){
+            acabo = true
+            respuesta = false
+        }
+
+        this.invalidate()
+        return super.onTouchEvent(event)
+    }
+
+
+    fun setArray(array: Array<Array<String>>, tema: Int){
+        when (tema){
+            1 -> this.tema = "CONTINENTES"
+            2 -> this.tema = "OCÉANOS"
+            3 -> this.tema = "ÁRTICA y ANTÁRTICA"
+            4 -> this.tema = "MÉXICO ESTADOS"
+            5 -> this.tema = "MÉXICO CAPITALES"
+            6 -> this.tema = "AMÉRICA"
+            7 -> this.tema = "ASIA"
+        }
+
+        original = array
+        original.shuffle()
+//        for(i in 0..original.size){
+//            preguntas[i] = original.get(i).get(0)
+//            respuestaText[i] = original.get(i).get(1)
+//        }
+
     }
 
 
@@ -91,130 +217,6 @@ class Cards : View {
             res = limite
         }
         return res
-    }
-
-    override fun onDraw(canvas: Canvas){
-        val alto = measuredHeight.toFloat()
-        val ancho = measuredWidth.toFloat()
-
-//       fondo!!.draw(canvas)
-
-        // Cuadrados
-        canvas.drawRoundRect(60f, 300f, ancho-60f, alto-150f, 20f, 20f, cuadro)
-        canvas.drawRoundRect(60f, 300f, ancho-60f, 460f, 20f, 20f, pRelleno)
-        siguiente!!.draw(canvas)
-
-
-        // Si el juego no ha acabado
-        if(!acabo){
-
-            pText.textAlign = Paint.Align.CENTER
-            val xPos = (canvas.width / 2)
-            canvas.drawText(tema, xPos.toFloat(), 400f, pText)
-
-//            canvas.drawText(tema, ancho/2-180, 400f, pText)
-//            canvas.drawText(preguntas[index], 90f, 540f, pText)
-            val mTextLayout = StaticLayout(
-                preguntas[index],
-                pTextPequeno,
-                ancho.toInt()-200,
-                Layout.Alignment.ALIGN_CENTER,
-                1.0f,
-                0.0f,
-                false
-            )
-            canvas.save()
-
-            // calculate x and y position where your text will be placed
-            var textX = 100f
-            var textY = 530f
-
-            canvas.translate(textX, textY)
-            mTextLayout.draw(canvas)
-            canvas.restore()
-        }
-
-        if(respuesta){
-            val mTextLayout = StaticLayout(
-                respuestaText[index],
-                pTextPequeno,
-                ancho.toInt()-200,
-                Layout.Alignment.ALIGN_CENTER,
-                1.0f,
-                0.0f,
-                false
-            )
-            canvas.save()
-
-            // calculate x and y position where your text will be placed
-            var textX = 100f
-            var textY = alto/2 +200
-
-            canvas.translate(textX, textY)
-            mTextLayout.draw(canvas)
-            canvas.restore()
-        }
-
-    }
-
-    override fun onSizeChanged (w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-        //obtenemos las dimensiones del control
-        val alto = measuredHeight.toFloat()
-        val ancho = measuredWidth.toFloat()
-
-        fondo = AppCompatResources.getDrawable(getContext(), R.drawable.map)
-        fondo!!.setBounds(40, (alto/2).toInt()-100, (ancho).toInt()-20, (alto-100).toInt())
-        fondo!!.setAlpha(100)
-
-        siguiente = AppCompatResources.getDrawable(getContext(), R.drawable.siguiente)
-        siguiente!!.setBounds((ancho-250).toInt(), (alto/2).toInt(), (ancho).toInt()-50, (alto/2).toInt()+200)
-    }
-
-    override fun onTouchEvent(event: MotionEvent) : Boolean {
-        //obtenemos las dimensiones del control
-        val alto = measuredHeight.toFloat()
-        val ancho = measuredWidth.toFloat()
-
-        if(event.x >= (ancho-250).toInt() && event.x <= (ancho).toInt()-50 && event.y >= (alto/2).toInt() && event.y <= (alto/2).toInt()+200){
-            nextScreen = true
-            respuesta = false
-            index ++
-        }else if(event.x >= 60f && event.x <= ancho-60f){
-            if(event.y >= 300f && event.y <= alto-150f){
-                respuesta = !respuesta
-            }
-        }
-//        if(index > original.size){
-//            acabo = true
-//            respuesta = false
-//        }
-
-        this.invalidate()
-        return super.onTouchEvent(event)
-    }
-
-
-    fun setArray(array: Array<Array<String>>, tema: Int){
-        when (tema){
-            1 -> this.tema = "Continentes"
-            2 -> this.tema = "Océanos"
-            3 -> this.tema = "Ártica y Antártica"
-            4 -> this.tema = "México estados"
-            5 -> this.tema = "México capitales"
-            6 -> this.tema = "América"
-            7 -> this.tema = "Asia"
-        }
-
-        var pos = 0
-        original = array
-        original.shuffle()
-        for(i in 0..original.size){
-            preguntas[pos] = original.get(i).get(0)
-            respuestaText[pos] = original.get(i).get(1)
-            pos++
-        }
-
     }
 
 }

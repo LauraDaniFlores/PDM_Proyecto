@@ -145,13 +145,15 @@ class ArticaAntarticaNiveles: View {
 
         //Nivel 1
         if(event.x >= 10 && event.x <= 460 && event.y >=  (altonivel + ((altonivel1*2))-50) && event.y <= (altonivel + ((altonivel1*2))-50+340) && dbBoolean[0]){
-
+            val intent = Intent(context, Cards_Inter::class.java)
+            intent.putExtra("modulo", "3")
+            context.startActivity(intent)
         }
 
         //Nivel 2
         if(event.x >= anchonivel+50 && event.x <= (anchonivel+50+268) && event.y >= (altonivel + (altonivel1) - 90) && event.y <= (altonivel + (altonivel1- 30 + 250)) && dbBoolean[1]){
             val intent = Intent(context, Memorama_Inter::class.java)
-            intent.putExtra("modulo", 3);
+            intent.putExtra("modulo", "3");
             context.startActivity(intent)
         }
 
