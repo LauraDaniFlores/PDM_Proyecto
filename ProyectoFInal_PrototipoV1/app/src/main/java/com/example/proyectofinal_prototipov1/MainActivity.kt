@@ -64,6 +64,11 @@ class MainActivity : AppCompatActivity() {
                 startActivity(i)
             }
             R.id.carrera -> {
+                if (mediaPlayer.isPlaying) {
+                    mediaPlayer.stop()
+                    mediaPlayer.prepare()
+                }
+                mediaPlayer.start()
                 val i: Intent = Intent(
                     this@MainActivity,
                     Trayecto_Inter::class.java

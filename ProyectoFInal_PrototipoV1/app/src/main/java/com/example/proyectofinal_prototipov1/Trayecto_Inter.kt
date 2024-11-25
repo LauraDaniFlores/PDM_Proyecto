@@ -13,9 +13,6 @@ class Trayecto_Inter : AppCompatActivity() {
         setContentView(R.layout.trayecto)
 
         var trayecto = findViewById<Trayecto>(R.id.trayecto)
-        var scroll = findViewById<ScrollView>(R.id.scroll)
-
-
 
 
 

@@ -14,7 +14,7 @@
 <!--        android:layout_height="100dp"-->
 <!--        android:id="@+id/configuracion"-->
 <!--        app:casa="true"-->
-<!--        app:pausar="true"-->
+<!--        app:pausar="false"-->
 <!--        app:musica="lauvparis"-->
 <!--        />-->
 
