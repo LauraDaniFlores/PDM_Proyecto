@@ -7,8 +7,11 @@ import android.view.View.OnClickListener
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Toast
-import com.dgfp.practica14kt_controlp3.OnSelectedMemorama
+import com.example.proyectofinal_prototipov1.DBSQLite
+import com.example.proyectofinal_prototipov1.OnChangeScoreListener
+import com.example.proyectofinal_prototipov1.OnTimeStopListener
 import com.example.proyectofinal_prototipov1.R
+import java.util.Date
 
 class Memorama: LinearLayout {
     var btn1: ImageButton? = null
@@ -29,9 +32,21 @@ class Memorama: LinearLayout {
     private var select = 0
     private var flag:Boolean = false
 
-    private var listener: OnSelectedMemorama? = null
-    fun setOnDateChangeListener(l: OnSelectedMemorama){
+    private var puntaje = 0
+    private var tiempo = 0
+
+    // Base de datos
+    var db: DBSQLite = DBSQLite(context)
+
+    //Listener
+    var listener: OnChangeScoreListener? = null
+    fun setListenerScore(l: OnChangeScoreListener){
         listener = l
+    }
+
+    var listenertime: OnTimeStopListener? = null
+    fun setOnTimeStotListener(l: OnTimeStopListener){
+        listenertime = l
     }
 
     constructor(context: Context? ) : super(context){
@@ -121,9 +136,14 @@ class Memorama: LinearLayout {
             if(pos != select){
                 if(par.get(pos) == par.get(select)){
                     touchBool[pos] = true
+                    puntaje += 20
+                    listener!!.SetonScoreChange(
+                        puntaje
+                    )
                     if(ganado()){
                         Toast.makeText(context, "¡Ganaste!",
                             Toast.LENGTH_LONG).show();
+                        listenertime!!.OnTimeStop(true)
                     }
                 }else if(touchBool[pos]){
                     touch = 1
@@ -131,6 +151,10 @@ class Memorama: LinearLayout {
                     touchBool[pos] = true
                     changeImage()
                     flag = true
+                    puntaje -= 5
+                    listener!!.SetonScoreChange(
+                        puntaje
+                    )
                 }
                 touch = 0
             }else{
@@ -189,6 +213,17 @@ class Memorama: LinearLayout {
             }
         }
         return true
+    }
+
+    fun setTiempo(tiem: Int){
+        tiempo = tiem
+    }
+    fun insertardb(modulo: Int){
+        if(db.nivelDesbloqueado(1, 4)){
+            db.guardarRegistro(modulo, 2, tiempo, puntaje, Date(), false)
+        }else{
+            db.guardarRegistro(modulo, 3, tiempo, puntaje, Date(), true)
+        }
     }
 
 }

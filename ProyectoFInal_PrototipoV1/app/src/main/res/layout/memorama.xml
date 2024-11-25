@@ -9,12 +9,12 @@
 
     <com.example.proyectofinal_prototipov1.Configuracion
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:id="@+id/configuracion"
         app:casa="true"
-        app:pausar="true"
+        app:pausar="false"
         app:musica="lauvparis"
-        android:layout_marginBottom="10dp"
+        app:tiempopuntaje="true"
         />
 
     <com.dgfp.proyectojuego1.Memorama
