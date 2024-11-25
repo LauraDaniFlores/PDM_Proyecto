@@ -4,5 +4,6 @@
         <attr name="casa" format="string"/>
         <attr name="pausar" format="string"/>
         <attr name="musica" format="string"/>
+        <attr name="tiempopuntaje" format="string"/>
     </declare-styleable>
 </resources>

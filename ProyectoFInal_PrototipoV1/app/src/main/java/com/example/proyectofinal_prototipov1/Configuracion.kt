@@ -22,6 +22,9 @@ class Configuracion : View {
     private var pausar: Drawable? = null
     private var play: Drawable? = null
 
+    private var puntaje: Drawable? = null
+    private var tiempo: Drawable? = null
+
 
     //Rectangulos
     private val cuadrado = Paint()
@@ -30,15 +33,25 @@ class Configuracion : View {
     private val textPaint = Paint()
     private val textNivel = Paint()
 
+    //Tiempo
+    private var time = 0
+    private var timeStop = false
+
+    //Puntaje
+    private var score = 0
+
+
     //App
     private var casaBol: Boolean = false
     private var pausarBol: Boolean = false
     private var musicString: String = ""
+    private var puntajetiempo: Boolean = false
 
     //Para cambiar las imágenes
     private var desplegar = false
     private var pausaroplay = true
     private var sonidoono = true
+
 
     //Audio
     private var music: MediaPlayer? = null
@@ -51,21 +64,47 @@ class Configuracion : View {
         val a = getContext().obtainStyledAttributes(attrs, R.styleable.Configuracion)
         casaBol = a.getString(R.styleable.Configuracion_casa).toBoolean()
         pausarBol = a.getString(R.styleable.Configuracion_pausar).toBoolean()
+        puntajetiempo = a.getString(R.styleable.Configuracion_tiempopuntaje).toBoolean()
         musicString = a.getString(R.styleable.Configuracion_musica).toString()
         music = MediaPlayer.create(context, resources.getIdentifier(musicString, "raw", context?.getPackageName()))
 //        music = MediaPlayer.create(context, R.raw.jojisantuary)
         music?.start()
+        val hilo1: Thread = object : Thread() {
+            @Synchronized
+            override  fun run(){
+                while(true){
+                    try{
+                        if(!timeStop) {
+                            sleep(1000)
+                            time++
+                        }
+                    }catch (e: InterruptedException){}
+                }
+            }
+        }
+        hilo1.start()
     }
     private fun inicializa() {
         textPaint.isAntiAlias = true
-        textPaint.textSize = 40f
+        textPaint.textSize = 50f
+        textPaint.textAlign = Paint.Align.LEFT
+        textPaint.color = Color.BLACK
     }
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvas.drawColor(Color.argb(0, 255, 255, 255));
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
+        val margen = 50
+        val margen1 = 25
         config!!.draw(canvas)
+        if(puntajetiempo!!){
+            tiempo!!.draw(canvas)
+            puntaje!!.draw(canvas)
+            canvas.drawText(time.toString(), (margen*2) + 75f, margen1 + 50f, textPaint)
+            canvas.drawText(score.toString(), (margen*2) + 75f, (margen1*2) + 50f + 75 + 15, textPaint)
+
+        }
 
         if(desplegar){
             if(casaBol){
@@ -87,6 +126,8 @@ class Configuracion : View {
 
 //        canvas.drawText(pausaroplay.toString(),30f, 30f,textPaint)
 
+        tiempo!!.setBounds(margen, margen1, margen + 75, margen1 + 75)
+
         invalidate()
     }
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -95,6 +136,7 @@ class Configuracion : View {
         val ancho = measuredWidth.toFloat()
         val cuadrado = 125
         val margen = 50
+        val margen1 = 25
         config = AppCompatResources.getDrawable(getContext(), R.drawable.configuraciones)
         config!!.setBounds( ancho.toInt() - cuadrado - margen, margen, ancho.toInt()-margen, margen + cuadrado)
         musica = AppCompatResources.getDrawable(getContext(), R.drawable.sonido)
@@ -107,12 +149,19 @@ class Configuracion : View {
         pausar!!.setBounds(ancho.toInt() - (cuadrado * 4) - (margen * 4), margen, ancho.toInt() - (margen * 4) - (cuadrado * 3), margen + cuadrado)
         play = AppCompatResources.getDrawable(getContext(), R.drawable.play)
         play!!.setBounds(ancho.toInt() - (cuadrado * 4) - (margen * 4), margen, ancho.toInt() - (margen * 4) - (cuadrado * 3), margen + cuadrado)
+
+        tiempo = AppCompatResources.getDrawable(getContext(), R.drawable.time)
+        tiempo!!.setBounds(margen, margen1, margen + 75, margen1 + 75)
+        puntaje = AppCompatResources.getDrawable(getContext(), R.drawable.star)
+        puntaje!!.setBounds(margen, (margen1*2) + 75, margen + 75, (margen1*2) + (75*2))
+
     }
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
         val cuadrado = 125
         val margen = 50
+
 
 
         if (event.actionMasked == MotionEvent.ACTION_DOWN || event.actionMasked == MotionEvent.ACTION_POINTER_DOWN) {
@@ -178,5 +227,18 @@ class Configuracion : View {
     }
     fun pausaJuego() : Boolean{
         return pausarBol
+    }
+    fun pausarMusica(){
+        music?.stop()
+    }
+
+    fun actuaizarPuntaje(puntaje: Int) {
+        score = puntaje
+    }
+    fun detenerTiempo(){
+        timeStop = true
+    }
+    fun gettime() : Int{
+        return time
     }
 }

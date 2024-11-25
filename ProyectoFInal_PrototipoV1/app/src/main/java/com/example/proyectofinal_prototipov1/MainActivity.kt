@@ -1,5 +1,6 @@
 package com.example.proyectofinal_prototipov1
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.MediaPlayer
 import android.media.SoundPool
@@ -84,5 +85,9 @@ class MainActivity : AppCompatActivity() {
                 startActivity(i)
             }
         }
+    }
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+//        Toast.makeText(applicationContext, "Back Button Pressed", Toast.LENGTH_SHORT).show()
     }
 }
