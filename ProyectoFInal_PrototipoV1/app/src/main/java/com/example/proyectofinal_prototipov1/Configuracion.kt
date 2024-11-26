@@ -71,8 +71,8 @@ class Configuracion : View {
         musicString = a.getString(R.styleable.Configuracion_musica).toString()
         music = MediaPlayer.create(context, resources.getIdentifier(musicString, "raw", context?.getPackageName()))
 //        music = MediaPlayer.create(context, R.raw.jojisantuary)
-        music?.start()
-        music?.setLooping(true);
+//        music?.start()
+        music?.setLooping(true)
 
 //        music?.setVolume(30f,30f)
 
@@ -260,8 +260,11 @@ class Configuracion : View {
         return pausarBol
     }
     fun detenerMusica(){
-        music?.stop()
-        music?.release()
+        music?.pause()
+//        music?.release()
+    }
+    fun startMusica(){
+        music?.start()
     }
 
     fun actuaizarPuntaje(puntaje: Int) {

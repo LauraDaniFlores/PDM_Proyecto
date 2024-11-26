@@ -76,4 +76,10 @@ class Memorama_Inter : AppCompatActivity() {
         configuraciones.detenerMusica() // Liberar recursos
         super.onStop()
     }
+
+    override fun onStart() {
+        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
+        configuraciones.startMusica() // Empezar de nuevo la música
+        super.onStart()
+    }
 }

@@ -41,4 +41,10 @@ class ModulosIntermedio: AppCompatActivity() {
 //        Toast.makeText(applicationContext, "On Stop", Toast.LENGTH_SHORT).show()
         super.onStop()
     }
+
+    override fun onStart() {
+        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
+        configuraciones.startMusica() // Empezar de nuevo la música
+        super.onStart()
+    }
 }
