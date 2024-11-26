@@ -56,8 +56,32 @@ class Felicidades: View {
         fondo!!.draw(canvas)
         canvas.drawText(nivel.toString(), 880f, 1350f, text1)
         canvas.drawText(modulo.toString(), 880f, 1480f, text1)
-        canvas.drawText(tiempo.toString(), 880f, 1820f, text)
         canvas.drawText(puntaje.toString(), 880f, 2023f, text)
+
+
+        var auxmin = 0
+        var auxseg = 0
+        var auxminstr = "00"
+        var auxsegstr = "00"
+        if(tiempo > 60){
+            auxseg = tiempo%60
+            auxmin = tiempo-auxseg
+            auxmin = auxmin/60
+            if(auxmin >= 10){
+                auxminstr = auxmin.toString()
+            }else{
+                auxminstr = "0"+auxmin.toString()
+            }
+        }else{
+            auxseg = tiempo
+            auxminstr = "00"
+        }
+        if(auxseg >= 10){
+            auxsegstr = auxseg.toString()
+        }else{
+            auxsegstr = "0"+auxseg.toString()
+        }
+        canvas.drawText(auxminstr+":"+auxsegstr, 880f, 1820f, text)
 
         invalidate()
     }

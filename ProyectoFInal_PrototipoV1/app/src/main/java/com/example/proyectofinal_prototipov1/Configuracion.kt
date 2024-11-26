@@ -98,12 +98,36 @@ class Configuracion : View {
         val margen = 50
         val margen1 = 25
         config!!.draw(canvas)
+
+        var auxmin = 0
+        var auxseg = 0
+        var auxminstr = ""
+        var auxsegstr = ""
+        config!!.draw(canvas)
         if(puntajetiempo!!){
             tiempo!!.draw(canvas)
             puntaje!!.draw(canvas)
-            canvas.drawText(time.toString(), (margen*2) + 75f, margen1 + 50f, textPaint)
+//            canvas.drawText(time.toString(), (margen*2) + 75f, margen1 + 50f, textPaint)
+            if(time > 60){
+                auxseg = time%60
+                auxmin = time-auxseg
+                auxmin = auxmin/60
+                if(auxmin >= 10){
+                    auxminstr = auxmin.toString()
+                }else{
+                    auxminstr = "0"+auxmin.toString()
+                }
+            }else{
+                auxseg = time
+                auxminstr = "00"
+            }
+            if(auxseg >= 10){
+                auxsegstr = auxseg.toString()
+            }else{
+                auxsegstr = "0"+auxseg.toString()
+            }
+            canvas.drawText(auxminstr+":"+auxsegstr, (margen*2) + 75f, margen1 + 50f, textPaint)
             canvas.drawText(score.toString(), (margen*2) + 75f, (margen1*2) + 50f + 75 + 15, textPaint)
-
         }
 
         if(desplegar){
