@@ -45,11 +45,20 @@ class MaravillasMundo: View {
     // Texto
     var maravillasText = arrayOf("ChinChén Itzá", "Coliseo Romano", "Cristo Redendor", "Muralla China", "Taj Mahal", "Petra", "Machu Pichu")
     var paises = arrayOf("México", "Italia", "Brasil", "China", "India", "Jordania", "Perú")
-    var datoCurioso = arrayOf("La pirámide de Kukulkan tiene 365 escalones, uno por cada día del año.", "", "", "", "", "", "")
-
+    var datoCurioso = arrayOf(
+        arrayOf("La pirámide de Kukulkan tiene 365 escalones, uno por cada día del año.", "El complejo arqueológico de Chichén Itzá fue declarado patrimonio de la Humanidad por la Unesco en 1988, lo que dio lugar a la más rigurosa protección de esta antigua ciudad maya.", "La pirámide de Chichen Itzá fue erigida para honrar a Kukulkán, la serpiente emplumada. Esta deidad maya encargada de fertilizar la tierra es la principal protagonista del templo."),
+        arrayOf("Se construyó en el siglo I y fue construido por el emperador Vespasiano y sus hijos Tito y Domiciano.", "Se estima que participaron entre 60,000 y 100,000 personas en su construcción.", "El Coliseo se construyó entre los años 72 y 80 d.C. Los juegos inaugurales del Coliseo se celebraron entre los años 80 y 81 d.C. El emperador Vespasiano inició la construcción del Coliseo, pero murió en el año 79 d.C., antes de que se terminara el piso superior. Su hijo, el emperador Tito, terminó el piso superior."),
+        arrayOf( " La estatua mide 38 metros de alto, 28 de ancho, pesa 1145 toneladas, y se alza a 710 metros sobre el nivel del mar.", "a estatua del Cristo Redentor es completamente hueca, a excepción de las manos.",
+                "De hecho, se puede entrar en el interior y salir por las manos o por la cabeza, aunque el acceso sólo está permitido a personal de mantenimiento y a miembros autorizados por la Arquidiócesis de Río.", "La estatua del Cristo Redentor fue construida en Francia y fue trasladada a Brasil por partes. Fueron necesarios cinco años de trabajo (de 1926 a 1931) para completar la obra. La construcción se hizo a la inversa, es decir, de la cabeza a los pies y no se registraron víctimas mortales, algo poco común para la época."),
+        arrayOf("Su nombre original en chino es changcheng, que significa 'larga muralla'.", "Su construcción se extendió por más de 2,000 años.", "Es la estructura más larga construida por el hombre, con 21,196 kilómetros de longitud. \n" +
+                "Su altura promedio es de 7.8 metros.", "La Gran Muralla China se construyó para proteger la frontera norte de China de los ataques de las tribus nómadas de Mongolia y Manchuria. Controlar la inmigración y la emigración y recaudar impuestos"),
+        arrayOf("Se construyó en 22 años con el trabajo de más de 20,000 personas y más de 1,000 elefantes.", "El Taj Mahal puede cambiar de color hasta tres veces al día, dependiendo de la luz del sol. En la madrugada se ve rosáceo, en la mañana blanco brillante y en la noche dorado.", " El Taj Mahal es un mausoleo construido por el emperador mogol Sha Jahan en honor a su esposa preferida, Mumtaz Mahal (la «Elegida del Palacio» o la «Joya del Palacio»), muerta al dar a luz.", "Taj Mahal (abreviación del nombre de Mumtaz Mahal) significa también “La Joya del Palacio”."),
+        arrayOf(" fue una de las ciudades más prósperas de Oriente Medio debido a su posición geográfica, gracias a la que confluyen hasta siete rutas de comercio.", "Petra es uno de los sitios arqueológicos en el que se mezclan las influencias de las tradiciones del antiguo Oriente y las de la arquitectura helenística.", "Fue bautizada como 'la ciudad para el día de mañana'", "El 80 % de la ciudad sigue enterrada."),
+        arrayOf("Machu Picchu está conformada por 150 edificios; entre los cuales hay templos, santuarios, baños y casas. Así como también se pueden encontrar 100 tramos de escaleras hechas de piedra.", "Machu Picchu está dividida en 2 zonas: agrícola y urbana. Se estima que en esta ciudad escondida entre las montañas vivieron poco más de 1000 personas", "Machu Picchu nunca fue terminada, solo fue abandonada. Gracias a esto, los españoles no pudieron destruirla o modificarla como lo hicieron con otras ciudades incas."))
+    var dato: String = ""
     //SQLite
     var db: DBSQLite = DBSQLite(context)
-    var desbloqueados = arrayOf(true, false , false, false, false, false, false)
+    var desbloqueados = arrayOf(false, false , false, false, false, false, false)
 
 
     constructor(context: Context?) : super(context){
@@ -91,7 +100,7 @@ class MaravillasMundo: View {
 
         val typeface = getResources().getFont(R.font.kumbhsans_extrabold)
         pText.setTypeface(typeface)
-//        comprobarBaseDeDatos()
+        comprobarBaseDeDatos()
     }
 
     fun comprobarBaseDeDatos(){
@@ -165,7 +174,7 @@ class MaravillasMundo: View {
             cancel!!.draw(canvas)
 
             val mTextLayout = StaticLayout(
-                datoCurioso.get(0),
+                dato,
                 pTextPequeno,
                 ((ancho/4)*3-100).toInt(),
                 Layout.Alignment.ALIGN_CENTER,
@@ -176,7 +185,7 @@ class MaravillasMundo: View {
             canvas.save()
 
             // calculate x and y position where your text will be placed
-            var textX = ancho/4-100
+            var textX = ancho/4-50
             var textY = alto/4+200
 
             canvas.translate(textX, textY)
@@ -254,6 +263,7 @@ class MaravillasMundo: View {
 //                    Toast.LENGTH_LONG).show();
                 maravilla = i
                 mostrar = true
+                dato = dato(datoCurioso[maravilla!!])
             }
 
             ytext = ytextE.toInt()
@@ -267,6 +277,11 @@ class MaravillasMundo: View {
 
         this.invalidate()
         return super.onTouchEvent(event)
+    }
+
+    fun dato(array: Array<String>): String{
+        array.shuffle()
+        return array[0]
     }
 
 }
