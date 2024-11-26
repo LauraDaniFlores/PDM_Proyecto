@@ -15,6 +15,5 @@ class Trayecto_Inter : AppCompatActivity() {
         var trayecto = findViewById<Trayecto>(R.id.trayecto)
 
 
-
     }
 }

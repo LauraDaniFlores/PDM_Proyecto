@@ -2,20 +2,26 @@ package com.example.proyectofinal_prototipov1
 
 import android.content.Context
 import android.graphics.Canvas
+import android.graphics.Color
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
+import android.text.Layout
+import android.text.StaticLayout
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
+import androidx.core.content.res.ResourcesCompat
 
 
 class MaravillasMundo: View {
     val pText = TextPaint()
+    val pTextMas = TextPaint()
+    var pTextPequeno: TextPaint = TextPaint()
     val pRelleno = Paint()
     val cuadro = Paint()
     var fondo: Drawable? = null
@@ -29,13 +35,21 @@ class MaravillasMundo: View {
     var Hordania: Drawable? = null
     var MachuPichu: Drawable? = null
 
+    // Vectores
+    var light: Drawable? = null
+    var cancel: Drawable? = null
+
+    var mostrar:Boolean = false
+    var maravilla: Int? = null
+
     // Texto
     var maravillasText = arrayOf("ChinChén Itzá", "Coliseo Romano", "Cristo Redendor", "Muralla China", "Taj Mahal", "Petra", "Machu Pichu")
     var paises = arrayOf("México", "Italia", "Brasil", "China", "India", "Jordania", "Perú")
+    var datoCurioso = arrayOf("La pirámide de Kukulkan tiene 365 escalones, uno por cada día del año.", "", "", "", "", "", "")
 
     //SQLite
     var db: DBSQLite = DBSQLite(context)
-    var desbloqueados = arrayOf(false, false , false, false, false, false, false)
+    var desbloqueados = arrayOf(true, false , false, false, false, false, false)
 
 
     constructor(context: Context?) : super(context){
@@ -50,9 +64,28 @@ class MaravillasMundo: View {
             super(context, attrs, defStyleAttr, defStyleRes)
 
     private fun inicializa() {
-        // Asignamos los colores
+        val customTypeface = resources.getFont(R.font.pact)
+
         pText.textSize = 40f
         pText.style = Paint.Style.FILL
+        pTextMas.textSize = 100f
+        pTextMas.style = Paint.Style.FILL
+        pTextMas.textAlign = Paint.Align.CENTER
+        pTextMas.color = Color.WHITE
+
+        pTextPequeno.style = Paint.Style.FILL
+        pTextPequeno.color = Color.WHITE
+        pTextPequeno.textSize = 40f
+        pTextPequeno.typeface = customTypeface
+
+        cuadro.style = Paint.Style.STROKE
+        cuadro.color = Color.WHITE
+        cuadro.strokeWidth = 20f
+        cuadro.color = ResourcesCompat.getColor(resources, R.color.ic_launcher_background, null)
+
+        pRelleno.strokeWidth = 40f
+        pRelleno.color = ResourcesCompat.getColor(resources, R.color.lightblue, null)
+        pTextMas.typeface = customTypeface
 //        val plain = Typeface.createFromAsset(context.assets, "kumbhsans.ttf")
 //        pText.setTypeface(plain)
 
@@ -99,7 +132,6 @@ class MaravillasMundo: View {
         val ancho = measuredWidth.toFloat()
 
         ChinChenItza!!.draw(canvas)
-
         Coliseo!!.draw(canvas)
         CristoRedendor!!.draw(canvas)
         MurallaChina!!.draw(canvas)
@@ -122,6 +154,37 @@ class MaravillasMundo: View {
             ytext += (alto/4 -100)
         }
 
+        var xPos = ancho/2
+
+        if(mostrar){
+            canvas.drawRoundRect(ancho/4-100, alto/4-200, (ancho/4)*3+100, (alto/4)*3, 50f, 50f, pRelleno)
+            canvas.drawRoundRect(ancho/4-100, alto/4-200, (ancho/4)*3+100, (alto/4)*3, 50f, 50f, cuadro)
+
+            canvas.drawText("Dato Curioso", xPos, alto/4, pTextMas)
+            light!!.draw(canvas)
+            cancel!!.draw(canvas)
+
+            val mTextLayout = StaticLayout(
+                datoCurioso.get(0),
+                pTextPequeno,
+                ((ancho/4)*3-100).toInt(),
+                Layout.Alignment.ALIGN_CENTER,
+                1.0f,
+                0.0f,
+                false
+            )
+            canvas.save()
+
+            // calculate x and y position where your text will be placed
+            var textX = ancho/4-100
+            var textY = alto/4+200
+
+            canvas.translate(textX, textY)
+            mTextLayout.draw(canvas)
+            canvas.restore()
+        }
+        invalidate()
+
     }
 
     override fun onSizeChanged (w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -129,7 +192,6 @@ class MaravillasMundo: View {
         //obtenemos las dimensiones del control
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
-
 
         ChinChenItza = AppCompatResources.getDrawable(getContext(), R.drawable.chinchenitza)
         if(!desbloqueados[0]){ ChinChenItza!!.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)}) }
@@ -159,6 +221,11 @@ class MaravillasMundo: View {
         if(!desbloqueados[6]){ MachuPichu!!.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)}) }
         MachuPichu!!.setBounds(400, ((alto/4)*3-300).toInt(), (ancho/2+200).toInt(), (alto -400).toInt())
 
+        light = AppCompatResources.getDrawable(getContext(), R.drawable.baseline_lightbulb_24)
+        light!!.setBounds((ancho/2-80).toInt(), ((alto/4)*3-200).toInt(), (ancho/2+80).toInt(), ((alto/4)*3-40).toInt())
+
+        cancel = AppCompatResources.getDrawable(getContext(), R.drawable.baseline_cancel_24)
+        cancel!!.setBounds(((ancho/4)*3).toInt(), (alto/4-200).toInt(), ((ancho/4)*3+100).toInt(), ((alto/4-100)).toInt())
 
     }
 
@@ -181,14 +248,21 @@ class MaravillasMundo: View {
                 xtext = 400f
                 xtextE = (ancho/2+200)
             }
-            if(event.x in xtext..xtextE && event.y >= ytext && event.y <= ytextE){
-                Toast.makeText(context, "Maravilla " + i+1,
-                    Toast.LENGTH_LONG).show();
+
+            if(event.x in xtext..xtextE && event.y >= ytext && event.y <= ytextE && !mostrar && desbloqueados[i]) {
+//                Toast.makeText(context, "Maravilla " + i+1,
+//                    Toast.LENGTH_LONG).show();
+                maravilla = i
+                mostrar = true
             }
 
             ytext = ytextE.toInt()
             ytextE += (alto/4 -100).toInt()
 
+        }
+
+        if(mostrar && event.x in ((ancho/4)*3)..((ancho/4)*3+100) && event.y in (alto/4-200)..(alto/4-100)){
+            mostrar = false
         }
 
         this.invalidate()

@@ -18,21 +18,9 @@ class Trayecto : ScrollView {
     //Imagen de fondo
     private var fondo: Drawable? = null
     private var fondo1: Drawable? = null
-    private var fondo2: Drawable? = null
-    private var fondo3: Drawable? = null
-    private var fondo4: Drawable? = null
-    private var fondo5: Drawable? = null
-    private var fondo6: Drawable? = null
-    private var fondo7: Drawable? = null
 
     // Imagen para los niveles
-    private var nivel1: Drawable? = null
-    private var nivel2: Drawable? = null
-    private var nivel3: Drawable? = null
-    private var nivel4: Drawable? = null
-    private var nivel5: Drawable? = null
-    private var nivel6: Drawable? = null
-    private var nivel7: Drawable? = null
+    private var niveles = emptyArray<Array<Drawable>>()
 
     //Rectangulos
     private val cuadrado = Paint()
@@ -40,16 +28,16 @@ class Trayecto : ScrollView {
     private val circuloSelected = Paint()
     private val radio = 80f
 
-    private var anchoE = 0
-    private var altoE = 0
-
     //Textos
     private val textPaint = Paint()
     private val textNivel = Paint()
     private val textModulo = Paint()
 
     // Modulo
-    var modulo = arrayOf(true, false, false, false, false, false, false)
+    var modulo = arrayOf(true, false, false)
+    var pestana = 0
+    var colores = arrayOf(arrayOf( ResourcesCompat.getColor(resources, R.color.verdeCon, null),  ResourcesCompat.getColor(resources, R.color.azulOce, null)),
+        arrayOf( ResourcesCompat.getColor(resources, R.color.azulAr, null),  ResourcesCompat.getColor(resources, R.color.NaranjaMex, null),  ResourcesCompat.getColor(resources, R.color.NaranjaMex, null)), arrayOf(ResourcesCompat.getColor(resources, R.color.cafeAmer, null), ResourcesCompat.getColor(resources, R.color.cafeAsia, null)))
 
     //SQLite
     var db: DBSQLite = DBSQLite(context)
@@ -104,8 +92,9 @@ class Trayecto : ScrollView {
 
     fun comprobarBaseDeDatos(){
         for (i in 1..7){
-            for(j in 1..5)
-            dbBoolean[i-1][j-1] = db.nivelDesbloqueado(i, j)
+            for(j in 1..5) {
+                dbBoolean[i - 1][j - 1] = db.nivelDesbloqueado(i, j)
+            }
         }
     }
 
@@ -121,14 +110,11 @@ class Trayecto : ScrollView {
         val xPos = (ancho / 2)
         canvas.drawText("Trayecto", xPos, 300f, textNivel)
 
-        var cx = ancho/2 - 300f
+        var cx = ancho/2 - 200f
         var cy = 450f
-        for(i in 0.. 6){
-            if(i == 4){
-                cx = ancho/2 - 200f
-                cy = 650f
-            }
+        for(i in 0.. 2){
             if(modulo[i]){
+                circuloSelected.color = ResourcesCompat.getColor(resources, R.color.azulagua, null)
                 canvas.drawCircle(cx, cy, radio, circuloSelected)
             }else{
                 canvas.drawCircle(cx, cy, radio, circulo)
@@ -136,15 +122,29 @@ class Trayecto : ScrollView {
             canvas.drawText((i+1).toString(),cx-20, cy+20,textPaint)
             cx += 200f
         }
-
-        canvas.drawText("Continente", xPos, (alto/2 -30), textNivel)
-
-        fondo1!!.draw(canvas)
-        nivel1!!.draw(canvas)
-        nivel2!!.draw(canvas)
-        nivel3!!.draw(canvas)
-        nivel4!!.draw(canvas)
-        nivel5!!.draw(canvas)
+        var index = 0
+        var altoC = 600f
+        var k = 1
+        if(modulo[1]){
+            altoC = 500f
+            k = 2
+            index = 10
+        }else if(modulo[2]){
+            index = 25
+        }
+        for(j in 0..k){
+            circuloSelected.color = colores[pestana][j]
+            for (i in 0..4){
+                index ++
+                canvas.drawRoundRect(10f+(ancho/5*i), 700f+(altoC*j), (ancho/5)+(ancho/5*i)-5, 1100f+(altoC*j), 20f, 20f, circuloSelected)
+                canvas.drawText((index).toString(),80f+(ancho/5*i), 770f+(altoC*j), textPaint)
+                var datos =  db.Estadistica(j+1, i+1)
+                canvas.drawText(datos[0],15f+(ancho/5*i), 850f+(altoC*j), textPaint)
+                canvas.drawText(datos[0],15f+(ancho/5*i), 920f+(altoC*j), textPaint)
+                canvas.drawText(datos[0],15f+(ancho/5*i), 990f+(altoC*j), textPaint)
+            }
+        }
+//        canvas.drawText("Hola",10f, 850f, textPaint)
 
         invalidate()
     }
@@ -159,112 +159,28 @@ class Trayecto : ScrollView {
 //        fondo = AppCompatResources.getDrawable(getContext(), R.drawable.asiaback)
 //        fondo!!.setBounds(0, 0, ancho.toInt(), 2000)
 
+//        fondo1!!.setBounds(50, (alto/2 -200).toInt(), ancho.toInt()-50, (alto-50).toInt())
 
-        if(modulo[0]){
-            fondo1 = AppCompatResources.getDrawable(getContext(), R.drawable.continent1)
 
-            nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan1)
-            if(dbBoolean[0][0]){ nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan2)
-            }else{ nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.planetacandado) }
-            if(dbBoolean[0][1]){ nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan3)
-            }else{ nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.planetacandado) }
-            if(dbBoolean[0][2]){ nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan4)
-            }else{ nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.planetacandado) }
-            if(dbBoolean[0][3]){ nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.planetan5)
-            }else{ nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.planetacandado) }
-            anchoE = 200
-            altoE = 200
-        }else if(modulo[1]){
-            fondo1 = AppCompatResources.getDrawable(getContext(), R.drawable.ocean1)
-            if(dbBoolean[1][0]) { nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.coraln1)
-            }else{ nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.coralcandado) }
-            if(dbBoolean[1][1]) { nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.coral1n2)
-            }else{ nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.coralcandado) }
-            if(dbBoolean[1][2]) { nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.coraln3)
-            }else{ nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.coralcandado) }
-            if(dbBoolean[1][3]) { nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.coral1n4)
-            }else{ nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.coral1candado) }
-            if(dbBoolean[1][4]) { nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.coralcandado)
-            }else{ nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.coralcandado) }
-            anchoE = 286
-            altoE = 219
-        }else if(modulo[2]){
-            fondo1 = AppCompatResources.getDrawable(getContext(), R.drawable.polos1)
-            if(dbBoolean[2][0]) { nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.pino)
-            }else{ nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.pinocandado) }
-            if(dbBoolean[2][1]) { nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.pino2)
-            }else{ nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.pinocandado) }
-            if(dbBoolean[2][2]) { nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.pino3)
-            }else{ nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.pinocandado) }
-            if(dbBoolean[2][3]) { nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.pino4)
-            }else{ nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.pinocandado) }
-            if(dbBoolean[2][4]) { nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.pinos)
-            }else{ nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.pinoscandado) }
-            anchoE =268
-            altoE = 250
-        }else if(modulo[3]){
-
-        }else if(modulo[4]){
-
-        }else if(modulo[5]){
-            fondo1 = AppCompatResources.getDrawable(getContext(), R.drawable.americaback1)
-            if(dbBoolean[5][0]){ nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.pin1)
-            }else{ nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.pincandado) }
-            if(dbBoolean[5][1]){ nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.pin2)
-            }else{ nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.pincandado) }
-            if(dbBoolean[5][2]) { nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.pin3)
-            }else{ nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.pincandado) }
-            if(dbBoolean[5][3]) { nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.pin4)
-            }else{ nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.pincandado) }
-            if(dbBoolean[5][4]) { nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.pin5)
-            }else{ nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.pincandado) }
-            anchoE =200
-            altoE = 250
-        }else if(modulo[6]){
-            fondo1 = AppCompatResources.getDrawable(getContext(), R.drawable.asiaback1)
-            if(dbBoolean[6][0]) { nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.latern1)
-            }else{ nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.laterncandado) }
-            if(dbBoolean[6][1]) { nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.latern2)
-            }else{ nivel2 = AppCompatResources.getDrawable(getContext(), R.drawable.laterncandado) }
-            if(dbBoolean[6][2]) { nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.latern3)
-            }else{ nivel3 = AppCompatResources.getDrawable(getContext(), R.drawable.laterncandado) }
-            if(dbBoolean[6][3]) { nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.latern4)
-            }else{ nivel4 = AppCompatResources.getDrawable(getContext(), R.drawable.laterncandado) }
-            if(dbBoolean[6][4]) { nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.latern5)
-            }else{ nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.laterncandado) }
-            anchoE = 175
-            altoE = 240
-        }
-
-        fondo1!!.setBounds(50, (alto/2 -200).toInt(), ancho.toInt()-50, (alto-50).toInt())
-
-        nivel1!!.setBounds(100, (altonivel + (altonivel1-90)), 100+anchoE, (altonivel + (altonivel1)-90+altoE))
-        nivel2!!.setBounds((anchonivel*2), (altonivel + (altonivel1-130)), ((anchonivel*2)+anchoE),  (altonivel + (altonivel1)-130+altoE))
-        nivel3!!.setBounds((anchonivel*3)+100,  (altonivel + (altonivel1)-20), ((anchonivel*3)+100+anchoE), (altonivel + (altonivel1-20)+altoE))
-
-        nivel4!!.setBounds((anchonivel*2)-150, (altonivel + ((altonivel1*2)) + 50), ((anchonivel*2)-150+anchoE), (altonivel + ((altonivel1*2)) + 50 + altoE))
-        nivel5!!.setBounds((anchonivel*3)-50, (altonivel + ((altonivel1*2)) + 60), ((anchonivel*3)-50+anchoE), (altonivel + ((altonivel1*2)) + 60 + altoE))
     }
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
 
-        var cx = ancho/2 - 300f
+        var cx = ancho/2 - 200f
         var cy = 450f
-        for(i in 0.. 6){
-            if(i == 4){
-                cx = ancho/2 - 200f
-                cy = 650f
-            }
-            if(event.x >= cx - radio && event.x <= cx + radio && event.y >= cy - radio && event.y <= cy + radio){
-                for(j in 0..6){
+        for(i in 0.. 2){
+            if(event.x >= cx - radio && event.x <= cx + radio && event.y >= cy - radio && event.y <= cy + radio ){
+                for(j in 0..2){
                     modulo[j] = false
                 }
                 modulo[i] = true
+                pestana = i
 //                Toast.makeText(context, "modulo "+i, Toast.LENGTH_SHORT).show()
             }
             cx += 200f
         }
+
         invalidate()
         return true
     }
