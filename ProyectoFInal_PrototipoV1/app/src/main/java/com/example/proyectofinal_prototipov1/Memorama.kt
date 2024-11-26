@@ -219,10 +219,10 @@ class Memorama: LinearLayout {
         tiempo = tiem
     }
     fun insertardb(modulo: Int){
-        if(db.nivelDesbloqueado(1, 4)){
+        if(db.nivelDesbloqueado(1, 3)){
             db.guardarRegistro(modulo, 2, tiempo, puntaje, Date(), false)
         }else{
-            db.guardarRegistro(modulo, 3, tiempo, puntaje, Date(), true)
+            db.guardarRegistro(modulo, 2, tiempo, puntaje, Date(), true)
         }
     }
 

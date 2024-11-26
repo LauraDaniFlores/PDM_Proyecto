@@ -228,7 +228,7 @@ class Configuracion : View {
     fun pausaJuego() : Boolean{
         return pausarBol
     }
-    fun pausarMusica(){
+    fun detenerMusica(){
         music?.stop()
     }
 
@@ -240,5 +240,11 @@ class Configuracion : View {
     }
     fun gettime() : Int{
         return time
+    }
+    fun setMusica(musica: String){
+        music?.stop()
+        musicString = musica
+        music = MediaPlayer.create(context, resources.getIdentifier(musicString, "raw", context?.getPackageName()))
+        music?.start()
     }
 }

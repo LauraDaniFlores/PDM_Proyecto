@@ -1,6 +1,7 @@
 package com.example.proyectofinal_prototipov1
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
@@ -310,6 +311,15 @@ class Escoger: View {
         }else{
             db.guardarRegistro(modulo, 3, tiempo, puntaje, Date(), true)
         }
+        val intent = Intent(context, FelicidadesInter::class.java)
+
+        intent.putExtra("nivel", "3")
+        intent.putExtra("modulo", modulo.toString())
+        intent.putExtra("puntaje", puntaje.toString())
+        intent.putExtra("tiempo", tiempo.toString())
+
+        context.startActivity(intent)
+
     }
 }
 
