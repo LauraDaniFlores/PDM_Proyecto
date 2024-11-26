@@ -34,4 +34,11 @@ class ModulosIntermedio: AppCompatActivity() {
     override fun onBackPressed() {
 //        Toast.makeText(applicationContext, "Back Button Pressed", Toast.LENGTH_SHORT).show()
     }
+
+    override fun onStop() {
+        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
+        configuraciones.detenerMusica() // Liberar recursos
+//        Toast.makeText(applicationContext, "On Stop", Toast.LENGTH_SHORT).show()
+        super.onStop()
+    }
 }

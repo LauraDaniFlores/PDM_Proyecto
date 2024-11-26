@@ -71,4 +71,9 @@ class Memorama_Inter : AppCompatActivity() {
     override fun onBackPressed() {
 //        Toast.makeText(applicationContext, "Back Button Pressed", Toast.LENGTH_SHORT).show()
     }
+    override fun onStop() {
+        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
+        configuraciones.detenerMusica() // Liberar recursos
+        super.onStop()
+    }
 }

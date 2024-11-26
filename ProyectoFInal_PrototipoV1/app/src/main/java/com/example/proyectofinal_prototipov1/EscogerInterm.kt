@@ -49,8 +49,8 @@ class EscogerInterm: AppCompatActivity() {
 
 //        modulo = 2
 
-        Toast.makeText(this, "Intent " + modulo.toString(),
-            Toast.LENGTH_LONG).show()
+//        Toast.makeText(this, "Intent " + modulo.toString(),
+//            Toast.LENGTH_LONG).show()
 
         var conti = arrayOf(arrayOf("América", "Europa", "Asia", "África", "Oceanía"), arrayOf("Pacífico", "Atlántico", "Índico", "Antártico", "Ártico"), arrayOf("Ártica", "Antártica"),
             arrayOf("Baja California", "Sonora", "Sinaloa", "Chihuahua", "Coahuila", "Durango", "Nuevo León", "Tamaulipas", "Zacatecas", "Jalisco", "Nayarit", "Guanajuato", "Michoacán", "Guerrero", "Oaxaca", "Chiapas"),
@@ -71,5 +71,11 @@ class EscogerInterm: AppCompatActivity() {
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
 //        Toast.makeText(applicationContext, "Back Button Pressed", Toast.LENGTH_SHORT).show()
+    }
+    override fun onStop() {
+        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
+        configuraciones.detenerMusica() // Liberar recursos
+//        Toast.makeText(applicationContext, "On Stop", Toast.LENGTH_SHORT).show()
+        super.onStop()
     }
 }

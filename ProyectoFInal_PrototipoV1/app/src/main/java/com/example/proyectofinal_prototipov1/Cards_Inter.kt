@@ -53,5 +53,10 @@ class Cards_Inter: AppCompatActivity() {
         }
 
     }
+    override fun onStop() {
+        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
+        configuraciones.detenerMusica() // Liberar recursos
+        super.onStop()
+    }
 
 }

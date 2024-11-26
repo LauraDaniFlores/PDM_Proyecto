@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
+import android.media.MediaPlayer
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -44,6 +45,11 @@ class Escoger: View {
     private var tiempo = 0
     private var lenght = 4
     private var estadoCon = arrayOf(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+
+    //Audio
+    private var musicSuccess: MediaPlayer? = null
+    private var musicError: MediaPlayer? = null
+
 
 //    var numbers = arrayOf(0, 1)
 //    var conti = arrayOf("Ártica", "Antártica")
@@ -141,6 +147,13 @@ class Escoger: View {
         puntajetext.textSize = 35f
         puntajetext.color = Color.BLACK
 
+        //Inicializar el audio
+        musicSuccess = MediaPlayer.create(context, R.raw.bien)
+//        musicSuccess?.start()
+
+        musicError = MediaPlayer.create(context, R.raw.error)
+//        musicError?.start()
+
     }
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -227,6 +240,7 @@ class Escoger: View {
                 if(estadoCon[numbers[i]] != 1) {
                     if (numbers.get(no) == numbers[i]) {
                         estadoCon[numbers[i]] = 1
+                        musicSuccess?.start()
                         puntaje += 20
                         listener!!.SetonScoreChange(
                             puntaje
@@ -249,6 +263,7 @@ class Escoger: View {
                     } else {
                         estadoCon[numbers[i]] = 2
                         puntaje -= 5
+                        musicError?.start()
                         listener!!.SetonScoreChange(
                             puntaje
                         )

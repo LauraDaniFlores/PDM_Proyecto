@@ -1,5 +1,6 @@
 package com.example.proyectofinal_prototipov1
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Canvas
@@ -55,6 +56,8 @@ class Configuracion : View {
 
     //Audio
     private var music: MediaPlayer? = null
+    private var maxVolume = 40f
+
 
     constructor(context: Context?): super(context){
         inicializa()
@@ -69,6 +72,10 @@ class Configuracion : View {
         music = MediaPlayer.create(context, resources.getIdentifier(musicString, "raw", context?.getPackageName()))
 //        music = MediaPlayer.create(context, R.raw.jojisantuary)
         music?.start()
+        music?.setLooping(true);
+
+//        music?.setVolume(30f,30f)
+
         val hilo1: Thread = object : Thread() {
             @Synchronized
             override  fun run(){
@@ -254,6 +261,7 @@ class Configuracion : View {
     }
     fun detenerMusica(){
         music?.stop()
+        music?.release()
     }
 
     fun actuaizarPuntaje(puntaje: Int) {

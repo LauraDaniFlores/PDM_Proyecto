@@ -23,6 +23,8 @@ class Felicidades: View {
     private val text = Paint()
     private val text1 = Paint()
     private var azul = 0
+    private var musicSuccess: MediaPlayer? = null
+
 
     fun setVariables(time: Int, score: Int, nive: Int, modul: Int){
         tiempo = time
@@ -50,6 +52,8 @@ class Felicidades: View {
         text1.color = azul
         text1.textAlign = Paint.Align.CENTER
         text1.typeface = customTypeface
+        musicSuccess = MediaPlayer.create(context, R.raw.success)
+        musicSuccess?.start()
     }
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
