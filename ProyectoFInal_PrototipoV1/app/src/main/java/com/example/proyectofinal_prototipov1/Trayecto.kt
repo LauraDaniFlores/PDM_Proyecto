@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.drawable.AnimationDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.MotionEvent
@@ -19,9 +20,6 @@ class Trayecto : ScrollView {
     private var fondo: Drawable? = null
     private var fondo1: Drawable? = null
 
-    // Imagen para los niveles
-    private var niveles = emptyArray<Array<Drawable>>()
-
     //Rectangulos
     private val cuadrado = Paint()
     private val circulo = Paint()
@@ -33,22 +31,19 @@ class Trayecto : ScrollView {
     private val textNivel = Paint()
     private val textModulo = Paint()
 
+    // Gif
+    private var gif: AnimationDrawable? = null
+
     // Modulo
     var modulo = arrayOf(true, false, false)
     var pestana = 0
     var colores = arrayOf(arrayOf( ResourcesCompat.getColor(resources, R.color.verdeCon, null),  ResourcesCompat.getColor(resources, R.color.azulOce, null)),
         arrayOf( ResourcesCompat.getColor(resources, R.color.azulAr, null),  ResourcesCompat.getColor(resources, R.color.NaranjaMex, null),  ResourcesCompat.getColor(resources, R.color.NaranjaMex, null)), arrayOf(ResourcesCompat.getColor(resources, R.color.cafeAmer, null), ResourcesCompat.getColor(resources, R.color.cafeAsia, null)))
 
+    val datos = Array(35) { arrayOf("","","", "false") }
+
     //SQLite
     var db: DBSQLite = DBSQLite(context)
-    var dbBoolean = arrayOf(arrayOf(true, true, true, true, true),
-        arrayOf(false, false, false, false, false),
-        arrayOf(false, false, false, false, false),
-        arrayOf(false, false, false, false, false),
-        arrayOf(false, false, false, false, false),
-        arrayOf(false, false, false, false, false),
-        arrayOf(false, false, false, false, false)
-        )
 
     constructor(context: Context?): super(context){
         inicializa()
@@ -87,24 +82,24 @@ class Trayecto : ScrollView {
         circuloSelected.style = Paint.Style.FILL
         circuloSelected.color = ResourcesCompat.getColor(resources, R.color.azulagua, null)
 
-//        comprobarBaseDeDatos()
-    }
-
-    fun comprobarBaseDeDatos(){
-        for (i in 1..7){
-            for(j in 1..5) {
-                dbBoolean[i - 1][j - 1] = db.nivelDesbloqueado(i, j)
+        var index = 0
+        for(i in 0..5){
+            for (j in 0..9){
+                if(i != 3)
+                    if(j == 5) break
+                datos.set(index, db.Estadistica(i, j))
+//                db.Estadistica(i, j)
+                index++
             }
         }
+
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
-        var anchonivel = ancho/5
         var altonivel = (alto/2)
-        var altonivel1 = altonivel/4
 
 //        fondo!!.draw(canvas)
         val xPos = (ancho / 2)
@@ -125,26 +120,44 @@ class Trayecto : ScrollView {
         var index = 0
         var altoC = 600f
         var k = 1
+        var pos = 0
+        var nivel = 0
+
         if(modulo[1]){
             altoC = 500f
             k = 2
             index = 10
+            pos = 4
         }else if(modulo[2]){
+            pos = 2
             index = 25
+            gif!!.draw(canvas)
+//            gif!!.start()
+        }else if(modulo[0]){
+            gif!!.draw(canvas)
+//            gif!!.start()
         }
+
         for(j in 0..k){
             circuloSelected.color = colores[pestana][j]
+            pos++
+            nivel = 0
+            if(pos == 5){
+                pos = 4
+                nivel = 5
+            }
             for (i in 0..4){
                 index ++
+                nivel ++
                 canvas.drawRoundRect(10f+(ancho/5*i), 700f+(altoC*j), (ancho/5)+(ancho/5*i)-5, 1100f+(altoC*j), 20f, 20f, circuloSelected)
                 canvas.drawText((index).toString(),80f+(ancho/5*i), 770f+(altoC*j), textPaint)
-                var datos =  db.Estadistica(j+1, i+1)
-                canvas.drawText(datos[0],15f+(ancho/5*i), 850f+(altoC*j), textPaint)
-                canvas.drawText(datos[0],15f+(ancho/5*i), 920f+(altoC*j), textPaint)
-                canvas.drawText(datos[0],15f+(ancho/5*i), 990f+(altoC*j), textPaint)
+                if(datos[index-1][3] == "true"){
+                    canvas.drawText(datos[index-1][0],15f+(ancho/5*i), 850f+(altoC*j), textPaint)
+                    canvas.drawText(datos[index-1][1],15f+(ancho/5*i), 920f+(altoC*j), textPaint)
+                    canvas.drawText(datos[index-1][2],15f+(ancho/5*i), 990f+(altoC*j), textPaint)
+                }
             }
         }
-//        canvas.drawText("Hola",10f, 850f, textPaint)
 
         invalidate()
     }
@@ -159,9 +172,13 @@ class Trayecto : ScrollView {
 //        fondo = AppCompatResources.getDrawable(getContext(), R.drawable.asiaback)
 //        fondo!!.setBounds(0, 0, ancho.toInt(), 2000)
 
-//        fondo1!!.setBounds(50, (alto/2 -200).toInt(), ancho.toInt()-50, (alto-50).toInt())
+        gif = AppCompatResources.getDrawable(
+            getContext(),
+            R.drawable.mundo_giratorio
+        ) as AnimationDrawable?
 
-
+        gif!!.setBounds((ancho/2-150).toInt(), (alto/4*3).toInt(), (ancho/2+150).toInt(), (alto/4*3+300).toInt())
+        gif!!.start()
     }
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val alto = measuredHeight.toFloat()
