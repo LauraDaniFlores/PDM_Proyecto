@@ -50,5 +50,8 @@
         <activity android:name=".Trayecto_Inter"
             android:exported="false"/>
 
+        <activity android:name=".Peguntados_Inter"
+            android:exported="false"/>
+
     </application>
 </manifest>
