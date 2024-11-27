@@ -49,9 +49,13 @@
         <activity android:name=".Trayecto_Inter"
             android:exported="false"/>
 
+
+        <activity android:name=".Peguntados_Inter"
+
         <activity android:name=".FelicidadesInter"
             android:exported="false"/>
         <activity android:name=".Manual"
+
             android:exported="false"/>
 
     </application>

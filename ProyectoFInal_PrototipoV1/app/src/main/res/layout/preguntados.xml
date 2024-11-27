@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main"
+    android:background="@color/white"
+    >
+
+    <com.example.proyectofinal_prototipov1.Configuracion
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/configuracion"
+        app:casa="true"
+        app:pausar="false"
+        app:musica="lauvparis"/>
+
+   <com.example.proyectofinal_prototipov1.CustomView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/cpreguntados"/>
+
+</LinearLayout>
