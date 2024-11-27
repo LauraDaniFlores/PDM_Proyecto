@@ -1,5 +1,6 @@
 package com.example.proyectofinal_prototipov1
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -17,6 +18,7 @@ class Cards_Inter: AppCompatActivity() {
 //            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
 //            insets
 //        }
+        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
 
         var juego = findViewById<Cards>(R.id.cardsJuego)
         var continentes = arrayOf(arrayOf("Son grandes masas de tierra emergidas que conforman la superficie terrestre y están separadas por océanos", "Continentes"), arrayOf("¿Cuál continente más grande y poblado del mundo?", "Asia"), arrayOf("¿Cuál es el segundo continente más grande?", "América"), arrayOf("¿Cuál es el tercer continente más grande?", "Africa"),
@@ -34,7 +36,7 @@ class Cards_Inter: AppCompatActivity() {
         var mexico2 = arrayOf(arrayOf("Primer presidente de México", "Guadalupe Victoria"), arrayOf("¿Durante cuál gobierno se dio un impulso notable al ferrocarril en México?", "Porfirio Díaz (1884-1911) "),
             arrayOf("¿Qué son las leyes de reforma?", "Conjunto de leyes promulgadas en México para separar la iglesia y el estado"), arrayOf("¿En qué año fue la revolución mexicana?", "1910 a 1920"), arrayOf("¿Cúal fue el movimiento independentista que inició la independencia de México?", "El Grito de Dolores el 16 de septiembre de 1810"))
 
-        val modulo = getIntent().getStringExtra("modulo")
+        var modulo = getIntent().getStringExtra("modulo")
 
         Toast.makeText(this, "Intent " + modulo.toString(),
             Toast.LENGTH_LONG).show()
@@ -51,11 +53,39 @@ class Cards_Inter: AppCompatActivity() {
             }
         }
 
+        juego.setListenerScore(object : OnChangeScoreListener{
+            override fun SetonScoreChange(puntaje: Int){
+                configuraciones.actuaizarPuntaje(puntaje)
+            }
+        })
+        juego.setOnTimeStotListener(object : OnTimeStopListener{
+            override fun OnTimeStop(stop: Boolean) {
+                if(stop){
+                    configuraciones.detenerTiempo()
+                    juego.setTiempo(configuraciones.gettime())
+                    var modu = modulo!!.toInt()
+                    if(modulo!!.toInt() >= 5){
+                        modu = modulo!!.toInt() - 1
+                    }
+                    juego.insertardb(modu)
+                }
+            }
+        })
+
     }
     override fun onStop() {
         var configuraciones = findViewById<Configuracion>(R.id.configuracion)
         configuraciones.detenerMusica() // Liberar recursos
         super.onStop()
+    }
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+//        Toast.makeText(applicationContext, "Back Button Pressed", Toast.LENGTH_SHORT).show()
+    }
+    override fun onStart() {
+        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
+        configuraciones.startMusica() // Empezar de nuevo la música
+        super.onStart()
     }
 
 }

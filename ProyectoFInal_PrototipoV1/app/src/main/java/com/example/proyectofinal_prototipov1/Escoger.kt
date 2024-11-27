@@ -240,6 +240,7 @@ class Escoger: View {
                 if(estadoCon[numbers[i]] != 1) {
                     if (numbers.get(no) == numbers[i]) {
                         estadoCon[numbers[i]] = 1
+                        musicError?.seekTo(0)
                         musicSuccess?.start()
                         puntaje += 20
                         listener!!.SetonScoreChange(
@@ -261,9 +262,10 @@ class Escoger: View {
                         }
                         limpiar()
                     } else {
+                        musicError?.seekTo(0)
+                        musicError?.start()
                         estadoCon[numbers[i]] = 2
                         puntaje -= 5
-                        musicError?.start()
                         listener!!.SetonScoreChange(
                             puntaje
                         )
