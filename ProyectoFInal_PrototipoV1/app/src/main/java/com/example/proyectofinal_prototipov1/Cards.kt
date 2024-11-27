@@ -2,10 +2,12 @@ package com.example.proyectofinal_prototipov1
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
+import android.media.MediaPlayer
 import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextPaint
@@ -14,6 +16,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.res.ResourcesCompat
+import java.util.Date
 
 
 class Cards : View {
@@ -26,6 +29,29 @@ class Cards : View {
     var siguiente: Drawable? = null
     var nextScreen: Boolean = false
     var index:Int = 0
+
+    //puntaje y tiempo
+    private var puntaje = 0
+    private var tiempo = 0
+
+    //Listener
+    var listener: OnChangeScoreListener? = null
+    fun setListenerScore(l: OnChangeScoreListener){
+        listener = l
+    }
+
+    var listenertime: OnTimeStopListener? = null
+    fun setOnTimeStotListener(l: OnTimeStopListener){
+        listenertime = l
+    }
+
+    //Base de datos
+    var db: DBSQLite = DBSQLite(context)
+
+    //Sonido
+    private var clickSound: MediaPlayer? = null
+    private var musicError: MediaPlayer? = null
+
 
     var respuesta:Boolean = false
     var acabo: Boolean = false
@@ -48,6 +74,10 @@ class Cards : View {
             super(context, attrs, defStyleAttr, defStyleRes)
 
     private fun inicializa() {
+        // Inicializar el MediaPlayer con el sonido deseado
+        clickSound = MediaPlayer.create(context, R.raw.efectobtn)
+        musicError = MediaPlayer.create(context, R.raw.error)
+
         // Asignamos los colores
         pRelleno.color = ResourcesCompat.getColor(resources, R.color.lightblue, null)
 
@@ -151,19 +181,32 @@ class Cards : View {
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
 
-        if(event.x >= (ancho-240).toInt() && event.x <= (ancho).toInt()-60 && event.y >= (alto/2).toInt()-50 && event.y <= (alto/2).toInt()+250 && !acabo && respuesta){
-            nextScreen = true
-            respuesta = false
-            index ++
+        if(event.x >= (ancho-240).toInt() && event.x <= (ancho).toInt()-60 && event.y >= (alto/2).toInt()-50 && event.y <= (alto/2).toInt()+250 && !acabo ){
+            if(respuesta){
+                clickSound?.seekTo(0)
+                clickSound?.start() // Reproduce el sonido
+                nextScreen = true
+                respuesta = false
+                index ++
+                puntaje += 20
+                listener!!.SetonScoreChange(
+                    puntaje
+                )
+            }else if(!respuesta){
+                musicError?.seekTo(0)
+                musicError?.start()
+            }
         }else if(event.x >= 60f && event.x <= ancho-60f){
             if(event.y >= (alto/2)+300f && event.y <= alto-200){
                 respuesta = !respuesta
             }
         }
 
-        if(index > original.size){
+
+        if(index >= original.size-1){
             acabo = true
             respuesta = false
+            listenertime!!.OnTimeStop(true)
         }
 
         this.invalidate()
@@ -217,6 +260,26 @@ class Cards : View {
             res = limite
         }
         return res
+    }
+
+    fun setTiempo(tiem: Int){
+        tiempo = tiem
+    }
+    fun insertardb(modulo: Int){
+        if(db.nivelDesbloqueado(1, 2)){
+            db.guardarRegistro(modulo, 1, tiempo, puntaje, Date(), false)
+        }else{
+            db.guardarRegistro(modulo, 1, tiempo, puntaje, Date(), true)
+        }
+        val intent = Intent(context, FelicidadesInter::class.java)
+
+        intent.putExtra("nivel", "1")
+        intent.putExtra("modulo", modulo.toString())
+        intent.putExtra("puntaje", puntaje.toString())
+        intent.putExtra("tiempo", tiempo.toString())
+
+        context.startActivity(intent)
+
     }
 
 }

@@ -102,10 +102,28 @@ class Felicidades: View {
         val ancho = measuredWidth.toFloat()
 
         if (event.actionMasked == MotionEvent.ACTION_DOWN || event.actionMasked == MotionEvent.ACTION_POINTER_DOWN) {
-//            hacerIntent()
+            if(x >= 0 && x <= ancho && y >= 0 && y <= alto){
+                val intent = Intent(context, ModulosIntermedio::class.java)
+                if(modulo != 4){
+                    if(nivel < 5){
+                       intent.putExtra("tiponivel", (modulo-1).toString())
+                    }else{
+                        intent.putExtra("tiponivel", modulo.toString())
+                    }
+                }else{
+                    if(nivel < 10){
+                        intent.putExtra("tiponivel", (modulo-1).toString())
+                    }else{
+                        intent.putExtra("tiponivel", modulo.toString())
+                    }
+                }
+                context.startActivity(intent)
+            }
         }
-        return true
+        invalidate()
+        return super.onTouchEvent(event)
     }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val ancho = calcularAncho(widthMeasureSpec)
         val alto = calcularAlto(heightMeasureSpec)
