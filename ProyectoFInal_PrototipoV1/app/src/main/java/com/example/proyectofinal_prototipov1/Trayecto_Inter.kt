@@ -11,11 +11,9 @@ class Trayecto_Inter : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.trayecto)
 
         var trayecto = findViewById<Trayecto>(R.id.trayecto)
-
 
     }
 }

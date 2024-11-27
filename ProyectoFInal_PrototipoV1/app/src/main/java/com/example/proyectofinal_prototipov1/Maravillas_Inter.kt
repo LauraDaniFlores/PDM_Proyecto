@@ -11,7 +11,6 @@ class Maravillas_Inter : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.logros)
 
         var logros = findViewById<MaravillasMundo>(R.id.maravillasMundo)
