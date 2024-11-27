@@ -1,5 +1,6 @@
 package com.example.proyectofinal_prototipov1
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -13,7 +14,6 @@ class Memorama_Inter : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.memorama)
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -22,6 +22,7 @@ class Memorama_Inter : AppCompatActivity() {
         }
 
         var juego = findViewById<Memorama>(R.id.juego)
+        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
 
         var continentes = arrayOf("mcontinente1", "mcontinente2", "mcontinente3", "mcontinente4", "mcontinente5")
         var aryan = arrayOf("maryan1", "maryan2", "maryan3", "maryan4", "maryan5")
@@ -48,6 +49,36 @@ class Memorama_Inter : AppCompatActivity() {
             }
         }
 
+        juego.setListenerScore(object : OnChangeScoreListener{
+            override fun SetonScoreChange(puntaje: Int){
+                configuraciones.actuaizarPuntaje(puntaje)
+            }
+        })
+        juego.setOnTimeStotListener(object : OnTimeStopListener{
+            override fun OnTimeStop(stop: Boolean) {
+                if(stop){
+                    configuraciones.detenerTiempo()
+                    juego.setTiempo(configuraciones.gettime())
+                    if (modulo != null) {
+                        juego.insertardb(modulo.toInt())
+                    }
+                }
+            }
+        })
+    }
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+//        Toast.makeText(applicationContext, "Back Button Pressed", Toast.LENGTH_SHORT).show()
+    }
+    override fun onStop() {
+        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
+        configuraciones.detenerMusica() // Liberar recursos
+        super.onStop()
+    }
 
+    override fun onStart() {
+        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
+        configuraciones.startMusica() // Empezar de nuevo la música
+        super.onStart()
     }
 }

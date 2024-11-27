@@ -11,8 +11,9 @@
         android:layout_height="80dp"
         android:id="@+id/configuracion"
         app:casa="true"
-        app:pausar="true"
+        app:pausar="false"
         app:musica="lauvparis"
+        app:tiempopuntaje="true"
         />
     <com.example.proyectofinal_prototipov1.Escoger
         android:layout_width="match_parent"

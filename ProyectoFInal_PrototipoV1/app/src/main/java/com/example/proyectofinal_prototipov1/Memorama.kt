@@ -1,14 +1,20 @@
 package com.dgfp.proyectojuego1
 
 import android.content.Context
+import android.content.Intent
+import android.media.MediaPlayer
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View.OnClickListener
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.Toast
-import com.dgfp.practica14kt_controlp3.OnSelectedMemorama
+import com.example.proyectofinal_prototipov1.DBSQLite
+import com.example.proyectofinal_prototipov1.FelicidadesInter
+import com.example.proyectofinal_prototipov1.OnChangeScoreListener
+import com.example.proyectofinal_prototipov1.OnTimeStopListener
 import com.example.proyectofinal_prototipov1.R
+import java.util.Date
 
 class Memorama: LinearLayout {
     var btn1: ImageButton? = null
@@ -29,9 +35,26 @@ class Memorama: LinearLayout {
     private var select = 0
     private var flag:Boolean = false
 
-    private var listener: OnSelectedMemorama? = null
-    fun setOnDateChangeListener(l: OnSelectedMemorama){
+    private var puntaje = 0
+    private var tiempo = 0
+
+    //Audio
+    private var musicSuccess: MediaPlayer? = null
+    private var musicError: MediaPlayer? = null
+
+
+    // Base de datos
+    var db: DBSQLite = DBSQLite(context)
+
+    //Listener
+    var listener: OnChangeScoreListener? = null
+    fun setListenerScore(l: OnChangeScoreListener){
         listener = l
+    }
+
+    var listenertime: OnTimeStopListener? = null
+    fun setOnTimeStotListener(l: OnTimeStopListener){
+        listenertime = l
     }
 
     constructor(context: Context? ) : super(context){
@@ -56,6 +79,13 @@ class Memorama: LinearLayout {
 
         asignarEventos()
         changeImage()
+
+        //Inicializar el audio
+        musicSuccess = MediaPlayer.create(context, R.raw.bien)
+//        musicSuccess?.start()
+
+        musicError = MediaPlayer.create(context, R.raw.error)
+//        musicError?.start()
 
     }
 
@@ -121,9 +151,15 @@ class Memorama: LinearLayout {
             if(pos != select){
                 if(par.get(pos) == par.get(select)){
                     touchBool[pos] = true
+                    puntaje += 20
+                    musicSuccess?.start()
+                    listener!!.SetonScoreChange(
+                        puntaje
+                    )
                     if(ganado()){
                         Toast.makeText(context, "¡Ganaste!",
                             Toast.LENGTH_LONG).show();
+                        listenertime!!.OnTimeStop(true)
                     }
                 }else if(touchBool[pos]){
                     touch = 1
@@ -131,6 +167,11 @@ class Memorama: LinearLayout {
                     touchBool[pos] = true
                     changeImage()
                     flag = true
+                    puntaje -= 5
+                    musicError?.start()
+                    listener!!.SetonScoreChange(
+                        puntaje
+                    )
                 }
                 touch = 0
             }else{
@@ -189,6 +230,25 @@ class Memorama: LinearLayout {
             }
         }
         return true
+    }
+
+    fun setTiempo(tiem: Int){
+        tiempo = tiem
+    }
+    fun insertardb(modulo: Int){
+        if(db.nivelDesbloqueado(1, 3)){
+            db.guardarRegistro(modulo, 2, tiempo, puntaje, Date(), false)
+        }else{
+            db.guardarRegistro(modulo, 2, tiempo, puntaje, Date(), true)
+        }
+        val intent = Intent(context, FelicidadesInter::class.java)
+
+        intent.putExtra("nivel", "2")
+        intent.putExtra("modulo", modulo.toString())
+        intent.putExtra("puntaje", puntaje.toString())
+        intent.putExtra("tiempo", tiempo.toString())
+
+        context.startActivity(intent)
     }
 
 }

@@ -1,16 +1,20 @@
 package com.example.proyectofinal_prototipov1
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
+import android.media.MediaPlayer
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.res.ResourcesCompat
+import com.example.proyectofinal_prototipov1.DBSQLite.Companion.TABLE_NAME
+import java.util.Date
 
 class Escoger: View {
     private var imagen: Drawable? = null
@@ -37,9 +41,15 @@ class Escoger: View {
     private var azulagua: Int = 0
 
 
-    var puntaje = 0
-    var lenght = 4
-    var estadoCon = arrayOf(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+    private var puntaje = 0
+    private var tiempo = 0
+    private var lenght = 4
+    private var estadoCon = arrayOf(0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0)
+
+    //Audio
+    private var musicSuccess: MediaPlayer? = null
+    private var musicError: MediaPlayer? = null
+
 
 //    var numbers = arrayOf(0, 1)
 //    var conti = arrayOf("Ártica", "Antártica")
@@ -54,6 +64,20 @@ class Escoger: View {
     var coordy = emptyArray<Float>()
     var image: String? = null
     var coorimage: Float? = null
+
+    //Listener
+    var listener: OnChangeScoreListener? = null
+    fun setListenerScore(l: OnChangeScoreListener){
+        listener = l
+    }
+
+    var listenertime: OnTimeStopListener? = null
+    fun setOnTimeStotListener(l: OnTimeStopListener){
+        listenertime = l
+    }
+
+    var db: DBSQLite = DBSQLite(context)
+
 
 
     fun setArrays(nombres: Array<String>, imagen: String?, coordx1: Array<Float>, coordy1: Array<Float>, coor: Float, num: Array<Int>){
@@ -98,7 +122,6 @@ class Escoger: View {
         circlepeq2.style = Paint.Style.FILL
         circlepeq2.strokeWidth = 5f
 
-
         boton.style = Paint.Style.FILL
         boton.color = azulagua
         boton.strokeWidth = 5f
@@ -124,6 +147,12 @@ class Escoger: View {
         puntajetext.textSize = 35f
         puntajetext.color = Color.BLACK
 
+        //Inicializar el audio
+        musicSuccess = MediaPlayer.create(context, R.raw.bien)
+//        musicSuccess?.start()
+
+        musicError = MediaPlayer.create(context, R.raw.error)
+//        musicError?.start()
 
     }
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
@@ -146,7 +175,7 @@ class Escoger: View {
         imagen!!.draw(canvas)
         canvas.drawRect(30f, 30f, ancho-30, coorimage!!.toFloat(), margen)
         lenght = conti.size - 1
-//        canvas.drawText(lenght.toString(), 30f, 1500f,puntajetext)
+//        canvas.drawText(tiempo.toString(), 30f, 1800f,puntajetext)
 //        canvas.drawText(coordx.size.toString(), 30f, 1600f,puntajetext)
 //        canvas.drawText(coordy.size.toString(), 30f, 1700f,puntajetext)
 
@@ -211,7 +240,12 @@ class Escoger: View {
                 if(estadoCon[numbers[i]] != 1) {
                     if (numbers.get(no) == numbers[i]) {
                         estadoCon[numbers[i]] = 1
+                        musicError?.seekTo(0)
+                        musicSuccess?.start()
                         puntaje += 20
+                        listener!!.SetonScoreChange(
+                            puntaje
+                        )
                         if(no < 5 || (no < 2 && lenght == 1)){
                             no++
                         }
@@ -219,15 +253,22 @@ class Escoger: View {
                             no = 4
                             Toast.makeText(context, "Ganaste", Toast.LENGTH_SHORT)
                                 .show()
+                            listenertime!!.OnTimeStop(true)
                         }else if(no == 2 && lenght == 1){
                             no = 1
                             Toast.makeText(context, "Ganaste", Toast.LENGTH_SHORT)
                                 .show()
+                            listenertime!!.OnTimeStop(true)
                         }
                         limpiar()
                     } else {
+                        musicError?.seekTo(0)
+                        musicError?.start()
                         estadoCon[numbers[i]] = 2
                         puntaje -= 5
+                        listener!!.SetonScoreChange(
+                            puntaje
+                        )
                     }
                 }
             }
@@ -276,6 +317,26 @@ class Escoger: View {
             res = limite
         }
         return res
+    }
+
+    fun setTiempo(tiem: Int){
+        tiempo = tiem
+    }
+    fun insertardb(modulo: Int){
+        if(db.nivelDesbloqueado(1, 4)){
+            db.guardarRegistro(modulo, 3, tiempo, puntaje, Date(), false)
+        }else{
+            db.guardarRegistro(modulo, 3, tiempo, puntaje, Date(), true)
+        }
+        val intent = Intent(context, FelicidadesInter::class.java)
+
+        intent.putExtra("nivel", "3")
+        intent.putExtra("modulo", modulo.toString())
+        intent.putExtra("puntaje", puntaje.toString())
+        intent.putExtra("tiempo", tiempo.toString())
+
+        context.startActivity(intent)
+
     }
 }
 

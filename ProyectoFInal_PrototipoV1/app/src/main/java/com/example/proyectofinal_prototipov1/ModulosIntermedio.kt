@@ -1,7 +1,9 @@
 package com.example.proyectofinal_prototipov1
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class ModulosIntermedio: AppCompatActivity() {
@@ -16,6 +18,8 @@ class ModulosIntermedio: AppCompatActivity() {
         var mexico = findViewById<MexicoNiveles>(R.id.mexicolayout)
         val tiponivel = getIntent().getStringExtra("tiponivel")?.toInt()
 
+        val configuracion = findViewById<Configuracion>(R.id.configuracion)
+
         when (tiponivel) {
             0 ->  continente.visibility = View.VISIBLE
             1 ->  oceano.visibility = View.VISIBLE
@@ -25,5 +29,22 @@ class ModulosIntermedio: AppCompatActivity() {
             5 ->  asia.visibility = View.VISIBLE
         }
 
+    }
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+//        Toast.makeText(applicationContext, "Back Button Pressed", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onStop() {
+        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
+        configuraciones.detenerMusica() // Liberar recursos
+//        Toast.makeText(applicationContext, "On Stop", Toast.LENGTH_SHORT).show()
+        super.onStop()
+    }
+
+    override fun onStart() {
+        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
+        configuraciones.startMusica() // Empezar de nuevo la música
+        super.onStart()
     }
 }

@@ -1,5 +1,6 @@
 package com.example.proyectofinal_prototipov1
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
@@ -7,8 +8,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.proyectofinal_prototipov1.DBSQLite.Companion.TABLE_NAME
+import java.util.Date
 
 class EscogerInterm: AppCompatActivity() {
+    var modulo: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -19,16 +23,34 @@ class EscogerInterm: AppCompatActivity() {
             insets
         }
 
+        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
+
         var escoger = findViewById<Escoger>(R.id.escoger)
-        var modulo = getIntent().getStringExtra("modulo")?.toInt()
+        modulo = getIntent().getStringExtra("modulo")?.toInt()!!
         if (modulo != null) {
             modulo -= 1
         }
+        var db: DBSQLite = DBSQLite(this)
+
+        escoger.setListenerScore(object : OnChangeScoreListener{
+            override fun SetonScoreChange(puntaje: Int){
+                configuraciones.actuaizarPuntaje(puntaje)
+            }
+        })
+        escoger.setOnTimeStotListener(object : OnTimeStopListener{
+            override fun OnTimeStop(stop: Boolean) {
+                if(stop){
+                    configuraciones.detenerTiempo()
+                    escoger.setTiempo(configuraciones.gettime())
+                    escoger.insertardb(modulo+1)
+                }
+            }
+        })
+
 //        modulo = 2
 
-
-        Toast.makeText(this, "Intent " + modulo.toString(),
-            Toast.LENGTH_LONG).show()
+//        Toast.makeText(this, "Intent " + modulo.toString(),
+//            Toast.LENGTH_LONG).show()
 
         var conti = arrayOf(arrayOf("América", "Europa", "Asia", "África", "Oceanía"), arrayOf("Pacífico", "Atlántico", "Índico", "Antártico", "Ártico"), arrayOf("Ártica", "Antártica"),
             arrayOf("Baja California", "Sonora", "Sinaloa", "Chihuahua", "Coahuila", "Durango", "Nuevo León", "Tamaulipas", "Zacatecas", "Jalisco", "Nayarit", "Guanajuato", "Michoacán", "Guerrero", "Oaxaca", "Chiapas"),
@@ -45,5 +67,20 @@ class EscogerInterm: AppCompatActivity() {
 
         escoger.setArrays(conti[modulo!!], image[modulo!!], coordx[modulo!!], coordy[modulo!!], coorimage[modulo!!], numbers[modulo!!])
 
+    }
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+//        Toast.makeText(applicationContext, "Back Button Pressed", Toast.LENGTH_SHORT).show()
+    }
+    override fun onStop() {
+        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
+        configuraciones.detenerMusica() // Liberar recursos
+//        Toast.makeText(applicationContext, "On Stop", Toast.LENGTH_SHORT).show()
+        super.onStop()
+    }
+    override fun onStart() {
+        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
+        configuraciones.startMusica() // Empezar de nuevo la música
+        super.onStart()
     }
 }

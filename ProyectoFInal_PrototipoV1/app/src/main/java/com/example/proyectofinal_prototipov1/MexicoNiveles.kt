@@ -248,40 +248,40 @@ class MexicoNiveles : View {
         var altonivel1 = (altonivel / 4)
 
         //Nivel 1
-        if (event.x >= 50 && event.x <= 210 && event.y >= (altonivel + ((altonivel1 * 2)) - 100) && event.y <= (altonivel + ((altonivel1 * 2)) + 160)) {
+        if (event.x >= 50 && event.x <= 210 && event.y >= (altonivel + ((altonivel1 * 2)) - 100) && event.y <= (altonivel + ((altonivel1 * 2)) + 160) && dbBoolean[0]) {
             val intent = Intent(context, Cards_Inter::class.java)
             intent.putExtra("modulo", "4")
             context.startActivity(intent)
-        }else if(event.x >= 280 && event.x <= 440 && event.y >= (altonivel + ((altonivel1 * 2)) - 50) && event.y <= (altonivel + ((altonivel1 * 2)) + 210)){
+        }else if(event.x >= 280 && event.x <= 440 && event.y >= (altonivel + ((altonivel1 * 2)) - 50) && event.y <= (altonivel + ((altonivel1 * 2)) + 210) && dbBoolean[1]){
             val intent = Intent(context, Memorama_Inter::class.java)
             intent.putExtra("modulo", "4")
             context.startActivity(intent)
-        }else if(event.x >= (anchonivel * 2) + 50 && event.x <= ((anchonivel * 2) + 210) && event.y >= (altonivel + ((altonivel1 * 2)) - 170) && event.y <= (altonivel + ((altonivel1 * 2)) + 90)){
+        }else if(event.x >= (anchonivel * 2) + 50 && event.x <= ((anchonivel * 2) + 210) && event.y >= (altonivel + ((altonivel1 * 2)) - 170) && event.y <= (altonivel + ((altonivel1 * 2)) + 90) && dbBoolean[2]){
             val intent = Intent(context, EscogerInterm::class.java)
             intent.putExtra("modulo", "4");
             context.startActivity(intent)
-        }else if(event.x >= (anchonivel * 3) + 10 && event.x <= ((anchonivel * 3) + 170) && event.y >= (altonivel + ((altonivel1 * 2)) + 10) && event.y <= (altonivel + ((altonivel1 * 2)) + 270)){
+        }else if(event.x >= (anchonivel * 3) + 10 && event.x <= ((anchonivel * 3) + 170) && event.y >= (altonivel + ((altonivel1 * 2)) + 10) && event.y <= (altonivel + ((altonivel1 * 2)) + 270) && dbBoolean[3]){
 
-        }else if(event.x >= (anchonivel * 4) + 10 && event.x <= ((anchonivel * 4) + 170) && event.y >= (altonivel + ((altonivel1 * 2)) - 130) && event.y <= (altonivel + ((altonivel1 * 2)) - 130 + 260)){
+        }else if(event.x >= (anchonivel * 4) + 10 && event.x <= ((anchonivel * 4) + 170) && event.y >= (altonivel + ((altonivel1 * 2)) - 130) && event.y <= (altonivel + ((altonivel1 * 2)) - 130 + 260) && dbBoolean[4]){
 
         }
 
         //Nivel 6
-        if(event.x >= (anchonivel * 4) + 10 && event.x <= ((anchonivel * 4) + 207) && event.y >= (altonivel + ((altonivel1 * 2)) + 180) && event.y <= (altonivel + ((altonivel1 * 2)) + 180 + 176)){
+        if(event.x >= (anchonivel * 4) + 10 && event.x <= ((anchonivel * 4) + 207) && event.y >= (altonivel + ((altonivel1 * 2)) + 180) && event.y <= (altonivel + ((altonivel1 * 2)) + 180 + 176) && dbBoolean[5]){
             val intent = Intent(context, Cards_Inter::class.java)
             intent.putExtra("modulo", "5")
             context.startActivity(intent)
-        }else if(event.x >= (anchonivel * 3) + 10 && event.x <= ((anchonivel * 3) + 207) && event.y >= (altonivel + ((altonivel1 * 2)) + 290) && event.y <= (altonivel + ((altonivel1 * 2)) + 290 + 176)){
+        }else if(event.x >= (anchonivel * 3) + 10 && event.x <= ((anchonivel * 3) + 207) && event.y >= (altonivel + ((altonivel1 * 2)) + 290) && event.y <= (altonivel + ((altonivel1 * 2)) + 290 + 176) && dbBoolean[6]){
             val intent = Intent(context, Memorama_Inter::class.java)
             intent.putExtra("modulo", "5")
             context.startActivity(intent)
-        }else if(event.x >= (anchonivel * 2) + 30 && event.x <= ((anchonivel * 2) + 207) && event.y >= (altonivel + ((altonivel1 * 2)) + 170) && event.y <= (altonivel + ((altonivel1 * 2)) + 170 + 176)){
+        }else if(event.x >= (anchonivel * 2) + 30 && event.x <= ((anchonivel * 2) + 207) && event.y >= (altonivel + ((altonivel1 * 2)) + 170) && event.y <= (altonivel + ((altonivel1 * 2)) + 170 + 176) && dbBoolean[7]){
             val intent = Intent(context, EscogerInterm::class.java)
             intent.putExtra("modulo", "4");
             context.startActivity(intent)
-        }else if(event.x >= 250 && event.x <= 437 && event.y >= (altonivel + ((altonivel1 * 2)) + 280) && event.y <= (altonivel + ((altonivel1 * 2)) + 280 + 176)){
+        }else if(event.x >= 250 && event.x <= 437 && event.y >= (altonivel + ((altonivel1 * 2)) + 280) && event.y <= (altonivel + ((altonivel1 * 2)) + 280 + 176) && dbBoolean[8]){
 
-        }else if(event.x >= 30 && event.x <=  217 && event.y >= (altonivel + ((altonivel1 * 2)) + 190) && event.y <= (altonivel + ((altonivel1 * 2)) + 190 + 176)){
+        }else if(event.x >= 30 && event.x <=  217 && event.y >= (altonivel + ((altonivel1 * 2)) + 190) && event.y <= (altonivel + ((altonivel1 * 2)) + 190 + 176) && dbBoolean[9]){
 
         }
 
