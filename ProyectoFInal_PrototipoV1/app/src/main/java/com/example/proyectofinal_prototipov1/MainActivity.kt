@@ -89,6 +89,12 @@ class MainActivity : AppCompatActivity() {
                     CreditosAct::class.java)
             }
             R.id.tutorial ->{
+                if (mediaPlayer.isPlaying) {
+                    mediaPlayer.stop()
+                    mediaPlayer.prepare()
+                }
+                mediaPlayer.start()
+
                 val i: Intent = Intent(this@MainActivity,
                     Manual::class.java
                 )
@@ -96,10 +102,10 @@ class MainActivity : AppCompatActivity() {
             }
                     
 
+        }
     }
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
 //        Toast.makeText(applicationContext, "Back Button Pressed", Toast.LENGTH_SHORT).show()
     }
-}
 }
