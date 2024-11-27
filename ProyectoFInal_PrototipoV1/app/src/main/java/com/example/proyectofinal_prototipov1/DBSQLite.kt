@@ -105,6 +105,7 @@ class DBSQLite(context: Context?) : SQLiteOpenHelper(context, TABLE_NAME, null, 
         if(moduloaux == 4){
             niveles = 10
         }
+
         var cursor = db.rawQuery(
             "SELECT COUNT(*) " +
                     "FROM " + TABLE_NAME + " WHERE modulo = $moduloaux AND nivel = $niveles ", null
@@ -149,6 +150,28 @@ class DBSQLite(context: Context?) : SQLiteOpenHelper(context, TABLE_NAME, null, 
             return false
         }
         return false
+    }
+
+    fun Estadistica(modulo: Int, nivel: Int): Array<String>{
+        val db = readableDatabase
+
+        var rows = 0
+        var datos: Array<String> = emptyArray()
+        var moduloaux = modulo
+        var niveles = nivel
+
+        var cursor = db.rawQuery(
+            "SELECT tiempo, puntaje, fecha " +
+                    "FROM " + TABLE_NAME + " WHERE modulo = $moduloaux AND nivel = $niveles ORDER BY tiempo desc", null
+        )
+        while (cursor.moveToNext()){
+            rows = cursor.getInt(0)
+            datos = arrayOf(cursor.getInt(0).toString(), cursor.getString(1), cursor.getString(2), "true")
+            cursor.close()
+            return datos
+        }
+        cursor.close()
+        return arrayOf("null", "null", "null", "false")
     }
 
 }

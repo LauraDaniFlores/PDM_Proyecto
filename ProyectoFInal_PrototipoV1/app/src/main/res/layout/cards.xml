@@ -16,6 +16,6 @@
         app:casa="true"
         app:pausar="false"
         app:musica="lauvparis"
-        app:tiempopuntaje="false"
+        app:tiempopuntaje="true"
         />
 </FrameLayout>

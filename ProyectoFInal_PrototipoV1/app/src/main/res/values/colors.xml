@@ -7,5 +7,11 @@
     <color name="rojo">#FF0000</color>
     <color name="lightblue">#758c94</color>
     <color name="azulagua">#026873</color>
+    <color name="verdeCon">#52bd8e</color>
+    <color name="azulOce">#2e77a4</color>
+    <color name="azulAr">#caebf3</color>
+    <color name="NaranjaMex">#fba61a</color>
+    <color name="cafeAmer">#aa865c</color>
+    <color name="cafeAsia">#eed6ba</color>
 
 </resources>
