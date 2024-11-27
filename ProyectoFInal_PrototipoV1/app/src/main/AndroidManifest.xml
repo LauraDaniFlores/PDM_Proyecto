@@ -43,7 +43,6 @@
 
         <activity android:name=".EscogerInterm"
             android:exported="false"/>
-
         <activity android:name=".Maravillas_Inter"
             android:exported="false"/>
 
@@ -52,5 +51,8 @@
 
         <activity android:name=".FelicidadesInter"
             android:exported="false"/>
+        <activity android:name=".Manual"
+            android:exported="false"/>
+
     </application>
 </manifest>

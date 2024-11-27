@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
         val buttonCreditos: ImageButton = findViewById(R.id.creditos)
         var buttonLogros: ImageButton = findViewById(R.id.logros)
         var buttonCarrera: ImageButton = findViewById(R.id.carrera)
+        var buttonmanual: ImageButton = findViewById(R.id.tutorial)
 
         // Inicializar MediaPlayer
         mediaPlayer = MediaPlayer.create(this, R.raw.efectobtn)
@@ -31,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         buttonLogros.setOnClickListener(evento)
         buttonCreditos.setOnClickListener(evento)
         buttonCarrera.setOnClickListener(evento)
+        buttonmanual.setOnClickListener(evento)
+
     }
 
     override fun onDestroy() {
@@ -40,8 +43,6 @@ class MainActivity : AppCompatActivity() {
 
 
     private val evento = View.OnClickListener { v ->
-        Toast.makeText(applicationContext, "Click botón", Toast.LENGTH_SHORT)
-            .show()
         when (v.getId()) {
             R.id.jugar -> {
                 if (mediaPlayer.isPlaying) {
@@ -85,14 +86,20 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Botón Créditos presionado", Toast.LENGTH_SHORT).show()
                 val i: Intent = Intent(
                     this@MainActivity,
-                    CreditosAct::class.java
+                    CreditosAct::class.java)
+            }
+            R.id.tutorial ->{
+                val i: Intent = Intent(this@MainActivity,
+                    Manual::class.java
                 )
                 startActivity(i)
             }
-        }
+                    
+
     }
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
 //        Toast.makeText(applicationContext, "Back Button Pressed", Toast.LENGTH_SHORT).show()
     }
+}
 }
