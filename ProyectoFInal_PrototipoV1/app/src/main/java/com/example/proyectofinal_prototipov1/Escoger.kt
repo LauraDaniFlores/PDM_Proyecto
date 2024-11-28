@@ -341,7 +341,7 @@ class Escoger: View {
                 moduloaux = modulo - 1
             } else if (modulo == 5) {
                 moduloaux = modulo - 1
-                nivelaux = 6
+                nivelaux = 8
             }
             if (db.nivelDesbloqueado(moduloaux, nivelaux + 1)) {
                 db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), false)

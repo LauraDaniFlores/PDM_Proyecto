@@ -219,6 +219,7 @@ class Configuracion : View {
                         clickSound?.seekTo(0)
                         clickSound?.start()
                         val intent = Intent(context, MainActivity::class.java)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         context.startActivity(intent)
                     }
                     if(event.x >= ancho.toInt() - (cuadrado * 4) - (margen * 4) && event.x <= ancho.toInt() - (margen * 4) - (cuadrado * 3)){

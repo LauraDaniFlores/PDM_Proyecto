@@ -175,20 +175,23 @@ class ArticaAntarticaNiveles: View {
         }
 
         //Nivel 4
-        if(event.x >= (anchonivel*3)-30 && event.x <= ((anchonivel*3)-50+268) && event.y >= (altonivel + ((altonivel1*2)) + 100) && event.y <= (altonivel + ((altonivel1*3)) + 250) && dbBoolean[3]){
+        if(event.x >= (anchonivel*4)-80 && event.x <=  ((anchonivel*4)-70+286) && event.y >= (altonivel + 100) && event.y <= (altonivel + 100 + 370) && dbBoolean[3]){
             clickSound?.start()
             val intent = Intent(context, Peguntados_Inter::class.java)
             intent.putExtra("modulo","3");
             context.startActivity(intent)
         }
 
+
         //Nivel 5
-        if(event.x >= (anchonivel*4)-80 && event.x <=  ((anchonivel*4)-70+286) && event.y >= (altonivel + 100) && event.y <= (altonivel + 100 + 370) && dbBoolean[4]){
+        if(event.x >= (anchonivel*3)-30 && event.x <= ((anchonivel*3)-50+268) && event.y >= (altonivel + ((altonivel1*2)) + 100) && event.y <= (altonivel + ((altonivel1*3)) + 250) && dbBoolean[4]){
             clickSound?.start()
             val intent = Intent(context, Arrastrar_Inter::class.java)
             intent.putExtra("modulo","3");
             context.startActivity(intent)
         }
+
+
 
 
         return true

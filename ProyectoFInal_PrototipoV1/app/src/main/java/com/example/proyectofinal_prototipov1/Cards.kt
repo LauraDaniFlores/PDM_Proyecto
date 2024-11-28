@@ -279,9 +279,9 @@ class Cards : View {
         }
 
         if(db.nivelDesbloqueado(moduloN, nivelCom)){
-            db.guardarRegistro(modulo, nivel, tiempo, puntaje, Date(), false)
+            db.guardarRegistro(moduloN, nivel, tiempo, puntaje, Date(), false)
         }else{
-            db.guardarRegistro(modulo, nivel, tiempo, puntaje, Date(), true)
+            db.guardarRegistro(moduloN, nivel, tiempo, puntaje, Date(), true)
         }
         val intent = Intent(context, FelicidadesInter::class.java)
 
