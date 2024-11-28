@@ -10,12 +10,12 @@
         android:layout_height="match_parent"
         android:id="@+id/cardsJuego"
         android:paddingTop="50dp"
-        />
+        android:layout_marginTop="20dp"
+    />
 
     <com.example.proyectofinal_prototipov1.Configuracion
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:layout_marginTop="30dp"
         android:id="@+id/configuracion"
         app:casa="true"
         app:pausar="false"

@@ -255,13 +255,11 @@ class Escoger: View {
                         }
                         if(no == 5){
                             no = 4
-                            Toast.makeText(context, "Ganaste", Toast.LENGTH_SHORT)
-                                .show()
+//                            Toast.makeText(context, "Ganaste", Toast.LENGTH_SHORT).show()
                             listenertime!!.OnTimeStop(true)
                         }else if(no == 2 && lenght == 1){
                             no = 1
-                            Toast.makeText(context, "Ganaste", Toast.LENGTH_SHORT)
-                                .show()
+//                            Toast.makeText(context, "Ganaste", Toast.LENGTH_SHORT).show()
                             listenertime!!.OnTimeStop(true)
                         }
                         limpiar()

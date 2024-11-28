@@ -1,6 +1,7 @@
 package com.example.proyectofinal_prototipov1
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -32,7 +33,8 @@ class ModulosIntermedio: AppCompatActivity() {
     }
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
-//        Toast.makeText(applicationContext, "Back Button Pressed", Toast.LENGTH_SHORT).show()
+        val i = Intent(this@ModulosIntermedio, Modulos::class.java)
+        startActivity(i)
     }
 
     override fun onStop() {

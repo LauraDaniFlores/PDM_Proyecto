@@ -1,5 +1,6 @@
 package com.example.proyectofinal_prototipov1
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Canvas
@@ -214,6 +215,5 @@ class ContinentesNiveles : View {
         clickSound?.release()
         clickSound = null
     }
-
 
 }
