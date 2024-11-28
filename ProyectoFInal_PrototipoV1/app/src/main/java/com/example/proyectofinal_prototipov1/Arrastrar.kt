@@ -353,11 +353,36 @@ class Arrastrar : View {
         tiempo = tiem
     }
     fun insertardb(modulo: Int){
-        if(db.nivelDesbloqueado(2, 1)){
-            db.guardarRegistro(modulo, 5, tiempo, puntaje, Date(), false)
-        }else{
-            db.guardarRegistro(modulo, 5, tiempo, puntaje, Date(), true)
+        var moduloaux = modulo
+        var mexico = false
+        if(modulo > 5){
+            moduloaux = modulo - 1
+        }else if(modulo == 5 || modulo == 4){
+            mexico = true
+            moduloaux = 4
         }
+        if(mexico){
+            if(modulo == 5) {
+                if (db.nivelDesbloqueado(moduloaux + 1, 1)) {
+                    db.guardarRegistro(moduloaux, 10, tiempo, puntaje, Date(), false)
+                } else {
+                    db.guardarRegistro(moduloaux, 10, tiempo, puntaje, Date(), true)
+                }
+            }else if(modulo == 4){
+                if (db.nivelDesbloqueado(moduloaux, 6)) {
+                    db.guardarRegistro(moduloaux, 5, tiempo, puntaje, Date(), false)
+                } else {
+                    db.guardarRegistro(moduloaux, 5, tiempo, puntaje, Date(), true)
+                }
+            }
+        }else{
+            if(db.nivelDesbloqueado(moduloaux+1, 1)){
+                db.guardarRegistro(moduloaux, 5, tiempo, puntaje, Date(), false)
+            }else{
+                db.guardarRegistro(moduloaux, 5, tiempo, puntaje, Date(), true)
+            }
+        }
+
         val hilo1: Thread = object : Thread() {
             @Synchronized
             override  fun run(){
@@ -366,6 +391,7 @@ class Arrastrar : View {
                         sleep(1000)
                         tiempo5seg++
                         if(tiempo5seg == 3) {
+
                             val intent = Intent(context, FelicidadesInter::class.java)
 
                             intent.putExtra("nivel", "5")

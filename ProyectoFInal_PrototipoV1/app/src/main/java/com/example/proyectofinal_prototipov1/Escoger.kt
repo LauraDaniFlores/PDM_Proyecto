@@ -323,10 +323,27 @@ class Escoger: View {
         tiempo = tiem
     }
     fun insertardb(modulo: Int){
-        if(db.nivelDesbloqueado(1, 4)){
-            db.guardarRegistro(modulo, 3, tiempo, puntaje, Date(), false)
-        }else{
-            db.guardarRegistro(modulo, 3, tiempo, puntaje, Date(), true)
+        var moduloaux = modulo
+        var mexico = false
+        if(modulo > 5){
+            moduloaux = modulo - 1
+        }else if(modulo == 5){
+            mexico = true
+            moduloaux = modulo - 1
+        }
+
+        if(mexico){
+            if(db.nivelDesbloqueado(moduloaux, 7)){
+                db.guardarRegistro(moduloaux, 6, tiempo, puntaje, Date(), false)
+            }else{
+                db.guardarRegistro(moduloaux, 6, tiempo, puntaje, Date(), true)
+            }
+        }else {
+            if (db.nivelDesbloqueado(moduloaux, 4)) {
+                db.guardarRegistro(moduloaux, 3, tiempo, puntaje, Date(), false)
+            } else {
+                db.guardarRegistro(moduloaux, 3, tiempo, puntaje, Date(), true)
+            }
         }
         val intent = Intent(context, FelicidadesInter::class.java)
 

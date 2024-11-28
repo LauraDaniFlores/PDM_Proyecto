@@ -26,7 +26,7 @@ class Arrastrar_Inter : AppCompatActivity() {
         if (modulo != null) {
             modulo -= 1
         }
-        modulo = 2
+//        modulo = 2
 
         var imagenes = arrayOf(arrayOf("mcontinente5", "mcontinente3", "mcontinente4",  "mcontinente2"), arrayOf("mocean2", "mocean4", "mocean3", "mocean5"),
             arrayOf("pinguino", "reno", "orca", "osopolar"),
@@ -56,7 +56,7 @@ class Arrastrar_Inter : AppCompatActivity() {
                 if(stop){
                     configuraciones.detenerTiempo()
                     arrastrar.setTiempo(configuraciones.gettime())
-                    arrastrar.insertardb(1)
+                    arrastrar.insertardb(modulo+1)
                 }
             }
         })
