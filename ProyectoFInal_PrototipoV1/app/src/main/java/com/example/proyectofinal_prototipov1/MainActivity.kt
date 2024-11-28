@@ -77,18 +77,23 @@ class MainActivity : AppCompatActivity() {
                 )
                 startActivity(i)
             }
-            R.id.creditos-> {
+            R.id.creditos -> {
                 if (mediaPlayer.isPlaying) {
                     mediaPlayer.stop()
                     mediaPlayer.prepare()
                 }
                 mediaPlayer.start()
-                Toast.makeText(applicationContext, "Botón Créditos presionado", Toast.LENGTH_SHORT).show()
                 val i: Intent = Intent(
                     this@MainActivity,
                     CreditosAct::class.java)
+                startActivity(i)
             }
             R.id.tutorial ->{
+                if (mediaPlayer.isPlaying) {
+                    mediaPlayer.stop()
+                    mediaPlayer.prepare()
+                }
+                mediaPlayer.start()
                 val i: Intent = Intent(this@MainActivity,
                     Manual::class.java
                 )
@@ -97,9 +102,10 @@ class MainActivity : AppCompatActivity() {
                     
 
     }
+
+}
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
 //        Toast.makeText(applicationContext, "Back Button Pressed", Toast.LENGTH_SHORT).show()
     }
-}
 }
