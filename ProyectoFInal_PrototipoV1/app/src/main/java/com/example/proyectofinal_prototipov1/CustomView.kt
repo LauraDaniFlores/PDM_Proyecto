@@ -31,7 +31,7 @@ class CustomView : View {
         textAlign = Paint.Align.CENTER
     }
     private val selectedPaint = Paint().apply {
-        color = Color.GREEN
+        color = Color.rgb(2,104,115)
         textSize = 40f
         isAntiAlias = true
         textAlign = Paint.Align.CENTER
@@ -199,7 +199,7 @@ class CustomView : View {
         //Dibuja el puntaje
        // canvas.drawText("Puntaje: ${puntaje}",20f,110f,puntajePaint)
         // Dibujar el temporizador en la esquina superior derecha
-       // canvas.drawText("Tiempo: ${timeLeft / 1000}s", width - 50f, 110f, timerPaint)
+        canvas.drawText("Tiempo: ${timeLeft / 1000}s", width - 50f, 110f, timerPaint)
 
         // Dibujar respuestas con botones menos anchos y con margen sombreado
         var startY = questionImage.height + 550f
@@ -212,8 +212,8 @@ class CustomView : View {
 
             // Determinar el color del botón según la respuesta
             val buttonColor = when {
-                hasSelectedAnswer && answer == question!!.correctAnswer -> Color.GREEN // Respuesta correcta
-                hasSelectedAnswer && answer == selectedAnswer && !question!!.isCorrect(answer) -> Color.RED // Respuesta incorrecta seleccionada
+                hasSelectedAnswer && answer == question!!.correctAnswer -> Color.rgb(88, 214, 141) // Respuesta correcta
+                hasSelectedAnswer && answer == selectedAnswer && !question!!.isCorrect(answer) -> Color.rgb(232,4,4) // Respuesta incorrecta seleccionada
                 else -> Color.WHITE
             }
 
@@ -226,7 +226,7 @@ class CustomView : View {
             // Dibujar contorno del botón
             canvas.drawRoundRect(rect, 20f, 30f, answerPaint.apply {
                 style = Paint.Style.STROKE
-                color = Color.BLACK
+                color = Color.rgb(2, 104, 115)
                 strokeWidth = 5f
             })
 
@@ -280,26 +280,28 @@ class CustomView : View {
                 if (x in rect[0]..rect[2] && y in rect[1]..rect[3]) {
                     selectedAnswer = answer
                     hasSelectedAnswer = true
-                    //Aunmenta Puntaje
-                    puntaje+=10
-                    listener!!.SetonScoreChange(puntaje)
 
-                    //Guarda el tiempo en que tardo en contestar
-                    tiempo += 15 -( timeLeft / 1000).toInt()
-
-                    musicSuccess?.start()
                     val isCorrect = question!!.isCorrect(answer)
                     countDownTimer.cancel()
+                    if (isCorrect){
+                        //Aunmenta Puntaje
+                        puntaje+=20
+                        listener!!.SetonScoreChange(puntaje)
+                        //Guarda el tiempo en que tardo en contestar
+                        tiempo += 15 -( timeLeft / 1000).toInt()
+
+                        musicSuccess?.start()
+                    }
                     if (!isCorrect) {
                         //Esta raro pero decrementa 5 si es incorrecta
                         musicError?.start()
                         musicSuccess?.stop()
-                        puntaje -= 15
+                        puntaje = puntaje - 10
                         listener!!.SetonScoreChange(puntaje)
 
                         //Guarda el tiempo en que tardo en contestar
-                        tiempo += 15 -( timeLeft / 1000).toInt()
-                        Toast.makeText(context, "Respuesta incorrecta. Correcta: ${question!!.correctAnswer}", Toast.LENGTH_SHORT).show()
+                        tiempo += 15 - ( timeLeft / 1000).toInt()
+                        //Toast.makeText(context, "Respuesta incorrecta. Correcta: ${question!!.correctAnswer}", Toast.LENGTH_SHORT).show()
                     }
                     answerListener?.onAnswerSelected(isCorrect, answer)
                     invalidate()
@@ -322,17 +324,17 @@ class CustomView : View {
                     // Marca la respuesta correcta en verde automáticamente
                     selectedAnswer = question?.correctAnswer
                     hasSelectedAnswer = true
-                    Toast.makeText(
+                   /* Toast.makeText(
                         context,
                         "Tiempo terminado. Respuesta correcta: ${question?.correctAnswer}",
                         Toast.LENGTH_LONG
-                    ).show()
+                    ).show()*/
                     //Le quita puntos si se le acaba el tiempo y no responde
                     musicError?.start()
                     musicSuccess?.stop()
                     //Guarda el tiempo en que tardo en contestar
                     tiempo += 15 - ( timeLeft / 1000).toInt()
-                    puntaje = puntaje - 5
+                    puntaje = puntaje - 10
                     listener!!.SetonScoreChange(puntaje)
                     answerListener?.onAnswerSelected(false, selectedAnswer ?: "")
                     invalidate()

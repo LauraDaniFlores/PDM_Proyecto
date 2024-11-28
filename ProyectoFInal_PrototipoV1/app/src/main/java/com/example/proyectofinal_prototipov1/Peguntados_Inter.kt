@@ -48,7 +48,7 @@ class Peguntados_Inter : AppCompatActivity(), OnAnswerSelectedListener {
                         "¿Cuántos estados contiene México?",
                         "32 estados",
                         listOf("30 estados", "31 estados", "32 estados", "28 estados"),
-                        R.drawable.estadomexico
+                        R.drawable.imgestadomx
                     ),
                     CPreguntados(
                         "¿Cuál es el continente más grande y poblado del mundo?",
@@ -72,7 +72,7 @@ class Peguntados_Inter : AppCompatActivity(), OnAnswerSelectedListener {
                         "¿Cuál es el continente más pequeño? Con un 2% de la población mundial",
                         "Oceanía",
                         listOf("Oceanía", "América", "África", "Asia"),
-                        R.drawable.continentesimg
+                        R.drawable.oceaniaimg
                     )
                 )
 
@@ -330,13 +330,6 @@ class Peguntados_Inter : AppCompatActivity(), OnAnswerSelectedListener {
     override fun onAnswerSelected(isCorrect: Boolean, selectedAnswer: String) {
         val currentQuestion = shuffledQuestions[currentQuestionIndex - 1]
         val correctAnswer = currentQuestion.correctAnswer
-        val message = if (isCorrect) {
-            "¡Correcto! La respuesta es $selectedAnswer"
-        } else {
-            "Incorrecto. La respuesta correcta era $correctAnswer"
-        }
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-
         // Espera 5 segundos y luego avanza a la siguiente pregunta
         handler.postDelayed({
             showNextQuestion()
