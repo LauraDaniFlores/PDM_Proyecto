@@ -58,10 +58,14 @@
         <activity android:name=".FelicidadesInter"
             android:exported="false"/>
 
+        <activity android:name=".derrota_Inter"
+            android:exported="false"/>
+
         <activity android:name=".Manual"
             android:exported="false"/>
 
         <activity android:name=".Arrastrar_Inter"
             android:exported="false"/>
+
     </application>
 </manifest>

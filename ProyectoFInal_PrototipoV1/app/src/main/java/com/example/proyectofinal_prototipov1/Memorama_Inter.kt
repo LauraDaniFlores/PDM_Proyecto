@@ -34,9 +34,6 @@ class Memorama_Inter : AppCompatActivity() {
 
         val modulo = getIntent().getStringExtra("modulo")
 
-        Toast.makeText(this, "Intent " + modulo.toString(),
-            Toast.LENGTH_LONG).show()
-
         if (modulo != null) {
             when(modulo.toInt()){
                 1 ->  juego.setArray(continentes)

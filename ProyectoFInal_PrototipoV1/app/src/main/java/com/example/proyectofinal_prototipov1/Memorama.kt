@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.media.MediaPlayer
 import android.util.AttributeSet
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View.OnClickListener
 import android.widget.ImageButton
@@ -13,7 +14,9 @@ import com.example.proyectofinal_prototipov1.DBSQLite
 import com.example.proyectofinal_prototipov1.FelicidadesInter
 import com.example.proyectofinal_prototipov1.OnChangeScoreListener
 import com.example.proyectofinal_prototipov1.OnTimeStopListener
+import com.example.proyectofinal_prototipov1.Perdiste
 import com.example.proyectofinal_prototipov1.R
+import com.example.proyectofinal_prototipov1.derrota_Inter
 import java.util.Date
 
 class Memorama: LinearLayout {
@@ -151,14 +154,14 @@ class Memorama: LinearLayout {
             if(pos != select){
                 if(par.get(pos) == par.get(select)){
                     touchBool[pos] = true
-                    puntaje += 20
+                    puntaje += 25
                     musicSuccess?.start()
                     listener!!.SetonScoreChange(
                         puntaje
                     )
                     if(ganado()){
-                        Toast.makeText(context, "¡Ganaste!",
-                            Toast.LENGTH_LONG).show();
+//                        Toast.makeText(context, "¡Ganaste!",
+//                            Toast.LENGTH_LONG).show();
                         listenertime!!.OnTimeStop(true)
                     }
                 }else if(touchBool[pos]){
@@ -166,12 +169,12 @@ class Memorama: LinearLayout {
                 }else {
                     touchBool[pos] = true
                     changeImage()
-                    flag = true
                     puntaje -= 5
                     musicError?.start()
                     listener!!.SetonScoreChange(
                         puntaje
                     )
+                    flag = true
                 }
                 touch = 0
             }else{
@@ -179,9 +182,12 @@ class Memorama: LinearLayout {
             }
         }
         if(flag){
+//            Thread.sleep(3000)
             touchBool[select] = false
             touchBool[pos] = false
             flag = false
+            //Log.d("canvas","$touchBool")
+//            changeImage()
         }else{
             changeImage()
         }
@@ -236,19 +242,37 @@ class Memorama: LinearLayout {
         tiempo = tiem
     }
     fun insertardb(modulo: Int){
-        if(db.nivelDesbloqueado(1, 3)){
-            db.guardarRegistro(modulo, 2, tiempo, puntaje, Date(), false)
-        }else{
-            db.guardarRegistro(modulo, 2, tiempo, puntaje, Date(), true)
+        if(puntaje < 50){
+            val intent = Intent(context, derrota_Inter::class.java)
+            intent.putExtra("nivel", "2")
+            intent.putExtra("modulo", modulo.toString())
+            context.startActivity(intent)
+        }else {
+            var nivel = 2
+            var nivelCom = 3
+            var moduloN = modulo
+            if(modulo >= 5){
+                moduloN = modulo - 1
+                if(modulo == 5){
+                    nivel = 6
+                    nivelCom = 7
+                }
+            }
+
+            if(db.nivelDesbloqueado(moduloN, nivelCom)){
+                db.guardarRegistro(modulo, nivel, tiempo, puntaje, Date(), false)
+            }else{
+                db.guardarRegistro(modulo, nivel, tiempo, puntaje, Date(), true)
+            }
+            val intent = Intent(context, FelicidadesInter::class.java)
+
+            intent.putExtra("nivel", nivel.toString())
+            intent.putExtra("modulo", moduloN.toString())
+            intent.putExtra("puntaje", puntaje.toString())
+            intent.putExtra("tiempo", tiempo.toString())
+
+            context.startActivity(intent)
         }
-        val intent = Intent(context, FelicidadesInter::class.java)
-
-        intent.putExtra("nivel", "2")
-        intent.putExtra("modulo", modulo.toString())
-        intent.putExtra("puntaje", puntaje.toString())
-        intent.putExtra("tiempo", tiempo.toString())
-
-        context.startActivity(intent)
     }
 
 }
