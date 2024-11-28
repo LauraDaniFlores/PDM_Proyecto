@@ -254,15 +254,15 @@ class Memorama: LinearLayout {
             if(modulo >= 5){
                 moduloN = modulo - 1
                 if(modulo == 5){
-                    nivel = 6
-                    nivelCom = 7
+                    nivel = 7
+                    nivelCom = 8
                 }
             }
 
             if(db.nivelDesbloqueado(moduloN, nivelCom)){
-                db.guardarRegistro(modulo, nivel, tiempo, puntaje, Date(), false)
+                db.guardarRegistro(moduloN, nivel, tiempo, puntaje, Date(), false)
             }else{
-                db.guardarRegistro(modulo, nivel, tiempo, puntaje, Date(), true)
+                db.guardarRegistro(moduloN, nivel, tiempo, puntaje, Date(), true)
             }
             val intent = Intent(context, FelicidadesInter::class.java)
 
@@ -272,6 +272,7 @@ class Memorama: LinearLayout {
             intent.putExtra("tiempo", tiempo.toString())
 
             context.startActivity(intent)
+
         }
     }
 

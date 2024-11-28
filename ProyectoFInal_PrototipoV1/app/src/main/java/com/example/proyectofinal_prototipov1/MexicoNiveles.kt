@@ -11,6 +11,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
+import java.util.Date
 
 class MexicoNiveles : View {
     //Imagen de fondo
@@ -72,7 +73,11 @@ class MexicoNiveles : View {
         cuadrado.style = Paint.Style.FILL
         cuadrado.color = Color.RED
 
+//        db.guardarRegistro(2, 5, 10, 100, Date(), true)
+//        db.guardarRegistro(4, 1, 10, 100, Date(), true)
+
         comprobarBaseDeDatos()
+
     }
     fun comprobarBaseDeDatos(){
         for (i in 1..10){
@@ -168,7 +173,7 @@ class MexicoNiveles : View {
 
 
         if(dbBoolean[4]) {
-            nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.cactuscandado)
+            nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.cactusn5)
         }else{
             nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.cactuscandado)
         }

@@ -2,6 +2,7 @@ package com.example.proyectofinal_prototipov1
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import android.util.Log
 import java.util.Date
 import java.util.Vector
 
@@ -69,7 +70,7 @@ class DBSQLite(context: Context?) : SQLiteOpenHelper(context, TABLE_NAME, null, 
 
         if(nivelaux == 0){
             moduloaux -= 1
-            if(moduloaux == 3){
+            if(moduloaux == 4){
                 nivelaux = 10
             }else{
                 nivelaux = 5
@@ -102,7 +103,7 @@ class DBSQLite(context: Context?) : SQLiteOpenHelper(context, TABLE_NAME, null, 
         if(moduloaux == 0){
             return true
         }
-        if(moduloaux == 4){
+        if(moduloaux == 3){
             niveles = 10
         }
 

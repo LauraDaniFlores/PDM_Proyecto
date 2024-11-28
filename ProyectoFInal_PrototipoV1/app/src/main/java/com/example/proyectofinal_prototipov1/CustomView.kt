@@ -354,7 +354,7 @@ class CustomView : View {
             moduloaux = modulo - 1
         }else if(modulo == 5){
             moduloaux = modulo - 1
-            nivelaux = 8
+            nivelaux = 9
         }
         if (db.nivelDesbloqueado(moduloaux, nivelaux+1)) {
             db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), false)

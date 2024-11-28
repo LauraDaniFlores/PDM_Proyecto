@@ -62,7 +62,7 @@ class AmericaNiveles : View {
 
         cuadrado.style = Paint.Style.FILL
         cuadrado.color = Color.RED
-//        comprobarBaseDeDatos()
+        comprobarBaseDeDatos()
     }
 
     fun comprobarBaseDeDatos(){
