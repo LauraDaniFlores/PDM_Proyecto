@@ -85,7 +85,7 @@ class MaravillasMundo: View {
 
         pTextPequeno.style = Paint.Style.FILL
         pTextPequeno.color = Color.WHITE
-        pTextPequeno.textSize = 40f
+        pTextPequeno.textSize = 45f
         pTextPequeno.typeface = customTypeface
 
         cuadro.style = Paint.Style.STROKE

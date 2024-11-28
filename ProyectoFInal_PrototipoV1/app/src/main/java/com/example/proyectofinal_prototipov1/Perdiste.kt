@@ -47,9 +47,10 @@ class Perdiste: View {
         text1.color = azul
         text1.textAlign = Paint.Align.CENTER
         text1.typeface = customTypeface
-//        musicSuccess = MediaPlayer.create(context, R.raw.success)
-//        musicSuccess?.start()
+        musicSuccess = MediaPlayer.create(context, R.raw.perder)
+        musicSuccess?.start()
     }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         val alto = measuredHeight.toInt()

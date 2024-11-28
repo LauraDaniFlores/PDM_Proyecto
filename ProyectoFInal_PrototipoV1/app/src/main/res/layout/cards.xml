@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/cardsJuego"
-        android:paddingTop="30dp"
+        android:paddingTop="50dp"
         />
 
     <com.example.proyectofinal_prototipov1.Configuracion
