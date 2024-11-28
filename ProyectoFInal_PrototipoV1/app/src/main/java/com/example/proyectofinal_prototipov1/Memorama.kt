@@ -208,14 +208,14 @@ class Memorama: LinearLayout {
                 }
             }else{
                 when (i) {
-                    0 -> btn1!!.setImageResource(R.drawable.cards)
-                    1 -> btn2!!.setImageResource(R.drawable.cards)
-                    2 -> btn3!!.setImageResource(R.drawable.cards)
-                    3 -> btn4!!.setImageResource(R.drawable.cards)
-                    4 -> btn5!!.setImageResource(R.drawable.cards)
-                    5 -> btn6!!.setImageResource(R.drawable.cards)
-                    6 -> btn7!!.setImageResource(R.drawable.cards)
-                    7 -> btn8!!.setImageResource(R.drawable.cards)
+                    0 -> btn1!!.setImageResource(R.drawable.cards1)
+                    1 -> btn2!!.setImageResource(R.drawable.cards1)
+                    2 -> btn3!!.setImageResource(R.drawable.cards1)
+                    3 -> btn4!!.setImageResource(R.drawable.cards1)
+                    4 -> btn5!!.setImageResource(R.drawable.cards1)
+                    5 -> btn6!!.setImageResource(R.drawable.cards1)
+                    6 -> btn7!!.setImageResource(R.drawable.cards1)
+                    7 -> btn8!!.setImageResource(R.drawable.cards1)
                 }
             }
         }
