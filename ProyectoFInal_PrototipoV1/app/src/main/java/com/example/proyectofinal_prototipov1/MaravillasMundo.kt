@@ -24,6 +24,7 @@ class MaravillasMundo: View {
     var pTextPequeno: TextPaint = TextPaint()
     val pRelleno = Paint()
     val cuadro = Paint()
+    val cuadroFondo = Paint()
     var fondo: Drawable? = null
 
     // Imágenes
@@ -88,9 +89,11 @@ class MaravillasMundo: View {
         pTextPequeno.typeface = customTypeface
 
         cuadro.style = Paint.Style.STROKE
-        cuadro.color = Color.WHITE
         cuadro.strokeWidth = 20f
         cuadro.color = ResourcesCompat.getColor(resources, R.color.ic_launcher_background, null)
+
+        cuadroFondo.style = Paint.Style.FILL
+        cuadroFondo.color = Color.WHITE
 
         pRelleno.strokeWidth = 40f
         pRelleno.color = ResourcesCompat.getColor(resources, R.color.lightblue, null)
@@ -140,6 +143,8 @@ class MaravillasMundo: View {
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
 
+        canvas.drawRect(0f, 0f, ancho, alto, cuadroFondo)
+
         ChinChenItza!!.draw(canvas)
         Coliseo!!.draw(canvas)
         CristoRedendor!!.draw(canvas)
@@ -149,18 +154,19 @@ class MaravillasMundo: View {
         MachuPichu!!.draw(canvas)
 
         var xtext = (ancho/4-160)
-        var ytext = (alto/4 -100)
+        var ytext = (alto/4 -50)
         for(i in 0..6){
             if(i == 3){
                 xtext = (ancho/2+210)
-                ytext = (alto/4 -100)
+                ytext = (alto/4 -50)
             }else if(i == 6){
                 xtext = 440f
+                ytext = (alto - 300)
             }else if(i == 5){
                 xtext = (ancho/2+260)
             }
             canvas.drawText(maravillasText[i], xtext, ytext, pText)
-            ytext += (alto/4 -100)
+            ytext += (alto/4 - 70)
         }
 
         var xPos = ancho/2
@@ -176,7 +182,7 @@ class MaravillasMundo: View {
             val mTextLayout = StaticLayout(
                 dato,
                 pTextPequeno,
-                ((ancho/4)*3-100).toInt(),
+                ((ancho/4)*3-150).toInt(),
                 Layout.Alignment.ALIGN_CENTER,
                 1.0f,
                 0.0f,
@@ -208,11 +214,11 @@ class MaravillasMundo: View {
 
         Coliseo = AppCompatResources.getDrawable(getContext(), R.drawable.coliseoromanoo)
         if(!desbloqueados[1]){ Coliseo!!.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)}) }
-        Coliseo!!.setBounds(20, (alto/4-100).toInt(), (ancho/2-50).toInt(), (alto/2-200).toInt())
+        Coliseo!!.setBounds(20, (alto/4-50).toInt(), (ancho/2-50).toInt(), (alto/2-150).toInt())
 
         CristoRedendor = AppCompatResources.getDrawable(getContext(), R.drawable.cristoredentor)
         if(!desbloqueados[2]){ CristoRedendor!!.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)}) }
-        CristoRedendor!!.setBounds(20, ((alto/4)*2 -200).toInt(), (ancho/2 -50).toInt(), ((alto/4)*3 -300).toInt())
+        CristoRedendor!!.setBounds(20, ((alto/2) -100).toInt(), (ancho/2-50).toInt(), ((alto/4)*3 -200).toInt())
 
         MurallaChina = AppCompatResources.getDrawable(getContext(), R.drawable.granmurallachina)
         if(!desbloqueados[3]){ MurallaChina!!.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)}) }
@@ -220,15 +226,15 @@ class MaravillasMundo: View {
 
         TajMajal = AppCompatResources.getDrawable(getContext(), R.drawable.tajmahal)
         if(!desbloqueados[4]){ TajMajal!!.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)}) }
-        TajMajal!!.setBounds((ancho/2 +50).toInt(), (alto/4-100).toInt(), (ancho).toInt(), (alto/2-200).toInt())
+        TajMajal!!.setBounds((ancho/2 +50).toInt(), (alto/4-50).toInt(), (ancho).toInt(), (alto/2-150).toInt())
 
         Hordania = AppCompatResources.getDrawable(getContext(), R.drawable.petrajordania)
         if(!desbloqueados[5]){ Hordania!!.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)}) }
-        Hordania!!.setBounds((ancho/2 +50).toInt(),  ((alto/4)*2 -200).toInt(), (ancho).toInt(), ((alto/4)*3 -300).toInt())
+        Hordania!!.setBounds((ancho/2 +50).toInt(),  ((alto/2) -100).toInt(), (ancho).toInt(), ((alto/4)*3 -200).toInt())
 
         MachuPichu = AppCompatResources.getDrawable(getContext(), R.drawable.machupichu)
         if(!desbloqueados[6]){ MachuPichu!!.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)}) }
-        MachuPichu!!.setBounds(400, ((alto/4)*3-300).toInt(), (ancho/2+200).toInt(), (alto -400).toInt())
+        MachuPichu!!.setBounds(400, ((alto/4)*3-200).toInt(), (ancho/2+200).toInt(), (alto -300).toInt())
 
         light = AppCompatResources.getDrawable(getContext(), R.drawable.baseline_lightbulb_24)
         light!!.setBounds((ancho/2-80).toInt(), ((alto/4)*3-200).toInt(), (ancho/2+80).toInt(), ((alto/4)*3-40).toInt())

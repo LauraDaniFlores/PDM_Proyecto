@@ -14,6 +14,8 @@ import android.widget.ScrollView
 import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.res.ResourcesCompat
+import java.text.SimpleDateFormat
+import java.time.format.DateTimeFormatter
 
 class Trayecto : ScrollView {
     //Imagen de fondo
@@ -30,6 +32,7 @@ class Trayecto : ScrollView {
     private val textPaint = Paint()
     private val textNivel = Paint()
     private val textModulo = Paint()
+    private val ptext = Paint()
 
     // Gif
     private var gif: AnimationDrawable? = null
@@ -56,10 +59,15 @@ class Trayecto : ScrollView {
         textPaint.isAntiAlias = true
         textPaint.textSize = 60f
         textPaint.color = Color.WHITE
+
         textNivel.isAntiAlias = true
         textNivel.textSize = 150f
         textNivel.color = Color.BLACK
         textNivel.textAlign = Paint.Align.CENTER
+
+        ptext.isAntiAlias = true
+        ptext.textSize = 40f
+        ptext.color = Color.WHITE
 
         val customTypeface = resources.getFont(R.font.pact)
         textNivel.typeface = customTypeface
@@ -72,6 +80,7 @@ class Trayecto : ScrollView {
 
         val courier = resources.getFont(R.font.courier)
         textPaint.typeface = courier
+        ptext.typeface = courier
 
         cuadrado.style = Paint.Style.FILL
         cuadrado.color = Color.RED
@@ -87,7 +96,7 @@ class Trayecto : ScrollView {
             for (j in 0..9){
                 if(i != 3)
                     if(j == 5) break
-                datos.set(index, db.Estadistica(i, j))
+                datos.set(index, db.Estadistica(i+1, j+1))
 //                db.Estadistica(i, j)
                 index++
             }
@@ -152,9 +161,14 @@ class Trayecto : ScrollView {
                 canvas.drawRoundRect(10f+(ancho/5*i), 700f+(altoC*j), (ancho/5)+(ancho/5*i)-5, 1100f+(altoC*j), 20f, 20f, circuloSelected)
                 canvas.drawText((index).toString(),80f+(ancho/5*i), 770f+(altoC*j), textPaint)
                 if(datos[index-1][3] == "true"){
-                    canvas.drawText(datos[index-1][0],15f+(ancho/5*i), 850f+(altoC*j), textPaint)
-                    canvas.drawText(datos[index-1][1],15f+(ancho/5*i), 920f+(altoC*j), textPaint)
-                    canvas.drawText(datos[index-1][2],15f+(ancho/5*i), 990f+(altoC*j), textPaint)
+                    canvas.drawText("Tiempo:",15f+(ancho/5*i), 850f+(altoC*j), ptext)
+                    canvas.drawText(datos[index-1][0] + " seg",15f+(ancho/5*i), 890f+(altoC*j), ptext)
+                    canvas.drawText("Puntaje:",15f+(ancho/5*i), 930f+(altoC*j), ptext)
+                    canvas.drawText(datos[index-1][1],15f+(ancho/5*i), 970f+(altoC*j), ptext)
+//                    canvas.drawText("Fecha:",15f+(ancho/5*i), 1010f+(altoC*j), ptext)
+//                    var formatter = DateTimeFormatter.ofPattern("yyyy")
+//                    var formattedDate = datos[index-1][2].format(formatter)
+//                    canvas.drawText(formattedDate,15f+(ancho/5*i), 1040f+(altoC*j), ptext)
                 }
             }
         }

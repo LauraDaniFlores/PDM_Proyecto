@@ -21,5 +21,6 @@
         android:id="@+id/juego"
         android:layout_width="400dp"
         android:layout_height="610dp"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"/>
 </LinearLayout>

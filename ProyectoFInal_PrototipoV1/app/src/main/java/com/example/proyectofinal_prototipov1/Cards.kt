@@ -74,6 +74,8 @@ class Cards : View {
             super(context, attrs, defStyleAttr, defStyleRes)
 
     private fun inicializa() {
+        val customTypeface = resources.getFont(R.font.courier)
+
         // Inicializar el MediaPlayer con el sonido deseado
         clickSound = MediaPlayer.create(context, R.raw.efectobtn)
         musicError = MediaPlayer.create(context, R.raw.error)
@@ -90,16 +92,19 @@ class Cards : View {
         pText.color = Color.BLACK
         pText.textSize = 70f
         pText.textAlign = Paint.Align.CENTER
+        pText.typeface = customTypeface
 
         // Pregunta y respuesta
         pTextPequeno.style = Paint.Style.FILL
         pTextPequeno.color = Color.BLACK
         pTextPequeno.textSize = 60f
         pTextPequeno.color = ResourcesCompat.getColor(resources, R.color.lightblue, null)
+        pTextPequeno.typeface = customTypeface
 
         PtextoRespuesta.style = Paint.Style.FILL
         PtextoRespuesta.color = Color.BLACK
         PtextoRespuesta.textSize = 60f
+        PtextoRespuesta.typeface = customTypeface
 
     }
 
@@ -188,7 +193,7 @@ class Cards : View {
                 nextScreen = true
                 respuesta = false
                 index ++
-                puntaje += 20
+                puntaje += (100/original.size)+1
                 listener!!.SetonScoreChange(
                     puntaje
                 )
@@ -206,6 +211,10 @@ class Cards : View {
         if(index >= original.size-1){
             acabo = true
             respuesta = false
+            puntaje += (100/original.size)
+            if(puntaje >= 100){
+                puntaje = 100
+            }
             listenertime!!.OnTimeStop(true)
         }
 
@@ -266,15 +275,26 @@ class Cards : View {
         tiempo = tiem
     }
     fun insertardb(modulo: Int){
-        if(db.nivelDesbloqueado(1, 2)){
-            db.guardarRegistro(modulo, 1, tiempo, puntaje, Date(), false)
+        var nivel = 1
+        var nivelCom = 2
+        var moduloN = modulo
+        if(modulo >= 5){
+            moduloN = modulo - 1
+            if(modulo == 5){
+                nivel = 6
+                nivelCom = 7
+            }
+        }
+
+        if(db.nivelDesbloqueado(moduloN, nivelCom)){
+            db.guardarRegistro(modulo, nivel, tiempo, puntaje, Date(), false)
         }else{
-            db.guardarRegistro(modulo, 1, tiempo, puntaje, Date(), true)
+            db.guardarRegistro(modulo, nivel, tiempo, puntaje, Date(), true)
         }
         val intent = Intent(context, FelicidadesInter::class.java)
 
-        intent.putExtra("nivel", "1")
-        intent.putExtra("modulo", modulo.toString())
+        intent.putExtra("nivel", nivel.toString())
+        intent.putExtra("modulo", moduloN.toString())
         intent.putExtra("puntaje", puntaje.toString())
         intent.putExtra("tiempo", tiempo.toString())
 

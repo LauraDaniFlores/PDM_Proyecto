@@ -38,9 +38,6 @@ class Cards_Inter: AppCompatActivity() {
 
         var modulo = getIntent().getStringExtra("modulo")
 
-        Toast.makeText(this, "Intent " + modulo.toString(),
-            Toast.LENGTH_LONG).show()
-
         if (modulo != null) {
             when(modulo.toInt()){
                 1 ->  juego.setArray(continentes, 1)
@@ -64,9 +61,6 @@ class Cards_Inter: AppCompatActivity() {
                     configuraciones.detenerTiempo()
                     juego.setTiempo(configuraciones.gettime())
                     var modu = modulo!!.toInt()
-                    if(modulo!!.toInt() >= 5){
-                        modu = modulo!!.toInt() - 1
-                    }
                     juego.insertardb(modu)
                 }
             }

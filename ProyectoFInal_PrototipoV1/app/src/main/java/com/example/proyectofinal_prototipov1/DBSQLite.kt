@@ -162,7 +162,7 @@ class DBSQLite(context: Context?) : SQLiteOpenHelper(context, TABLE_NAME, null, 
 
         var cursor = db.rawQuery(
             "SELECT tiempo, puntaje, fecha " +
-                    "FROM " + TABLE_NAME + " WHERE modulo = $moduloaux AND nivel = $niveles ORDER BY tiempo desc", null
+                    "FROM " + TABLE_NAME + " WHERE modulo = $moduloaux AND nivel = $niveles ORDER BY tiempo ASC", null
         )
         while (cursor.moveToNext()){
             rows = cursor.getInt(0)
