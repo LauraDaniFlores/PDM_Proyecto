@@ -57,6 +57,9 @@ class Configuracion : View {
     //Audio
     private var music: MediaPlayer? = null
     private var maxVolume = 40f
+    //Sonido
+    private var clickSound: MediaPlayer? = null
+
 
 
     constructor(context: Context?): super(context){
@@ -96,6 +99,10 @@ class Configuracion : View {
         textPaint.textSize = 50f
         textPaint.textAlign = Paint.Align.LEFT
         textPaint.color = Color.BLACK
+
+        // Inicializar el MediaPlayer con el sonido deseado
+        clickSound = MediaPlayer.create(context, R.raw.efectobtn)
+
     }
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
@@ -198,6 +205,8 @@ class Configuracion : View {
         if (event.actionMasked == MotionEvent.ACTION_DOWN || event.actionMasked == MotionEvent.ACTION_POINTER_DOWN) {
             if (event.y >= margen && event.y <= margen + cuadrado) {
                 if (event.x >= ancho.toInt() - cuadrado - margen && event.x <= ancho.toInt() - margen) {
+                    clickSound?.seekTo(0)
+                    clickSound?.start()
                     if (desplegar) {
                         desplegar = false
                     } else {
@@ -207,6 +216,8 @@ class Configuracion : View {
                 if (desplegar) {
                     if (event.x >= ancho.toInt() - (cuadrado * 3) - (margen * 3) && event.x <= ancho.toInt() - (margen * 3) - (cuadrado*2)) {
                         music?.stop()
+                        clickSound?.seekTo(0)
+                        clickSound?.start()
                         val intent = Intent(context, MainActivity::class.java)
                         context.startActivity(intent)
                     }
@@ -218,6 +229,8 @@ class Configuracion : View {
                         }
                     }
                     if(event.x >= ancho.toInt() - (cuadrado * 2) - (margen * 2) && event.x <= ancho.toInt() - (margen * 2) - (cuadrado * 1)){
+                        clickSound?.seekTo(0)
+                        clickSound?.start()
                         if (sonidoono) {
                             sonidoono = false
                             music?.pause()

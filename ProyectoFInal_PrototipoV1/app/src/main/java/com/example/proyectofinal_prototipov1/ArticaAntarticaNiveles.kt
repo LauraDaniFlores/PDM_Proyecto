@@ -62,7 +62,8 @@ class ArticaAntarticaNiveles: View {
 
         cuadrado.style = Paint.Style.FILL
         cuadrado.color = Color.RED
-//        comprobarBaseDeDatos()
+        comprobarBaseDeDatos()
+
     }
 
     fun comprobarBaseDeDatos(){
@@ -134,7 +135,7 @@ class ArticaAntarticaNiveles: View {
         nivel4!!.setBounds((anchonivel*4)-80, (altonivel + 100), ((anchonivel*4)-70+286), (altonivel + 100 + 370))
 
         if(dbBoolean[4]) {
-            nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.pinos)
+            nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.pino5)
         }else{
             nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.pinoscandado)
         }
@@ -183,7 +184,10 @@ class ArticaAntarticaNiveles: View {
 
         //Nivel 5
         if(event.x >= (anchonivel*4)-80 && event.x <=  ((anchonivel*4)-70+286) && event.y >= (altonivel + 100) && event.y <= (altonivel + 100 + 370) && dbBoolean[4]){
-
+            clickSound?.start()
+            val intent = Intent(context, Arrastrar_Inter::class.java)
+            intent.putExtra("modulo","3");
+            context.startActivity(intent)
         }
 
 

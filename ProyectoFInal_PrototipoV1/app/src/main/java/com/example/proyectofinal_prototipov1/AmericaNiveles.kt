@@ -169,7 +169,7 @@ class AmericaNiveles : View {
         if(event.x >= (anchonivel*3-110) && event.x <= ((anchonivel*3-110)+200) && event.y >= (altonivel-50) && event.y <= (altonivel-50 + 250) && dbBoolean[2]){
             clickSound?.start()
             val intent = Intent(context, EscogerInterm::class.java)
-            intent.putExtra("modulo", "5");
+            intent.putExtra("modulo", "6");
             context.startActivity(intent)
         }
 
@@ -183,7 +183,10 @@ class AmericaNiveles : View {
 
         //Nivel 5
         if(event.x >= (anchonivel*3+20) && event.x <= ((anchonivel*3+20)+200) && event.y >= (altonivel+(altonivel1*2)-40) && event.y <= (altonivel+(altonivel1*2)-40) + 250 && dbBoolean[4]){
-
+            clickSound?.start()
+            val intent = Intent(context, Arrastrar_Inter::class.java)
+            intent.putExtra("modulo","6");
+            context.startActivity(intent)
         }
 
 

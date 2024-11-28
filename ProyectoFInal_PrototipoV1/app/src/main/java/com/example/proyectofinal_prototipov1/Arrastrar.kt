@@ -353,60 +353,75 @@ class Arrastrar : View {
         tiempo = tiem
     }
     fun insertardb(modulo: Int){
-        var moduloaux = modulo
-        var mexico = false
-        if(modulo > 5){
-            moduloaux = modulo - 1
-        }else if(modulo == 5 || modulo == 4){
-            mexico = true
-            moduloaux = 4
-        }
-        if(mexico){
-            if(modulo == 5) {
-                if (db.nivelDesbloqueado(moduloaux + 1, 1)) {
-                    db.guardarRegistro(moduloaux, 10, tiempo, puntaje, Date(), false)
-                } else {
-                    db.guardarRegistro(moduloaux, 10, tiempo, puntaje, Date(), true)
-                }
-            }else if(modulo == 4){
-                if (db.nivelDesbloqueado(moduloaux, 6)) {
-                    db.guardarRegistro(moduloaux, 5, tiempo, puntaje, Date(), false)
-                } else {
-                    db.guardarRegistro(moduloaux, 5, tiempo, puntaje, Date(), true)
-                }
-            }
-        }else{
-            if(db.nivelDesbloqueado(moduloaux+1, 1)){
-                db.guardarRegistro(moduloaux, 5, tiempo, puntaje, Date(), false)
-            }else{
-                db.guardarRegistro(moduloaux, 5, tiempo, puntaje, Date(), true)
-            }
-        }
+        if(puntaje < 50) {
+            val hilo1: Thread = object : Thread() {
+                @Synchronized
+                override fun run() {
+                    while (true) {
+                        try {
+                            sleep(1000)
+                            tiempo5seg++
+                            if (tiempo5seg == 3) {
 
-        val hilo1: Thread = object : Thread() {
-            @Synchronized
-            override  fun run(){
-                while(true){
-                    try{
-                        sleep(1000)
-                        tiempo5seg++
-                        if(tiempo5seg == 3) {
-
-                            val intent = Intent(context, FelicidadesInter::class.java)
-
-                            intent.putExtra("nivel", "5")
-                            intent.putExtra("modulo", modulo.toString())
-                            intent.putExtra("puntaje", puntaje.toString())
-                            intent.putExtra("tiempo", tiempo.toString())
-
-                            context.startActivity(intent)
+                                val intent = Intent(context, derrota_Inter::class.java)
+                                intent.putExtra("nivel", "5")
+                                intent.putExtra("modulo", modulo.toString())
+                                context.startActivity(intent)
+                            }
+                        } catch (e: InterruptedException) {
                         }
-                    }catch (e: InterruptedException){}
+                    }
                 }
             }
-        }
-        hilo1.start()
+            hilo1.start()
+        }else {
+            var moduloaux = modulo
+            var nivelaux = 5
+            if (modulo > 5) {
+                moduloaux = modulo - 1
+            } else if (modulo == 5) {
+                moduloaux = 4
+                nivelaux = 10
+            }
+            if (modulo == 4) {
+                if (db.nivelDesbloqueado(moduloaux, nivelaux + 1)) {
+                    db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), false)
+                } else {
+                    db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), true)
+                }
+            } else {
+                if (db.nivelDesbloqueado(moduloaux + 1, 1)) {
+                    db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), false)
+                } else {
+                    db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), true)
+                }
+            }
 
+            val hilo1: Thread = object : Thread() {
+                @Synchronized
+                override fun run() {
+                    while (true) {
+                        try {
+                            sleep(1000)
+                            tiempo5seg++
+                            if (tiempo5seg == 3) {
+
+                                val intent = Intent(context, FelicidadesInter::class.java)
+
+                                intent.putExtra("nivel", nivelaux.toString())
+                                intent.putExtra("modulo", moduloaux.toString())
+                                intent.putExtra("puntaje", puntaje.toString())
+                                intent.putExtra("tiempo", tiempo.toString())
+
+                                context.startActivity(intent)
+                            }
+                        } catch (e: InterruptedException) {
+                        }
+                    }
+                }
+            }
+            hilo1.start()
+        }
     }
 
 }

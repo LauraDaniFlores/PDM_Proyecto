@@ -242,7 +242,11 @@ class Escoger: View {
                         estadoCon[numbers[i]] = 1
                         musicError?.seekTo(0)
                         musicSuccess?.start()
-                        puntaje += 20
+                        if(lenght == 1){
+                            puntaje += 50
+                        }else {
+                            puntaje += 20
+                        }
                         listener!!.SetonScoreChange(
                             puntaje
                         )
@@ -265,7 +269,11 @@ class Escoger: View {
                         musicError?.seekTo(0)
                         musicError?.start()
                         estadoCon[numbers[i]] = 2
-                        puntaje -= 5
+                        if(lenght == 1){
+                            puntaje -= 20
+                        }else{
+                            puntaje -= 10
+                        }
                         listener!!.SetonScoreChange(
                             puntaje
                         )
@@ -323,37 +331,35 @@ class Escoger: View {
         tiempo = tiem
     }
     fun insertardb(modulo: Int){
-        var moduloaux = modulo
-        var mexico = false
-        if(modulo > 5){
-            moduloaux = modulo - 1
-        }else if(modulo == 5){
-            mexico = true
-            moduloaux = modulo - 1
-        }
-
-        if(mexico){
-            if(db.nivelDesbloqueado(moduloaux, 7)){
-                db.guardarRegistro(moduloaux, 6, tiempo, puntaje, Date(), false)
-            }else{
-                db.guardarRegistro(moduloaux, 6, tiempo, puntaje, Date(), true)
-            }
+        if(puntaje < 50) {
+            val intent = Intent(context, derrota_Inter::class.java)
+            intent.putExtra("nivel", "3")
+            intent.putExtra("modulo", modulo.toString())
+            context.startActivity(intent)
         }else {
-            if (db.nivelDesbloqueado(moduloaux, 4)) {
-                db.guardarRegistro(moduloaux, 3, tiempo, puntaje, Date(), false)
-            } else {
-                db.guardarRegistro(moduloaux, 3, tiempo, puntaje, Date(), true)
+            var moduloaux = modulo
+            var nivelaux = 3
+            if (modulo > 5) {
+                moduloaux = modulo - 1
+            } else if (modulo == 5) {
+                moduloaux = modulo - 1
+                nivelaux = 6
             }
+            if (db.nivelDesbloqueado(moduloaux, nivelaux + 1)) {
+                db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), false)
+            } else {
+                db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), true)
+            }
+
+            val intent = Intent(context, FelicidadesInter::class.java)
+
+            intent.putExtra("nivel", nivelaux.toString())
+            intent.putExtra("modulo", moduloaux.toString())
+            intent.putExtra("puntaje", puntaje.toString())
+            intent.putExtra("tiempo", tiempo.toString())
+
+            context.startActivity(intent)
         }
-        val intent = Intent(context, FelicidadesInter::class.java)
-
-        intent.putExtra("nivel", "3")
-        intent.putExtra("modulo", modulo.toString())
-        intent.putExtra("puntaje", puntaje.toString())
-        intent.putExtra("tiempo", tiempo.toString())
-
-        context.startActivity(intent)
-
     }
 }
 

@@ -71,7 +71,6 @@ class ContinentesNiveles : View {
         cuadrado.color = Color.RED
 //        db.guardarRegistro(1, 2, 10, 100, Date(), true)
 //        db.guardarRegistro(1, 1, 10, 100, Date(), true)
-//        db.guardarRegistro(1, 2, 10, 100, Date(), true)
 
         comprobarBaseDeDatos()
     }
@@ -178,7 +177,10 @@ class ContinentesNiveles : View {
                 intent.putExtra("modulo","1");
                 context.startActivity(intent)
             } else if (event.x >= (40) && event.x <= (200 + 40) && event.y >= (altonivel + altonivel1 - 170) && event.y <= (altonivel + altonivel1 - 170 + 200) && dbBoolean[3]) {
-
+                clickSound?.start()
+                val intent = Intent(context, Arrastrar_Inter::class.java)
+                intent.putExtra("modulo","1");
+                context.startActivity(intent)
             }
         }
 

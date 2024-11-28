@@ -11,6 +11,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
+import java.util.Date
 
 class OceanoNiveles: View {
     //Imagen de fondo
@@ -63,6 +64,8 @@ class OceanoNiveles: View {
 
         cuadrado.style = Paint.Style.FILL
         cuadrado.color = Color.RED
+//        db.guardarRegistro(2, 5, 10, 100, Date(), true)
+
         comprobarBaseDeDatos()
     }
 
@@ -135,7 +138,7 @@ class OceanoNiveles: View {
 
 
         if(dbBoolean[4]) {
-            nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.coralcandado)
+            nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.coraln5)
         }else{
             nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.coralcandado)
         }
@@ -183,6 +186,10 @@ class OceanoNiveles: View {
 
         //Nivel 5
         if(event.x >= (anchonivel*4)-70 && event.x <= ((anchonivel*4)-70+286) && event.y >= (altonivel + ((altonivel1*2)) + 30) && event.y <= (altonivel + ((altonivel1*2)) + 30 + 219) && dbBoolean[4]){
+            clickSound?.start()
+            val intent = Intent(context, Arrastrar_Inter::class.java)
+            intent.putExtra("modulo","2");
+            context.startActivity(intent)
         }
 
 
