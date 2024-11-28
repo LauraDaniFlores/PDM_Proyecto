@@ -160,9 +160,9 @@ class ContinentesNiveles : View {
             if (event.x >= ((ancho / 2) - 100) && event.x <= (ancho / 2) + 100 && event.y >= ((alto / 2) - 80) && event.y <= ((alto / 2) + 200 - 80)) {
                 clickSound?.start() // Reproduce el sonido
 
-                val intent = Intent(context, Peguntados_Inter::class.java)
+                val intent = Intent(context, Arrastrar_Inter::class.java)
 
-                val intent = Intent(context, Cards_Inter::class.java)
+//                val intent = Intent(context, Cards_Inter::class.java)
 
                 intent.putExtra("modulo", "1");
                 context.startActivity(intent)

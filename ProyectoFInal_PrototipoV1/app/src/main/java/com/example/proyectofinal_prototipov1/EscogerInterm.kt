@@ -37,6 +37,7 @@ class EscogerInterm: AppCompatActivity() {
                 configuraciones.actuaizarPuntaje(puntaje)
             }
         })
+
         escoger.setOnTimeStotListener(object : OnTimeStopListener{
             override fun OnTimeStop(stop: Boolean) {
                 if(stop){
