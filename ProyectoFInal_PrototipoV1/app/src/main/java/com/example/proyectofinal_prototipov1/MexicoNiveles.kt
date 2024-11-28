@@ -278,6 +278,7 @@ class MexicoNiveles : View {
             clickSound?.start()
             val intent = Intent(context, Peguntados_Inter::class.java)
             intent.putExtra("modulo","4");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intent)
         }else if(event.x >= (anchonivel * 4) + 10 && event.x <= ((anchonivel * 4) + 170) && event.y >= (altonivel + ((altonivel1 * 2)) - 130) && event.y <= (altonivel + ((altonivel1 * 2)) - 130 + 260) && dbBoolean[4]){
             clickSound?.start()
@@ -306,6 +307,7 @@ class MexicoNiveles : View {
             clickSound?.start()
             val intent = Intent(context, Peguntados_Inter::class.java)
             intent.putExtra("modulo","5");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intent)
         }else if(event.x >= 30 && event.x <=  217 && event.y >= (altonivel + ((altonivel1 * 2)) + 190) && event.y <= (altonivel + ((altonivel1 * 2)) + 190 + 176) && dbBoolean[9]){
             clickSound?.start()

@@ -28,6 +28,7 @@ class ContinentesNiveles : View {
 
     //Sonido
     private var clickSound: MediaPlayer? = null
+    private var soundGoing = 0
 
     //SQLite
     var db: DBSQLite = DBSQLite(context)
@@ -40,6 +41,8 @@ class ContinentesNiveles : View {
     //Textos
     private val textPaint = Paint()
     private val textNivel = Paint()
+
+    private var segundosMusica = 0
 
 
 
@@ -171,11 +174,13 @@ class ContinentesNiveles : View {
                 clickSound?.start() // Reproduce el sonido
                 val intent = Intent(context, EscogerInterm::class.java)
                 intent.putExtra("modulo", "1");
+//                intent.putExtra("musica", segundosMusica.toString());
                 context.startActivity(intent)
             } else if (event.x >= (150) && event.x <= (200 + 150) && event.y >= (altonivel + altonivel1 + 390) && event.y <= (altonivel + altonivel1 + 390 + 200) && dbBoolean[2]) {
                 clickSound?.start()
                 val intent = Intent(context, Peguntados_Inter::class.java)
                 intent.putExtra("modulo","1");
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 context.startActivity(intent)
             } else if (event.x >= (40) && event.x <= (200 + 40) && event.y >= (altonivel + altonivel1 - 170) && event.y <= (altonivel + altonivel1 - 170 + 200) && dbBoolean[3]) {
                 clickSound?.start()
@@ -216,4 +221,7 @@ class ContinentesNiveles : View {
         clickSound = null
     }
 
+    fun setSegundosMusica(segundo: Int){
+        segundosMusica = segundo
+    }
 }

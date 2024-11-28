@@ -182,6 +182,7 @@ class AsiaNiveles : View {
             clickSound?.start()
             val intent = Intent(context, Peguntados_Inter::class.java)
             intent.putExtra("modulo","7");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intent)
         }
 

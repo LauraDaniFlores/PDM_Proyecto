@@ -103,7 +103,7 @@ class MaravillasMundo: View {
 
         val typeface = getResources().getFont(R.font.kumbhsans_extrabold)
         pText.setTypeface(typeface)
-//        comprobarBaseDeDatos()
+        comprobarBaseDeDatos()
     }
 
     fun comprobarBaseDeDatos(){

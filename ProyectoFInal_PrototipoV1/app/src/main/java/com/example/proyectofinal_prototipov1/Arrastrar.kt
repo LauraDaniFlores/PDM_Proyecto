@@ -366,6 +366,8 @@ class Arrastrar : View {
                                 val intent = Intent(context, derrota_Inter::class.java)
                                 intent.putExtra("nivel", "5")
                                 intent.putExtra("modulo", modulo.toString())
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
                                 context.startActivity(intent)
                             }
                         } catch (e: InterruptedException) {
@@ -412,6 +414,7 @@ class Arrastrar : View {
                                 intent.putExtra("modulo", moduloaux.toString())
                                 intent.putExtra("puntaje", puntaje.toString())
                                 intent.putExtra("tiempo", tiempo.toString())
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
                                 context.startActivity(intent)
                             }

@@ -125,7 +125,7 @@ class Cards : View {
         // Si el juego no ha acabado
         if(!acabo &&  original.size != 0){
             val mTextLayout = StaticLayout(
-                original[index-1].get(0),
+                original[index].get(0),
                 pTextPequeno,
                 canvas.width-150,
                 Layout.Alignment.ALIGN_NORMAL,
@@ -289,6 +289,8 @@ class Cards : View {
         intent.putExtra("modulo", moduloN.toString())
         intent.putExtra("puntaje", puntaje.toString())
         intent.putExtra("tiempo", tiempo.toString())
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
         context.startActivity(intent)
 
