@@ -120,15 +120,12 @@ class Cards : View {
 //        canvas.drawRoundRect(60f, (alto/2)+300f, ancho-60f, alto-200, 20f, 20f, cuadro)
 
         siguiente!!.draw(canvas)
-
+        canvas.drawText(tema, (canvas.width / 2).toFloat(), 400f, pText)
 
         // Si el juego no ha acabado
         if(!acabo &&  original.size != 0){
-            canvas.drawText(tema, (canvas.width / 2).toFloat(), 400f, pText)
-
-//            canvas.drawText(preguntas[index], 90f, 540f, pText)
             val mTextLayout = StaticLayout(
-                original[index].get(0),
+                original[index-1].get(0),
                 pTextPequeno,
                 canvas.width-150,
                 Layout.Alignment.ALIGN_NORMAL,
@@ -195,6 +192,9 @@ class Cards : View {
                 respuesta = false
                 index ++
                 puntaje += (100/original.size)+1
+                if(puntaje >= 100) {
+                    puntaje = 100
+                }
                 listener!!.SetonScoreChange(
                     puntaje
                 )
@@ -212,10 +212,6 @@ class Cards : View {
         if(index >= original.size){
             acabo = true
             respuesta = false
-            puntaje += (100/original.size)
-            if(puntaje >= 100){
-                puntaje = 100
-            }
             listenertime!!.OnTimeStop(true)
         }
 

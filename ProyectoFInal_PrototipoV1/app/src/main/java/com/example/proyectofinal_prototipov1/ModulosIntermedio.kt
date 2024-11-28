@@ -30,9 +30,19 @@ class ModulosIntermedio: AppCompatActivity() {
             5 ->  asia.visibility = View.VISIBLE
         }
 
+        when (tiponivel) {
+            0 ->  configuracion.setMusica("continentes")
+            1 ->  configuracion.setMusica("ocean")
+            2 -> configuracion.setMusica("aryan")
+            3 ->  configuracion.setMusica("mexico")
+            4 ->  configuracion.setMusica("america")
+            5 ->  configuracion.setMusica("asia")
+        }
+
     }
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
+        onStop()
         val i = Intent(this@ModulosIntermedio, Modulos::class.java)
         startActivity(i)
     }
