@@ -29,8 +29,11 @@ class EscogerInterm: AppCompatActivity() {
         modulo = getIntent().getStringExtra("modulo")?.toInt()!!
         var moduloaux = modulo
         if (modulo != null) {
-            if(modulo >= 5)
-            modulo -= 2
+            if(modulo >= 5){
+                modulo -= 2
+            }else{
+                modulo -=1
+            }
         }
         var db: DBSQLite = DBSQLite(this)
 
