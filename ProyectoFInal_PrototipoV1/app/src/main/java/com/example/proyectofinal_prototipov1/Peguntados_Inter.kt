@@ -1,6 +1,7 @@
 package com.example.proyectofinal_prototipov1
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -85,7 +86,7 @@ class Peguntados_Inter : AppCompatActivity(), OnAnswerSelectedListener {
                         "Son una masa continua de agua salada que cubre más del 70% de la superficie de la Tierra",
                         "Océanos",
                         listOf("Océanos", "Océano Pacífico", "Mares, golfos y bahías", "Océano Atlántico"),
-                        R.drawable.moceanos
+                        R.drawable.moceanosnew
                     ),
                     CPreguntados(
                         "Océano más pequeño, el más frío y el menos salado",
@@ -322,8 +323,8 @@ class Peguntados_Inter : AppCompatActivity(), OnAnswerSelectedListener {
             preguntados.setArray(shuffledQuestions[currentQuestionIndex])
             currentQuestionIndex++
         } else {
-            Toast.makeText(this, "¡Juego terminado!", Toast.LENGTH_LONG).show()
             preguntados.insertardb(modulo!!)
+            //Toast.makeText(this, "¡Juego terminado!", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -333,7 +334,7 @@ class Peguntados_Inter : AppCompatActivity(), OnAnswerSelectedListener {
         // Espera 5 segundos y luego avanza a la siguiente pregunta
         handler.postDelayed({
             showNextQuestion()
-        }, 5000)
+        }, 3000)
     }
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
@@ -344,7 +345,52 @@ class Peguntados_Inter : AppCompatActivity(), OnAnswerSelectedListener {
         var configuraciones = findViewById<Configuracion>(R.id.configuracion)
         configuraciones.detenerMusica() // Liberar recursos
 //        Toast.makeText(applicationContext, "On Stop", Toast.LENGTH_SHORT).show()
+        handler.removeCallbacksAndMessages(null)
+        if(currentQuestionIndex < totalQuestions){
+            //finishGame()
+        }else{
+            super.onStop()
+        }
+
         super.onStop()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        // Detiene todas las tareas pendientes del Handler
+        handler.removeCallbacksAndMessages(null)
+
+        // Si el juego debe terminar al pausar, puedes realizar la lógica aquí
+        /*if(currentQuestionIndex < totalQuestions){
+            finishGame()
+        }else{
+            super.onPause()
+        }*/
+
+        // Si tienes música en la configuración, detén la música
+        val configuraciones = findViewById<Configuracion>(R.id.configuracion)
+        configuraciones.detenerMusica()
+    }
+
+    private fun finishGame() {
+        // Termina la actividad
+        finish()
+        /*val intent = Intent(this@Peguntados_Inter, derrota_Inter::class.java)
+        intent.putExtra("nivel", "4")
+        intent.putExtra("modulo", modulo.toString())
+        this.startActivity(intent)*/
+        preguntados.insertardb(modulo)
+
+
+    }
+
+
+
+    override fun onResume() {
+        super.onResume()
+        // Reinicia la música si es necesario
+        val configuraciones = findViewById<Configuracion>(R.id.configuracion)
+        configuraciones.startMusica()
     }
 
     override fun onStart() {
