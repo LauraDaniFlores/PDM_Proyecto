@@ -61,5 +61,7 @@
         <activity android:name=".Manual"
             android:exported="false"/>
 
+        <activity android:name=".Arrastrar_Inter"
+            android:exported="false"/>
     </application>
 </manifest>

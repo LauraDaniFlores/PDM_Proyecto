@@ -159,9 +159,7 @@ class ContinentesNiveles : View {
         if (event.actionMasked == MotionEvent.ACTION_DOWN || event.actionMasked == MotionEvent.ACTION_POINTER_DOWN) {
             if (event.x >= ((ancho / 2) - 100) && event.x <= (ancho / 2) + 100 && event.y >= ((alto / 2) - 80) && event.y <= ((alto / 2) + 200 - 80)) {
                 clickSound?.start() // Reproduce el sonido
-
                 val intent = Intent(context, Cards_Inter::class.java)
-
                 intent.putExtra("modulo", "1");
                 context.startActivity(intent)
             } else if (event.x >= (ancho - 200 - 40) && event.x <= (ancho - 40) && event.y >= (altonivel + altonivel1 - 120) && event.y <= (altonivel + altonivel1 - 120 + 200) && dbBoolean[0]) {

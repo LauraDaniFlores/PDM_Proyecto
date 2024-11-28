@@ -292,7 +292,7 @@ class MexicoNiveles : View {
         }else if(event.x >= (anchonivel * 2) + 30 && event.x <= ((anchonivel * 2) + 207) && event.y >= (altonivel + ((altonivel1 * 2)) + 170) && event.y <= (altonivel + ((altonivel1 * 2)) + 170 + 176) && dbBoolean[7]){
             clickSound?.start()
             val intent = Intent(context, EscogerInterm::class.java)
-            intent.putExtra("modulo", "4");
+            intent.putExtra("modulo", "5");
             context.startActivity(intent)
         }else if(event.x >= 250 && event.x <= 437 && event.y >= (altonivel + ((altonivel1 * 2)) + 280) && event.y <= (altonivel + ((altonivel1 * 2)) + 280 + 176) && dbBoolean[8]){
 
