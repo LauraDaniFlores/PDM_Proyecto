@@ -6,6 +6,7 @@ import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
 class Modulos : AppCompatActivity() {
@@ -31,13 +32,13 @@ class Modulos : AppCompatActivity() {
         // Cambiar imágenes según el estado del módulo
         if (db.moduloDesbloqueado(2)) {
             oceanos.setImageResource(R.drawable.boceanos)
-        } else if (db.moduloDesbloqueado(3)) {
+        } else if (db.nivelDesbloqueado(3, 1)) {
             aryan.setImageResource(R.drawable.barticaya)
-        } else if (db.moduloDesbloqueado(4)) {
+        } else if (db.nivelDesbloqueado(4, 1)) {
             mexico.setImageResource(R.drawable.bmexico)
-        } else if (db.moduloDesbloqueado(5)) {
+        } else if (db.nivelDesbloqueado(5, 1)) {
             america.setImageResource(R.drawable.bamerica)
-        } else if (db.moduloDesbloqueado(6)) {
+        } else if (db.nivelDesbloqueado(6, 1)) {
             Asia.setImageResource(R.drawable.basia)
         }
 
