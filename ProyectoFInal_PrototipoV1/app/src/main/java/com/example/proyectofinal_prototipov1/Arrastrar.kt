@@ -354,32 +354,24 @@ class Arrastrar : View {
     }
     fun insertardb(modulo: Int){
         var moduloaux = modulo
-        var mexico = false
+        var nivelaux = 5
         if(modulo > 5){
             moduloaux = modulo - 1
-        }else if(modulo == 5 || modulo == 4){
-            mexico = true
+        }else if(modulo == 5){
             moduloaux = 4
+            nivelaux = 10
         }
-        if(mexico){
-            if(modulo == 5) {
-                if (db.nivelDesbloqueado(moduloaux + 1, 1)) {
-                    db.guardarRegistro(moduloaux, 10, tiempo, puntaje, Date(), false)
-                } else {
-                    db.guardarRegistro(moduloaux, 10, tiempo, puntaje, Date(), true)
-                }
-            }else if(modulo == 4){
-                if (db.nivelDesbloqueado(moduloaux, 6)) {
-                    db.guardarRegistro(moduloaux, 5, tiempo, puntaje, Date(), false)
-                } else {
-                    db.guardarRegistro(moduloaux, 5, tiempo, puntaje, Date(), true)
-                }
+        if(modulo == 4) {
+            if (db.nivelDesbloqueado(moduloaux, nivelaux+1)) {
+                db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), false)
+            } else {
+                db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), true)
             }
         }else{
-            if(db.nivelDesbloqueado(moduloaux+1, 1)){
-                db.guardarRegistro(moduloaux, 5, tiempo, puntaje, Date(), false)
-            }else{
-                db.guardarRegistro(moduloaux, 5, tiempo, puntaje, Date(), true)
+            if (db.nivelDesbloqueado(moduloaux + 1, 1)) {
+                db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), false)
+            } else {
+                db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), true)
             }
         }
 
@@ -394,8 +386,8 @@ class Arrastrar : View {
 
                             val intent = Intent(context, FelicidadesInter::class.java)
 
-                            intent.putExtra("nivel", "5")
-                            intent.putExtra("modulo", modulo.toString())
+                            intent.putExtra("nivel", nivelaux.toString())
+                            intent.putExtra("modulo", moduloaux.toString())
                             intent.putExtra("puntaje", puntaje.toString())
                             intent.putExtra("tiempo", tiempo.toString())
 

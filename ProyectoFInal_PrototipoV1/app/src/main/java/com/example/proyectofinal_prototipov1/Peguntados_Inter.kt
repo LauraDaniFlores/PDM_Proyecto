@@ -32,7 +32,7 @@ class Peguntados_Inter : AppCompatActivity(), OnAnswerSelectedListener {
 
         modulo = getIntent().getStringExtra("modulo")?.toInt()!!
 
-        modulo=4
+//        modulo=4
 
         var configuraciones = findViewById<Configuracion>(R.id.configuracion)
 
@@ -189,7 +189,7 @@ class Peguntados_Inter : AppCompatActivity(), OnAnswerSelectedListener {
                 shuffledQuestions = questions.toList().shuffled()
             }
 
-            /*5 -> {
+            5 -> {
                 val questions = arrayOf(
                     CPreguntados(
                         "Primer presidente de México",
@@ -224,9 +224,9 @@ class Peguntados_Inter : AppCompatActivity(), OnAnswerSelectedListener {
                 )
 
                 shuffledQuestions = questions.toList().shuffled()
-            }*/
+            }
 
-            5 -> {
+            6 -> {
                 val questions = arrayOf(
                     CPreguntados(
                         "Por su gran extensión se suele dividir en tres subcontinentes",
@@ -263,7 +263,7 @@ class Peguntados_Inter : AppCompatActivity(), OnAnswerSelectedListener {
                 shuffledQuestions = questions.toList().shuffled()
             }
 
-            6 -> {
+            7 -> {
                 val questions = arrayOf(
                     CPreguntados(
                         "El continente más grande, con mayor cantidad de habitantes y el que presenta la mayor diversidad de culturas y lenguas del mundo",

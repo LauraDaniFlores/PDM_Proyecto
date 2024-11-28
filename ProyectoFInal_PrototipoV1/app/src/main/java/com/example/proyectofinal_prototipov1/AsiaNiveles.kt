@@ -173,7 +173,7 @@ class AsiaNiveles : View {
         if(event.x >= 60 && event.x <= 235 && event.y >= (altonivel-100) && event.y <= (altonivel-100 + 240) && dbBoolean[2]){
             clickSound?.start()
             val intent = Intent(context, EscogerInterm::class.java)
-            intent.putExtra("modulo", "6");
+            intent.putExtra("modulo", "7");
             context.startActivity(intent)
         }
 
@@ -181,13 +181,16 @@ class AsiaNiveles : View {
         if(event.x >= anchonivel*2-100 && event.x <= anchonivel*2+75 && event.y >= ((alto-(altonivel1*3)).toInt()) && event.y <= ((alto-(altonivel1*3)).toInt()) +240 && dbBoolean[3]){
             clickSound?.start()
             val intent = Intent(context, Peguntados_Inter::class.java)
-            intent.putExtra("modulo","6");
+            intent.putExtra("modulo","7");
             context.startActivity(intent)
         }
 
         //Nivel 5
         if(event.x >= (anchonivel*3)+80 && event.x <= (anchonivel*3)+80+175 && event.y >= ((alto-(altonivel1*3)+40).toInt()) && event.y <= ((alto-(altonivel1*3)+40).toInt())+240 && dbBoolean[4]){
-
+            clickSound?.start()
+            val intent = Intent(context, Arrastrar_Inter::class.java)
+            intent.putExtra("modulo","7");
+            context.startActivity(intent)
         }
 
 

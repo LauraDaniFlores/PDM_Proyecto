@@ -346,16 +346,23 @@ class CustomView : View {
     }
 
     fun insertardb(modulo: Int){
-        //Pendiente checar lo de la variable de tiempo
-        if(db.nivelDesbloqueado(1, 5)){
-            db.guardarRegistro(modulo, 4, tiempo, puntaje, Date(), false)
-        }else{
-            db.guardarRegistro(modulo, 4, tiempo, puntaje, Date(), true)
+        var moduloaux = modulo
+        var nivelaux = 4
+        if(modulo > 5){
+            moduloaux = modulo - 1
+        }else if(modulo == 5){
+            moduloaux = modulo - 1
+            nivelaux = 8
+        }
+        if (db.nivelDesbloqueado(moduloaux, nivelaux+1)) {
+            db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), false)
+        } else {
+            db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), true)
         }
         val intent = Intent(context, FelicidadesInter::class.java)
 
-        intent.putExtra("nivel", "4")
-        intent.putExtra("modulo", modulo.toString())
+        intent.putExtra("nivel", nivelaux.toString())
+        intent.putExtra("modulo", moduloaux.toString())
         intent.putExtra("puntaje", puntaje.toString())
         intent.putExtra("tiempo", tiempo.toString())
 

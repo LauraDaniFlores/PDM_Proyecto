@@ -67,9 +67,9 @@ class DBSQLite(context: Context?) : SQLiteOpenHelper(context, TABLE_NAME, null, 
         var nivelaux = nivel - 1
         var moduloaux = modulo
 
-        if(nivelaux ==  0){
+        if(nivelaux == 0){
             moduloaux -= 1
-            if(modulo == 3){
+            if(moduloaux == 3){
                 nivelaux = 10
             }else{
                 nivelaux = 5
