@@ -83,8 +83,8 @@ class Perdiste: View {
                 when(nivel){
                     2 ->  intent = Intent(context, Memorama_Inter::class.java)
                     3 ->  intent = Intent(context, EscogerInterm::class.java)
-                    4 ->  intent = Intent(context, EscogerInterm::class.java)
-                    5 ->  intent = Intent(context, EscogerInterm::class.java)
+                    4 ->  intent = Intent(context, Peguntados_Inter::class.java)
+                    5 ->  intent = Intent(context, Arrastrar_Inter::class.java)
                 }
                 if (intent != null) {
                     intent.putExtra("modulo", (modulo).toString())
