@@ -7,15 +7,19 @@ import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.drawable.Drawable
 import android.media.MediaPlayer
 import android.os.CountDownTimer
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.content.res.AppCompatResources
 import java.util.Date
 
 class CustomView : View {
+
+    val customTypeface = resources.getFont(R.font.courier)
 
     // Pinturas para diferentes elementos
     private val questionPaint = Paint().apply {
@@ -23,12 +27,14 @@ class CustomView : View {
         textSize = 50f
         isAntiAlias = true
         textAlign = Paint.Align.CENTER
+        typeface = customTypeface
     }
     private val answerPaint = Paint().apply {
         color = Color.WHITE
         textSize = 40f
         isAntiAlias = true
         textAlign = Paint.Align.CENTER
+        typeface = customTypeface
     }
     private val selectedPaint = Paint().apply {
         color = Color.rgb(2,104,115)
@@ -45,7 +51,7 @@ class CustomView : View {
 
     private val timerPaint = Paint().apply {
         color = Color.BLACK
-        textSize = 60f
+        textSize = 45f
         isAntiAlias = true
         textAlign = Paint.Align.RIGHT
     }
@@ -69,6 +75,7 @@ class CustomView : View {
 
     //Variable tiempo
     private var tiempo = 0
+    private var ctiempo: Drawable? = null
 
     private lateinit var countDownTimer: CountDownTimer
 
@@ -107,6 +114,11 @@ class CustomView : View {
             false
         )
 
+        // Cancelar temporizador previo si existe
+        if (::countDownTimer.isInitialized) {
+            countDownTimer.cancel()
+        }
+
         // Reiniciar el temporizador
         timeLeft = 15000 // Reinicia a 15 segundos
         startCountDown()
@@ -142,6 +154,7 @@ class CustomView : View {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        ctiempo!!.draw(canvas)
 // Definir el margen
         val margin = 20f // Puedes ajustar este valor según lo que necesites
         val cornerRadius = 25f // Radio para las esquinas redondeadas
@@ -199,7 +212,9 @@ class CustomView : View {
         //Dibuja el puntaje
        // canvas.drawText("Puntaje: ${puntaje}",20f,110f,puntajePaint)
         // Dibujar el temporizador en la esquina superior derecha
-        canvas.drawText("Tiempo: ${timeLeft / 1000}s", width - 50f, 110f, timerPaint)
+
+        //tiempo = AppCompatResources.getDrawable(getContext(), R.drawable.time)
+        canvas.drawText("${timeLeft / 1000}s", width - 50f, 105f, timerPaint)
 
         // Dibujar respuestas con botones menos anchos y con margen sombreado
         var startY = questionImage.height + 550f
@@ -247,7 +262,17 @@ class CustomView : View {
     }
 
 
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        val ancho = measuredWidth.toFloat()
+        val cuadrado = 125
+        val margen = 858
+        val margen1 = 50
 
+        ctiempo = AppCompatResources.getDrawable(getContext(), R.drawable.time)
+        ctiempo!!.setBounds(margen, margen1, margen + 75, margen1+75)
+
+    }
 
     private fun splitTextToLines(text: String, maxWidth: Float, paint: Paint): List<String> {
         val words = text.split(" ")
@@ -324,11 +349,12 @@ class CustomView : View {
                     // Marca la respuesta correcta en verde automáticamente
                     selectedAnswer = question?.correctAnswer
                     hasSelectedAnswer = true
-                   /* Toast.makeText(
-                        context,
-                        "Tiempo terminado. Respuesta correcta: ${question?.correctAnswer}",
-                        Toast.LENGTH_LONG
-                    ).show()*/
+                    // Detener cualquier reproducción previa
+                    musicError?.stop()
+                    musicError?.prepare() // Resetea el estado a listo para reproducir de nuevo.
+
+                    musicError?.start() // Inicia el sonido del error
+
                     //Le quita puntos si se le acaba el tiempo y no responde
                     musicError?.start()
                     musicSuccess?.stop()
@@ -347,27 +373,55 @@ class CustomView : View {
         tiempo = tiem
     }
 
+
     fun insertardb(modulo: Int){
-        var moduloaux = modulo
-        var nivelaux = 4
-        if(modulo > 5){
-            moduloaux = modulo - 1
-        }else if(modulo == 5){
-            moduloaux = modulo - 1
-            nivelaux = 8
-        }
-        if (db.nivelDesbloqueado(moduloaux, nivelaux+1)) {
-            db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), false)
-        } else {
-            db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), true)
-        }
-        val intent = Intent(context, FelicidadesInter::class.java)
+        countDownTimer.cancel() // Cancela el temporizador antes de guardar en la base de datos
+        if(puntaje < 50) {
+            val intent = Intent(context, derrota_Inter::class.java)
+            intent.putExtra("nivel", "4")
+            intent.putExtra("modulo", modulo.toString())
+            context.startActivity(intent)
+        }else {
 
-        intent.putExtra("nivel", nivelaux.toString())
-        intent.putExtra("modulo", moduloaux.toString())
-        intent.putExtra("puntaje", puntaje.toString())
-        intent.putExtra("tiempo", tiempo.toString())
+            var moduloaux = modulo
+            var nivelaux = 4
 
-        context.startActivity(intent)
+            if(modulo > 5){
+                moduloaux = modulo - 1
+            }else if(modulo == 5){
+                moduloaux = modulo - 1
+                nivelaux = 8
+            }
+            if (db.nivelDesbloqueado(moduloaux, nivelaux+1)) {
+                db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), false)
+            } else {
+                db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), true)
+            }
+            val intent = Intent(context, FelicidadesInter::class.java)
+
+            intent.putExtra("nivel", nivelaux.toString())
+            intent.putExtra("modulo", moduloaux.toString())
+            intent.putExtra("puntaje", puntaje.toString())
+            intent.putExtra("tiempo", tiempo.toString())
+
+            context.startActivity(intent)
+
+        }
+
+
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+
+        countDownTimer.cancel() // Cancela cualquier temporizador activo
+
+        musicSuccess?.stop()
+        musicSuccess?.release()
+        musicSuccess = null
+
+        musicError?.stop()
+        musicError?.release()
+        musicError = null
     }
 }
