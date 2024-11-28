@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
+import android.media.MediaPlayer
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -14,6 +15,9 @@ import androidx.appcompat.content.res.AppCompatResources
 class ArticaAntarticaNiveles: View {
     //Imagen de fondo
     private var fondo: Drawable? = null
+
+    //Sonido
+    private var clickSound: MediaPlayer? = null
 
     // Imagen para niveles
     private var nivel1: Drawable? = null
@@ -41,6 +45,8 @@ class ArticaAntarticaNiveles: View {
 
     }
     private fun inicializa() {
+        // Inicializar el MediaPlayer con el sonido deseado
+        clickSound = MediaPlayer.create(context, R.raw.efectobtn)
         textPaint.isAntiAlias = true
         textPaint.textSize = 60f
         textPaint.color = Color.WHITE
@@ -145,6 +151,7 @@ class ArticaAntarticaNiveles: View {
 
         //Nivel 1
         if(event.x >= 10 && event.x <= 460 && event.y >=  (altonivel + ((altonivel1*2))-50) && event.y <= (altonivel + ((altonivel1*2))-50+340) && dbBoolean[0]){
+            clickSound?.start()
             val intent = Intent(context, Cards_Inter::class.java)
             intent.putExtra("modulo", "3")
             context.startActivity(intent)
@@ -152,6 +159,7 @@ class ArticaAntarticaNiveles: View {
 
         //Nivel 2
         if(event.x >= anchonivel+50 && event.x <= (anchonivel+50+268) && event.y >= (altonivel + (altonivel1) - 90) && event.y <= (altonivel + (altonivel1- 30 + 250)) && dbBoolean[1]){
+            clickSound?.start()
             val intent = Intent(context, Memorama_Inter::class.java)
             intent.putExtra("modulo", "3");
             context.startActivity(intent)
@@ -159,6 +167,7 @@ class ArticaAntarticaNiveles: View {
 
         //Nivel 3
         if(event.x >= (anchonivel*2)+110 && event.x <= ((anchonivel*2)+110+240) && event.y >= (altonivel + 30) && event.y <= (altonivel + 60 + 250) && dbBoolean[2]){
+            clickSound?.start()
             val intent = Intent(context, EscogerInterm::class.java)
             intent.putExtra("modulo", "3");
             context.startActivity(intent)
@@ -166,7 +175,10 @@ class ArticaAntarticaNiveles: View {
 
         //Nivel 4
         if(event.x >= (anchonivel*3)-30 && event.x <= ((anchonivel*3)-50+268) && event.y >= (altonivel + ((altonivel1*2)) + 100) && event.y <= (altonivel + ((altonivel1*3)) + 250) && dbBoolean[3]){
-
+            clickSound?.start()
+            val intent = Intent(context, Peguntados_Inter::class.java)
+            intent.putExtra("modulo","3");
+            context.startActivity(intent)
         }
 
         //Nivel 5
@@ -199,6 +211,12 @@ class ArticaAntarticaNiveles: View {
             res = limite
         }
         return res
+    }
+
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        clickSound?.release()
+        clickSound = null
     }
 
 }
