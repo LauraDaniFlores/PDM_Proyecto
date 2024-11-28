@@ -354,10 +354,26 @@ class Arrastrar : View {
     }
     fun insertardb(modulo: Int){
         if(puntaje < 50) {
-            val intent = Intent(context, derrota_Inter::class.java)
-            intent.putExtra("nivel", "5")
-            intent.putExtra("modulo", modulo.toString())
-            context.startActivity(intent)
+            val hilo1: Thread = object : Thread() {
+                @Synchronized
+                override fun run() {
+                    while (true) {
+                        try {
+                            sleep(1000)
+                            tiempo5seg++
+                            if (tiempo5seg == 3) {
+
+                                val intent = Intent(context, derrota_Inter::class.java)
+                                intent.putExtra("nivel", "5")
+                                intent.putExtra("modulo", modulo.toString())
+                                context.startActivity(intent)
+                            }
+                        } catch (e: InterruptedException) {
+                        }
+                    }
+                }
+            }
+            hilo1.start()
         }else {
             var moduloaux = modulo
             var nivelaux = 5

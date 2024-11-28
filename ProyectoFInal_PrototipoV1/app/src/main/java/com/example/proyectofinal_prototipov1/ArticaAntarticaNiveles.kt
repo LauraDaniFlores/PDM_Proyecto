@@ -135,7 +135,7 @@ class ArticaAntarticaNiveles: View {
         nivel4!!.setBounds((anchonivel*4)-80, (altonivel + 100), ((anchonivel*4)-70+286), (altonivel + 100 + 370))
 
         if(dbBoolean[4]) {
-            nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.pinos)
+            nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.pino5)
         }else{
             nivel5 = AppCompatResources.getDrawable(getContext(), R.drawable.pinoscandado)
         }
