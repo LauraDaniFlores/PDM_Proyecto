@@ -60,7 +60,6 @@ class Trayecto : ScrollView {
         textPaint.textSize = 60f
         textPaint.color = Color.WHITE
 
-        textNivel.isAntiAlias = true
         textNivel.textSize = 150f
         textNivel.color = Color.BLACK
         textNivel.textAlign = Paint.Align.CENTER
@@ -112,6 +111,7 @@ class Trayecto : ScrollView {
 
 //        fondo!!.draw(canvas)
         val xPos = (ancho / 2)
+        textNivel.color = Color.BLACK
         canvas.drawText("Trayecto", xPos, 300f, textNivel)
 
         var cx = ancho/2 - 200f
@@ -140,11 +140,6 @@ class Trayecto : ScrollView {
         }else if(modulo[2]){
             pos = 2
             index = 25
-            gif!!.draw(canvas)
-//            gif!!.start()
-        }else if(modulo[0]){
-            gif!!.draw(canvas)
-//            gif!!.start()
         }
 
         for(j in 0..k){

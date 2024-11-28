@@ -14,6 +14,7 @@ import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.res.ResourcesCompat
 import java.util.Date
@@ -208,7 +209,7 @@ class Cards : View {
         }
 
 
-        if(index >= original.size-1){
+        if(index >= original.size){
             acabo = true
             respuesta = false
             puntaje += (100/original.size)
@@ -236,11 +237,6 @@ class Cards : View {
 
         original = array
         original.shuffle()
-//        for(i in 0..original.size){
-//            preguntas[i] = original.get(i).get(0)
-//            respuestaText[i] = original.get(i).get(1)
-//        }
-
     }
 
 

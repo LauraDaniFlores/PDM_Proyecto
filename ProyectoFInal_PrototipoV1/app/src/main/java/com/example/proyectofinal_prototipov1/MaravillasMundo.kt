@@ -103,7 +103,7 @@ class MaravillasMundo: View {
 
         val typeface = getResources().getFont(R.font.kumbhsans_extrabold)
         pText.setTypeface(typeface)
-        comprobarBaseDeDatos()
+//        comprobarBaseDeDatos()
     }
 
     fun comprobarBaseDeDatos(){
@@ -165,7 +165,12 @@ class MaravillasMundo: View {
             }else if(i == 5){
                 xtext = (ancho/2+260)
             }
-            canvas.drawText(maravillasText[i], xtext, ytext, pText)
+
+            if(maravillasText[i].equals("Cristo Redendor")){
+                canvas.drawText(maravillasText[i], xtext, ytext+30, pText)
+            }else{
+                canvas.drawText(maravillasText[i], xtext, ytext, pText)
+            }
             ytext += (alto/4 - 70)
         }
 
