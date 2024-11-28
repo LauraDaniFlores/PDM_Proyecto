@@ -28,10 +28,13 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+
         <activity android:name=".Modulos"
             android:exported="false"/>
+
         <activity android:name=".CreditosAct"
             android:exported="false"/>
+
         <activity android:name=".ModulosIntermedio"
             android:exported="false"/>
 
@@ -50,10 +53,19 @@
         <activity android:name=".Trayecto_Inter"
             android:exported="false"/>
 
+        <activity android:name=".Peguntados_Inter"/>
+
         <activity android:name=".FelicidadesInter"
             android:exported="false"/>
 
         <activity android:name=".derrota_Inter"
             android:exported="false"/>
+
+        <activity android:name=".Manual"
+            android:exported="false"/>
+
+        <activity android:name=".Arrastrar_Inter"
+            android:exported="false"/>
+
     </application>
 </manifest>

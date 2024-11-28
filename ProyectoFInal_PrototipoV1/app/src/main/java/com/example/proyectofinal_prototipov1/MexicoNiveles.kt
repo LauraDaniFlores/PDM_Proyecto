@@ -6,6 +6,7 @@ import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.drawable.Drawable
+import android.media.MediaPlayer
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
@@ -25,6 +26,9 @@ class MexicoNiveles : View {
     private var nivel8: Drawable? = null
     private var nivel9: Drawable? = null
     private var nivel10: Drawable? = null
+
+    //Sonido
+    private var clickSound: MediaPlayer? = null
 
 
     //Rectángulos
@@ -48,6 +52,8 @@ class MexicoNiveles : View {
     }
 
     private fun inicializa() {
+        // Inicializar el MediaPlayer con el sonido deseado
+        clickSound = MediaPlayer.create(context, R.raw.efectobtn)
         textPaint.isAntiAlias = true
         textPaint.textSize = 60f
         textPaint.color = Color.WHITE
@@ -249,35 +255,44 @@ class MexicoNiveles : View {
 
         //Nivel 1
         if (event.x >= 50 && event.x <= 210 && event.y >= (altonivel + ((altonivel1 * 2)) - 100) && event.y <= (altonivel + ((altonivel1 * 2)) + 160) && dbBoolean[0]) {
+            clickSound?.start()
             val intent = Intent(context, Cards_Inter::class.java)
             intent.putExtra("modulo", "4")
             context.startActivity(intent)
         }else if(event.x >= 280 && event.x <= 440 && event.y >= (altonivel + ((altonivel1 * 2)) - 50) && event.y <= (altonivel + ((altonivel1 * 2)) + 210) && dbBoolean[1]){
+            clickSound?.start()
             val intent = Intent(context, Memorama_Inter::class.java)
             intent.putExtra("modulo", "4")
             context.startActivity(intent)
         }else if(event.x >= (anchonivel * 2) + 50 && event.x <= ((anchonivel * 2) + 210) && event.y >= (altonivel + ((altonivel1 * 2)) - 170) && event.y <= (altonivel + ((altonivel1 * 2)) + 90) && dbBoolean[2]){
+            clickSound?.start()
             val intent = Intent(context, EscogerInterm::class.java)
             intent.putExtra("modulo", "4");
             context.startActivity(intent)
         }else if(event.x >= (anchonivel * 3) + 10 && event.x <= ((anchonivel * 3) + 170) && event.y >= (altonivel + ((altonivel1 * 2)) + 10) && event.y <= (altonivel + ((altonivel1 * 2)) + 270) && dbBoolean[3]){
-
+            clickSound?.start()
+            val intent = Intent(context, Peguntados_Inter::class.java)
+            intent.putExtra("modulo","4");
+            context.startActivity(intent)
         }else if(event.x >= (anchonivel * 4) + 10 && event.x <= ((anchonivel * 4) + 170) && event.y >= (altonivel + ((altonivel1 * 2)) - 130) && event.y <= (altonivel + ((altonivel1 * 2)) - 130 + 260) && dbBoolean[4]){
 
         }
 
         //Nivel 6
         if(event.x >= (anchonivel * 4) + 10 && event.x <= ((anchonivel * 4) + 207) && event.y >= (altonivel + ((altonivel1 * 2)) + 180) && event.y <= (altonivel + ((altonivel1 * 2)) + 180 + 176) && dbBoolean[5]){
+            clickSound?.start()
             val intent = Intent(context, Cards_Inter::class.java)
             intent.putExtra("modulo", "5")
             context.startActivity(intent)
         }else if(event.x >= (anchonivel * 3) + 10 && event.x <= ((anchonivel * 3) + 207) && event.y >= (altonivel + ((altonivel1 * 2)) + 290) && event.y <= (altonivel + ((altonivel1 * 2)) + 290 + 176) && dbBoolean[6]){
+            clickSound?.start()
             val intent = Intent(context, Memorama_Inter::class.java)
             intent.putExtra("modulo", "5")
             context.startActivity(intent)
         }else if(event.x >= (anchonivel * 2) + 30 && event.x <= ((anchonivel * 2) + 207) && event.y >= (altonivel + ((altonivel1 * 2)) + 170) && event.y <= (altonivel + ((altonivel1 * 2)) + 170 + 176) && dbBoolean[7]){
+            clickSound?.start()
             val intent = Intent(context, EscogerInterm::class.java)
-            intent.putExtra("modulo", "4");
+            intent.putExtra("modulo", "5");
             context.startActivity(intent)
         }else if(event.x >= 250 && event.x <= 437 && event.y >= (altonivel + ((altonivel1 * 2)) + 280) && event.y <= (altonivel + ((altonivel1 * 2)) + 280 + 176) && dbBoolean[8]){
 
@@ -312,5 +327,10 @@ class MexicoNiveles : View {
             res = limite
         }
         return res
+    }
+    override fun onDetachedFromWindow() {
+        super.onDetachedFromWindow()
+        clickSound?.release()
+        clickSound = null
     }
 }

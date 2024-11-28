@@ -27,8 +27,10 @@ class EscogerInterm: AppCompatActivity() {
 
         var escoger = findViewById<Escoger>(R.id.escoger)
         modulo = getIntent().getStringExtra("modulo")?.toInt()!!
+        var moduloaux = modulo
         if (modulo != null) {
-            modulo -= 1
+            if(modulo >= 5)
+            modulo -= 2
         }
         var db: DBSQLite = DBSQLite(this)
 
@@ -37,12 +39,13 @@ class EscogerInterm: AppCompatActivity() {
                 configuraciones.actuaizarPuntaje(puntaje)
             }
         })
+
         escoger.setOnTimeStotListener(object : OnTimeStopListener{
             override fun OnTimeStop(stop: Boolean) {
                 if(stop){
                     configuraciones.detenerTiempo()
                     escoger.setTiempo(configuraciones.gettime())
-                    escoger.insertardb(modulo+1)
+                    escoger.insertardb(moduloaux)
                 }
             }
         })
