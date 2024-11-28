@@ -1,5 +1,6 @@
 package com.example.proyectofinal_prototipov1
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -74,5 +75,11 @@ class Modulos : AppCompatActivity() {
         super.onDestroy()
         // Liberar recursos de MediaPlayer
         mediaPlayer.release()
+    }
+
+    @SuppressLint("MissingSuperCall")
+    override fun onBackPressed() {
+        val i = Intent(this@Modulos, MainActivity::class.java)
+        startActivity(i)
     }
 }

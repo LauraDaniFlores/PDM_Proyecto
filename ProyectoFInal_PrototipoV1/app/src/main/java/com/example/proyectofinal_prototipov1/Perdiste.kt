@@ -23,6 +23,9 @@ class Perdiste: View {
     private val pboton = Paint()
     private var azul = 0
     private var musicSuccess: MediaPlayer? = null
+    //Sonido
+    private var clickSound: MediaPlayer? = null
+
 
     constructor(context: Context?): super(context){
         inicializa()
@@ -49,6 +52,9 @@ class Perdiste: View {
         text1.typeface = customTypeface
         musicSuccess = MediaPlayer.create(context, R.raw.perder)
         musicSuccess?.start()
+        // Inicializar el MediaPlayer con el sonido deseado
+        clickSound = MediaPlayer.create(context, R.raw.efectobtn)
+
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -80,6 +86,8 @@ class Perdiste: View {
 
         if(event.x >= 100f && event.x <= ancho-100 ){
             if(event.y >= (alto/4*3+50) && event.y <= (alto/4*3+200)){
+                clickSound?.seekTo(0)
+                clickSound?.start()
                 var intent: Intent? = null
                 when(nivel){
                     2 ->  intent = Intent(context, Memorama_Inter::class.java)
@@ -92,6 +100,8 @@ class Perdiste: View {
                 }
                 context.startActivity(intent)
             }else if(event.y >= (alto/4*3+250) && event.y <= (alto/4*3+400)){
+                clickSound?.seekTo(0)
+                clickSound?.start()
                 val intent = Intent(context, ModulosIntermedio::class.java)
                 if(modulo != 4){
                     if(nivel < 5){
