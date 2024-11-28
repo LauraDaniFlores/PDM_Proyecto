@@ -112,10 +112,10 @@ class Trayecto : ScrollView {
 //        fondo!!.draw(canvas)
         val xPos = (ancho / 2)
         textNivel.color = Color.BLACK
-        canvas.drawText("Trayecto", xPos, 300f, textNivel)
+        canvas.drawText("Trayecto", xPos, 120f, textNivel)
 
         var cx = ancho/2 - 200f
-        var cy = 450f
+        var cy = 270f
         for(i in 0.. 2){
             if(modulo[i]){
                 circuloSelected.color = ResourcesCompat.getColor(resources, R.color.azulagua, null)
@@ -126,6 +126,7 @@ class Trayecto : ScrollView {
             canvas.drawText((i+1).toString(),cx-20, cy+20,textPaint)
             cx += 200f
         }
+
         var index = 0
         var altoC = 600f
         var k = 1
@@ -133,7 +134,7 @@ class Trayecto : ScrollView {
         var nivel = 0
 
         if(modulo[1]){
-            altoC = 500f
+            altoC = 450f
             k = 2
             index = 10
             pos = 4
@@ -153,13 +154,13 @@ class Trayecto : ScrollView {
             for (i in 0..4){
                 index ++
                 nivel ++
-                canvas.drawRoundRect(10f+(ancho/5*i), 700f+(altoC*j), (ancho/5)+(ancho/5*i)-5, 1100f+(altoC*j), 20f, 20f, circuloSelected)
-                canvas.drawText((index).toString(),80f+(ancho/5*i), 770f+(altoC*j), textPaint)
+                canvas.drawRoundRect(10f+(ancho/5*i), 500f+(altoC*j), (ancho/5)+(ancho/5*i)-5, 900f+(altoC*j), 20f, 20f, circuloSelected)
+                canvas.drawText((index).toString(),80f+(ancho/5*i), 570f+(altoC*j), textPaint)
                 if(datos[index-1][3] == "true"){
-                    canvas.drawText("Tiempo:",15f+(ancho/5*i), 850f+(altoC*j), ptext)
-                    canvas.drawText(datos[index-1][0] + " seg",15f+(ancho/5*i), 890f+(altoC*j), ptext)
-                    canvas.drawText("Puntaje:",15f+(ancho/5*i), 930f+(altoC*j), ptext)
-                    canvas.drawText(datos[index-1][1],15f+(ancho/5*i), 970f+(altoC*j), ptext)
+                    canvas.drawText("Tiempo:",15f+(ancho/5*i), 650f+(altoC*j), ptext)
+                    canvas.drawText(datos[index-1][0] + " seg",15f+(ancho/5*i), 690f+(altoC*j), ptext)
+                    canvas.drawText("Puntaje:",15f+(ancho/5*i), 730f+(altoC*j), ptext)
+                    canvas.drawText(datos[index-1][1],15f+(ancho/5*i), 770f+(altoC*j), ptext)
 //                    canvas.drawText("Fecha:",15f+(ancho/5*i), 1010f+(altoC*j), ptext)
 //                    var formatter = DateTimeFormatter.ofPattern("yyyy")
 //                    var formattedDate = datos[index-1][2].format(formatter)
@@ -194,7 +195,7 @@ class Trayecto : ScrollView {
         val ancho = measuredWidth.toFloat()
 
         var cx = ancho/2 - 200f
-        var cy = 450f
+        var cy = 270f
         for(i in 0.. 2){
             if(event.x >= cx - radio && event.x <= cx + radio && event.y >= cy - radio && event.y <= cy + radio ){
                 for(j in 0..2){

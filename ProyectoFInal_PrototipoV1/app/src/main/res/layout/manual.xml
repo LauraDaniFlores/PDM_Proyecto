@@ -38,5 +38,17 @@
             android:adjustViewBounds="true"
 
             />
+
+        <ImageButton
+            android:id="@+id/regreso"
+            android:background="@color/white"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:scaleType="fitXY"
+            android:layout_gravity="bottom|center"
+            android:src="@drawable/emblema"
+            />
     </LinearLayout>
 </ScrollView>
