@@ -130,10 +130,10 @@ class DBSQLite(context: Context?) : SQLiteOpenHelper(context, TABLE_NAME, null, 
         var moduloaux = modulo
         var niveles = 5
 
-        if(moduloaux == 4){
+        if(moduloaux == 5){
             niveles = 10
-            moduloaux = 3
-        }else if(moduloaux > 4){
+            moduloaux = 4
+        }else if(moduloaux > 5){
             moduloaux -= 1
         }
 
