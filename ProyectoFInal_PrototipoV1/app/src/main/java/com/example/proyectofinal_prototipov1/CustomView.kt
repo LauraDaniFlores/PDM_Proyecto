@@ -221,43 +221,53 @@ class CustomView : View {
         answerRects.clear()
 
         for (answer in question?.shuffledAnswers ?: emptyList()) {
-            // Define un margen para que los botones sean menos anchos
-            val marginX = 150f
-            val rect = android.graphics.RectF(marginX, startY, width - marginX, startY + 120f)
+            val marginX = 100f
+            val rectHeight = 150f  // Aumentamos el tamaño del botón
+            val rect = android.graphics.RectF(marginX, startY, width - marginX, startY + rectHeight)
 
-            // Determinar el color del botón según la respuesta
             val buttonColor = when {
-                hasSelectedAnswer && answer == question!!.correctAnswer -> Color.rgb(88, 214, 141) // Respuesta correcta
-                hasSelectedAnswer && answer == selectedAnswer && !question!!.isCorrect(answer) -> Color.rgb(232,4,4) // Respuesta incorrecta seleccionada
+                hasSelectedAnswer && answer == question!!.correctAnswer -> Color.rgb(88, 214, 141)
+                hasSelectedAnswer && answer == selectedAnswer && !question!!.isCorrect(answer) -> Color.rgb(232, 4, 4)
                 else -> Color.WHITE
             }
 
-            // Dibujar botón
+            // Dibuja el fondo del botón
             canvas.drawRoundRect(rect, 20f, 30f, answerPaint.apply {
                 color = buttonColor
                 style = Paint.Style.FILL
             })
 
-            // Dibujar contorno del botón
+            // Dibuja el contorno del botón
             canvas.drawRoundRect(rect, 20f, 30f, answerPaint.apply {
                 style = Paint.Style.STROKE
                 color = Color.rgb(2, 104, 115)
                 strokeWidth = 5f
             })
 
-            // Cambiar color del texto según el estado
             val textColor = if (hasSelectedAnswer && answer == question!!.correctAnswer) Color.WHITE else Color.BLACK
-            answerPaint.style = Paint.Style.FILL
             answerPaint.color = textColor
+            answerPaint.style = Paint.Style.FILL
 
-            // Dibujar texto de la respuesta centrado
-            val textX = (rect.left + rect.right) / 2
-            val textY = rect.centerY() - (answerPaint.descent() + answerPaint.ascent()) / 2
-            canvas.drawText(answer, textX, textY, answerPaint)
+            // Obtener métricas del texto para centrarlo
+            val fontMetrics = answerPaint.fontMetrics
+            val textHeight = fontMetrics.descent - fontMetrics.ascent
+            val centerY = rect.centerY()
 
-            // Guardar rectángulos para detección de clics
+            // Divide el texto en varias líneas si es necesario
+            val lines = splitTextToLines(answer, rect.width() - 20, answerPaint)
+            val totalTextHeight = lines.size * textHeight + (lines.size - 1) * 10f
+
+            // Centrar verticalmente todo el texto
+            var currentY = centerY - totalTextHeight / 2
+
+            for (line in lines) {
+                val textBaseline = currentY - fontMetrics.ascent
+                canvas.drawText(line, rect.centerX(), textBaseline, answerPaint)
+                currentY += textHeight + 10f
+            }
+
             answerRects.add(answer to floatArrayOf(rect.left, rect.top, rect.right, rect.bottom))
-            startY += 150f // Separación entre botones de respuesta
+            startY += rectHeight + 30f
         }
     }
 
@@ -380,6 +390,7 @@ class CustomView : View {
             val intent = Intent(context, derrota_Inter::class.java)
             intent.putExtra("nivel", "4")
             intent.putExtra("modulo", modulo.toString())
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intent)
         }else {
             var moduloaux = modulo
@@ -389,8 +400,9 @@ class CustomView : View {
                 moduloaux = modulo - 1
             }else if(modulo == 5){
                 moduloaux = modulo - 1
-                nivelaux = 8
+                nivelaux = 9
             }
+
             if (db.nivelDesbloqueado(moduloaux, nivelaux+1)) {
                 db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), false)
             } else {
@@ -402,6 +414,8 @@ class CustomView : View {
             intent.putExtra("modulo", moduloaux.toString())
             intent.putExtra("puntaje", puntaje.toString())
             intent.putExtra("tiempo", tiempo.toString())
+
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
             context.startActivity(intent)
 

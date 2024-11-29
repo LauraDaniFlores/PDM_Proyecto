@@ -21,6 +21,13 @@ class ModulosIntermedio: AppCompatActivity() {
 
         val configuracion = findViewById<Configuracion>(R.id.configuracion)
 
+//        configuracion.setOnChangeTimeListener(object : OnChangeTimeListener{
+//            override fun OnChangeTime(seconds: Int?) {
+//                continente.setSegundosMusica(seconds!!)
+//            }
+//        })
+
+
         when (tiponivel) {
             0 ->  continente.visibility = View.VISIBLE
             1 ->  oceano.visibility = View.VISIBLE

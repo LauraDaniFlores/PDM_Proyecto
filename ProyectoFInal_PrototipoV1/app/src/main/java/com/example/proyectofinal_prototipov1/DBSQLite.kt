@@ -103,7 +103,7 @@ class DBSQLite(context: Context?) : SQLiteOpenHelper(context, TABLE_NAME, null, 
         if(moduloaux == 0){
             return true
         }
-        if(moduloaux == 3){
+        if(moduloaux == 4){
             niveles = 10
         }
 

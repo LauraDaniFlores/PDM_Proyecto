@@ -108,7 +108,11 @@ class Felicidades: View {
                     if(nivel < 5){
                        intent.putExtra("tiponivel", (modulo-1).toString())
                     }else{
-                        intent.putExtra("tiponivel", modulo.toString())
+                        if(modulo == 6){
+                            intent.putExtra("tiponivel", (modulo-1).toString())
+                        }else{
+                            intent.putExtra("tiponivel", modulo.toString())
+                        }
                     }
                 }else{
                     if(nivel < 10){

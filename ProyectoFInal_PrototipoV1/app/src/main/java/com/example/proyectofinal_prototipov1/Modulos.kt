@@ -68,6 +68,7 @@ class Modulos : AppCompatActivity() {
             R.id.america -> i.putExtra("tiponivel", "4")
             R.id.Asia -> i.putExtra("tiponivel", "5")
         }
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(i)
     }
 
