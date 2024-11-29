@@ -263,16 +263,19 @@ class MexicoNiveles : View {
             clickSound?.start()
             val intent = Intent(context, Cards_Inter::class.java)
             intent.putExtra("modulo", "4")
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intent)
         }else if(event.x >= 280 && event.x <= 440 && event.y >= (altonivel + ((altonivel1 * 2)) - 50) && event.y <= (altonivel + ((altonivel1 * 2)) + 210) && dbBoolean[1]){
             clickSound?.start()
             val intent = Intent(context, Memorama_Inter::class.java)
             intent.putExtra("modulo", "4")
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intent)
         }else if(event.x >= (anchonivel * 2) + 50 && event.x <= ((anchonivel * 2) + 210) && event.y >= (altonivel + ((altonivel1 * 2)) - 170) && event.y <= (altonivel + ((altonivel1 * 2)) + 90) && dbBoolean[2]){
             clickSound?.start()
             val intent = Intent(context, EscogerInterm::class.java)
             intent.putExtra("modulo", "4");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intent)
         }else if(event.x >= (anchonivel * 3) + 10 && event.x <= ((anchonivel * 3) + 170) && event.y >= (altonivel + ((altonivel1 * 2)) + 10) && event.y <= (altonivel + ((altonivel1 * 2)) + 270) && dbBoolean[3]){
             clickSound?.start()
@@ -284,6 +287,7 @@ class MexicoNiveles : View {
             clickSound?.start()
             val intent = Intent(context, Arrastrar_Inter::class.java)
             intent.putExtra("modulo","4");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intent)
         }
 
@@ -292,16 +296,19 @@ class MexicoNiveles : View {
             clickSound?.start()
             val intent = Intent(context, Cards_Inter::class.java)
             intent.putExtra("modulo", "5")
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intent)
         }else if(event.x >= (anchonivel * 3) + 10 && event.x <= ((anchonivel * 3) + 207) && event.y >= (altonivel + ((altonivel1 * 2)) + 290) && event.y <= (altonivel + ((altonivel1 * 2)) + 290 + 176) && dbBoolean[6]){
             clickSound?.start()
             val intent = Intent(context, Memorama_Inter::class.java)
             intent.putExtra("modulo", "5")
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intent)
         }else if(event.x >= (anchonivel * 2) + 30 && event.x <= ((anchonivel * 2) + 207) && event.y >= (altonivel + ((altonivel1 * 2)) + 170) && event.y <= (altonivel + ((altonivel1 * 2)) + 170 + 176) && dbBoolean[7]){
             clickSound?.start()
             val intent = Intent(context, EscogerInterm::class.java)
             intent.putExtra("modulo", "5");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intent)
         }else if(event.x >= 250 && event.x <= 437 && event.y >= (altonivel + ((altonivel1 * 2)) + 280) && event.y <= (altonivel + ((altonivel1 * 2)) + 280 + 176) && dbBoolean[8]){
             clickSound?.start()
@@ -313,6 +320,7 @@ class MexicoNiveles : View {
             clickSound?.start()
             val intent = Intent(context, Arrastrar_Inter::class.java)
             intent.putExtra("modulo","5");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intent)
         }
 
