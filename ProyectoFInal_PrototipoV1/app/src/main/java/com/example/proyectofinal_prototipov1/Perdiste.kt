@@ -103,18 +103,10 @@ class Perdiste: View {
                 clickSound?.seekTo(0)
                 clickSound?.start()
                 val intent = Intent(context, ModulosIntermedio::class.java)
-                if(modulo != 4){
-                    if(nivel < 5){
-                        intent.putExtra("tiponivel", (modulo-1).toString())
-                    }else{
-                        intent.putExtra("tiponivel", modulo.toString())
-                    }
+                if(modulo >= 5){
+                    intent.putExtra("tiponivel", (modulo-2).toString())
                 }else{
-                    if(nivel < 10){
-                        intent.putExtra("tiponivel", (modulo-1).toString())
-                    }else{
-                        intent.putExtra("tiponivel", modulo.toString())
-                    }
+                    intent.putExtra("tiponivel",( modulo-1).toString())
                 }
                 context.startActivity(intent)
             }
