@@ -38,6 +38,14 @@
             android:adjustViewBounds="true"
 
             />
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/t5"
+            android:scaleType="fitStart"
+            android:adjustViewBounds="true"
+
+            />
 
         <ImageButton
             android:id="@+id/regreso"
