@@ -346,42 +346,26 @@ class Peguntados_Inter : AppCompatActivity(), OnAnswerSelectedListener {
         configuraciones.detenerMusica() // Liberar recursos
 //        Toast.makeText(applicationContext, "On Stop", Toast.LENGTH_SHORT).show()
         handler.removeCallbacksAndMessages(null)
-        if(currentQuestionIndex < totalQuestions){
-            //finishGame()
-        }else{
-            super.onStop()
-        }
-
         super.onStop()
+        // Libera recursos si es necesario
+        detenerPreguntados()
     }
 
     override fun onPause() {
         super.onPause()
-        // Detiene todas las tareas pendientes del Handler
-        handler.removeCallbacksAndMessages(null)
-
-        // Si el juego debe terminar al pausar, puedes realizar la lógica aquí
-        /*if(currentQuestionIndex < totalQuestions){
-            finishGame()
-        }else{
-            super.onPause()
-        }*/
+        // Detén cualquier lógica o sonido que se esté ejecutando
+        detenerPreguntados()
 
         // Si tienes música en la configuración, detén la música
         val configuraciones = findViewById<Configuracion>(R.id.configuracion)
         configuraciones.detenerMusica()
     }
 
-    private fun finishGame() {
-        // Termina la actividad
-        finish()
-        /*val intent = Intent(this@Peguntados_Inter, derrota_Inter::class.java)
-        intent.putExtra("nivel", "4")
-        intent.putExtra("modulo", modulo.toString())
-        this.startActivity(intent)*/
-        preguntados.insertardb(modulo)
-
-
+    private fun detenerPreguntados() {
+        // Detén las tareas o sonidos en segundo plano
+        handler.removeCallbacksAndMessages(null) // Detiene cualquier Runnable pendiente
+        //preguntados.detenerSonidos() // Asegúrate de tener una función en CustomView para detener sonidos
+        //Toast.makeText(this, "Juego pausado", Toast.LENGTH_SHORT).show()
     }
 
 
