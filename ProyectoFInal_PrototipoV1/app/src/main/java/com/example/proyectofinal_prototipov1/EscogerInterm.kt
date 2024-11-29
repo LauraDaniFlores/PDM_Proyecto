@@ -13,6 +13,7 @@ import java.util.Date
 
 class EscogerInterm: AppCompatActivity() {
     var modulo: Int = 0
+//    var musica: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -27,6 +28,8 @@ class EscogerInterm: AppCompatActivity() {
 
         var escoger = findViewById<Escoger>(R.id.escoger)
         modulo = getIntent().getStringExtra("modulo")?.toInt()!!
+//        musica = getIntent().getStringExtra("musica")?.toInt()!!
+
         var moduloaux = modulo
         if (modulo != null) {
             if(modulo >= 5){
@@ -36,6 +39,8 @@ class EscogerInterm: AppCompatActivity() {
             }
         }
         var db: DBSQLite = DBSQLite(this)
+
+//        configuraciones.setseekmusic(musica/1000)
 
         escoger.setListenerScore(object : OnChangeScoreListener{
             override fun SetonScoreChange(puntaje: Int){

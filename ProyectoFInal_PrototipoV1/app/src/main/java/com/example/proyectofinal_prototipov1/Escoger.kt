@@ -333,6 +333,7 @@ class Escoger: View {
             val intent = Intent(context, derrota_Inter::class.java)
             intent.putExtra("nivel", "3")
             intent.putExtra("modulo", modulo.toString())
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intent)
         }else {
             var moduloaux = modulo
@@ -355,6 +356,7 @@ class Escoger: View {
             intent.putExtra("modulo", moduloaux.toString())
             intent.putExtra("puntaje", puntaje.toString())
             intent.putExtra("tiempo", tiempo.toString())
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
             context.startActivity(intent)
         }

@@ -1,6 +1,5 @@
 package com.example.proyectofinal_prototipov1
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.graphics.Canvas
@@ -25,6 +24,12 @@ class Configuracion : View {
 
     private var puntaje: Drawable? = null
     private var tiempo: Drawable? = null
+
+    //Listener
+    var listenertime: OnChangeTimeListener? = null
+    fun setOnChangeTimeListener(l: OnChangeTimeListener){
+        listenertime = l
+    }
 
 
     //Rectangulos
@@ -87,6 +92,7 @@ class Configuracion : View {
                         if(!timeStop) {
                             sleep(1000)
                             time++
+//                            listenertime!!.OnChangeTime(secondMusic())
                         }
                     }catch (e: InterruptedException){}
                 }
@@ -279,6 +285,15 @@ class Configuracion : View {
     }
     fun startMusica(){
         music?.start()
+    }
+    fun setseekmusic(num: Int){
+        music?.stop()
+        music?.seekTo(num)
+        music?.start()
+    }
+    fun secondMusic(): Int?{
+        var segundos = music?.currentPosition
+        return segundos
     }
 
     fun actuaizarPuntaje(puntaje: Int) {

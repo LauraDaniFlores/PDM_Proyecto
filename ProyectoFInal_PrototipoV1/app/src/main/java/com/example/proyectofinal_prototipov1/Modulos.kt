@@ -31,17 +31,16 @@ class Modulos : AppCompatActivity() {
 
         // Cambiar imágenes según el estado del módulo
         if (db.moduloDesbloqueado(2)) {
-            oceanos.setImageResource(R.drawable.boceanos)
-        } else if (db.nivelDesbloqueado(3, 1)) {
-            aryan.setImageResource(R.drawable.barticaya)
-        } else if (db.nivelDesbloqueado(4, 1)) {
-            mexico.setImageResource(R.drawable.bmexico)
-        } else if (db.nivelDesbloqueado(5, 1)) {
-            america.setImageResource(R.drawable.bamerica)
-        } else if (db.nivelDesbloqueado(6, 1)) {
-            Asia.setImageResource(R.drawable.basia)
-        }
-
+            oceanos.setImageResource(R.drawable.boceanos) }
+        if (db.moduloDesbloqueado(3)) {
+            aryan.setImageResource(R.drawable.barticaya) }
+        if (db.moduloDesbloqueado(4)) {
+            mexico.setImageResource(R.drawable.bmexico) }
+        if (db.moduloDesbloqueado(5)) {
+            america.setImageResource(R.drawable.bamerica) }
+        if (db.moduloDesbloqueado(6)) {
+            Asia.setImageResource(R.drawable.basia)}
+        
         // Asignar eventos de clic
         continentes.setOnClickListener(evento)
         oceanos.setOnClickListener(evento)
@@ -69,6 +68,7 @@ class Modulos : AppCompatActivity() {
             R.id.america -> i.putExtra("tiponivel", "4")
             R.id.Asia -> i.putExtra("tiponivel", "5")
         }
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(i)
     }
 
@@ -80,6 +80,7 @@ class Modulos : AppCompatActivity() {
 
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
+        onStop()
         val i = Intent(this@Modulos, MainActivity::class.java)
         startActivity(i)
     }

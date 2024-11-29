@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 mediaPlayer.start()
                 val i = Intent(this@MainActivity, Modulos::class.java)
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(i)
             }
             R.id.logros -> {
@@ -63,6 +64,7 @@ class MainActivity : AppCompatActivity() {
                     this@MainActivity,
                     Maravillas_Inter::class.java
                 )
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(i)
             }
             R.id.carrera -> {
@@ -75,6 +77,7 @@ class MainActivity : AppCompatActivity() {
                     this@MainActivity,
                     Trayecto_Inter::class.java
                 )
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(i)
             }
             R.id.creditos -> {
@@ -86,6 +89,7 @@ class MainActivity : AppCompatActivity() {
                 val i: Intent = Intent(
                     this@MainActivity,
                     CreditosAct::class.java)
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(i)
             }
             R.id.tutorial ->{
@@ -97,6 +101,7 @@ class MainActivity : AppCompatActivity() {
                 val i: Intent = Intent(this@MainActivity,
                     Manual::class.java
                 )
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(i)
             }
                     

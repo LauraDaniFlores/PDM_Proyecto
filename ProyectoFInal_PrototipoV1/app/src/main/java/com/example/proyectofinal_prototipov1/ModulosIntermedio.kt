@@ -21,6 +21,13 @@ class ModulosIntermedio: AppCompatActivity() {
 
         val configuracion = findViewById<Configuracion>(R.id.configuracion)
 
+//        configuracion.setOnChangeTimeListener(object : OnChangeTimeListener{
+//            override fun OnChangeTime(seconds: Int?) {
+//                continente.setSegundosMusica(seconds!!)
+//            }
+//        })
+
+
         when (tiponivel) {
             0 ->  continente.visibility = View.VISIBLE
             1 ->  oceano.visibility = View.VISIBLE
@@ -30,9 +37,19 @@ class ModulosIntermedio: AppCompatActivity() {
             5 ->  asia.visibility = View.VISIBLE
         }
 
+        when (tiponivel) {
+            0 ->  configuracion.setMusica("continentes")
+            1 ->  configuracion.setMusica("ocean")
+            2 -> configuracion.setMusica("aryan")
+            3 ->  configuracion.setMusica("mexico")
+            4 ->  configuracion.setMusica("america")
+            5 ->  configuracion.setMusica("asia")
+        }
+
     }
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
+        onStop()
         val i = Intent(this@ModulosIntermedio, Modulos::class.java)
         startActivity(i)
     }

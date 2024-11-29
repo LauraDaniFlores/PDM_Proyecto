@@ -390,6 +390,7 @@ class CustomView : View {
             val intent = Intent(context, derrota_Inter::class.java)
             intent.putExtra("nivel", "4")
             intent.putExtra("modulo", modulo.toString())
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             context.startActivity(intent)
         }else {
             var moduloaux = modulo
@@ -399,8 +400,9 @@ class CustomView : View {
                 moduloaux = modulo - 1
             }else if(modulo == 5){
                 moduloaux = modulo - 1
-                nivelaux = 8
+                nivelaux = 9
             }
+
             if (db.nivelDesbloqueado(moduloaux, nivelaux+1)) {
                 db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), false)
             } else {
@@ -412,6 +414,8 @@ class CustomView : View {
             intent.putExtra("modulo", moduloaux.toString())
             intent.putExtra("puntaje", puntaje.toString())
             intent.putExtra("tiempo", tiempo.toString())
+
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
             context.startActivity(intent)
 

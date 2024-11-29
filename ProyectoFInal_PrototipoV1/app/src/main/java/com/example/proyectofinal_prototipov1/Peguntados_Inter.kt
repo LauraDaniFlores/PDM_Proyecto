@@ -255,7 +255,7 @@ class Peguntados_Inter : AppCompatActivity(), OnAnswerSelectedListener {
                         R.drawable.paisesamerica
                     ),
                     CPreguntados(
-                        "¿Cuáles son los idiomas más hablados?",
+                        "¿Cuáles son los idiomas más hablados en América?",
                         "Inglés y Español",
                         listOf("Inglés y Español", "Inglés y Japones", "Inglés", "Inglés Canadiense"),
                         R.drawable.conversando
