@@ -33,13 +33,23 @@ class Peguntados_Inter : AppCompatActivity(), OnAnswerSelectedListener {
         }
 
         modulo = getIntent().getStringExtra("modulo")?.toInt()!!
+        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
 
+        when (modulo!!.toInt()) {
+            1 ->  configuraciones.setMusica("continentes")
+            2 ->  configuraciones.setMusica("ocean")
+            3 -> configuraciones.setMusica("aryan")
+            4,5 ->  configuraciones.setMusica("mexico")
+            6 ->  configuraciones.setMusica("america")
+            7 ->  configuraciones.setMusica("asia")
+        }
+        configuraciones.setVolume()
 //        modulo=4
 
-        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
 
         preguntados = findViewById(R.id.cpreguntados)
         preguntados.answerListener = this
+
 
         when(modulo){
 

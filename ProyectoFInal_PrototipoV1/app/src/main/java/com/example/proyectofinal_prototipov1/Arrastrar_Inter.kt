@@ -23,6 +23,16 @@ class Arrastrar_Inter : AppCompatActivity() {
         var arrastrar = findViewById<Arrastrar>(R.id.arrastrar)
 
         modulo = getIntent().getStringExtra("modulo")?.toInt()!!
+        when (modulo!!.toInt()) {
+            1 ->  configuraciones.setMusica("continentes")
+            2 ->  configuraciones.setMusica("ocean")
+            3 -> configuraciones.setMusica("aryan")
+            4,5 ->  configuraciones.setMusica("mexico")
+            6 ->  configuraciones.setMusica("america")
+            7 ->  configuraciones.setMusica("asia")
+        }
+        configuraciones.setVolume()
+
         if (modulo != null) {
             modulo -= 1
         }

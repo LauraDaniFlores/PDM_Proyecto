@@ -291,6 +291,9 @@ class Configuracion : View {
         music?.seekTo(num)
         music?.start()
     }
+    fun setVolume(){
+        music?.setVolume(0.3f, 0.3f)
+    }
     fun secondMusic(): Int?{
         var segundos = music?.currentPosition
         return segundos

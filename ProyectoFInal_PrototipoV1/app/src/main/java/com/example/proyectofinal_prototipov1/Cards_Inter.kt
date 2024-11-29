@@ -49,6 +49,15 @@ class Cards_Inter: AppCompatActivity() {
                 7 ->  juego.setArray(asia, 7)
             }
         }
+        when (modulo!!.toInt()) {
+            1 ->  configuraciones.setMusica("continentes")
+            2 ->  configuraciones.setMusica("ocean")
+            3 -> configuraciones.setMusica("aryan")
+            4,5 ->  configuraciones.setMusica("mexico")
+            6 ->  configuraciones.setMusica("america")
+            7 ->  configuraciones.setMusica("asia")
+        }
+        configuraciones.setVolume()
 
         juego.setListenerScore(object : OnChangeScoreListener{
             override fun SetonScoreChange(puntaje: Int){

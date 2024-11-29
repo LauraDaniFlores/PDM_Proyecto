@@ -38,9 +38,16 @@ class EscogerInterm: AppCompatActivity() {
                 modulo -=1
             }
         }
-        var db: DBSQLite = DBSQLite(this)
 
-//        configuraciones.setseekmusic(musica/1000)
+        when (moduloaux.toInt()) {
+            1 ->  configuraciones.setMusica("continentes")
+            2 ->  configuraciones.setMusica("ocean")
+            3 -> configuraciones.setMusica("aryan")
+            4,5 ->  configuraciones.setMusica("mexico")
+            6 ->  configuraciones.setMusica("america")
+            7 ->  configuraciones.setMusica("asia")
+        }
+        configuraciones.setVolume()
 
         escoger.setListenerScore(object : OnChangeScoreListener{
             override fun SetonScoreChange(puntaje: Int){
