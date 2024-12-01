@@ -5,12 +5,14 @@
     android:background="@drawable/fondogeo2"
     android:id="@+id/main">
 
-    <ImageView
+    <ImageButton
         android:id="@+id/logoview"
         android:layout_width="250dp"
         android:layout_height="250dp"
         android:src="@drawable/logonormal"
         android:layout_centerHorizontal="true"
+        android:scaleType="fitCenter"
+        android:background="@null"
         />
 
     <RelativeLayout

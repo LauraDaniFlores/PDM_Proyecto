@@ -24,6 +24,9 @@ class Felicidades: View {
     private val text1 = Paint()
     private var azul = 0
     private var musicSuccess: MediaPlayer? = null
+    //SQLite
+    var db: DBSQLite = DBSQLite(context)
+
 
 
     fun setVariables(time: Int, score: Int, nive: Int, modul: Int){
@@ -103,22 +106,36 @@ class Felicidades: View {
 
         if (event.actionMasked == MotionEvent.ACTION_DOWN || event.actionMasked == MotionEvent.ACTION_POINTER_DOWN) {
             if(x >= 0 && x <= ancho && y >= 0 && y <= alto){
-                val intent = Intent(context, ModulosIntermedio::class.java)
+                var intent = Intent(context, ModulosIntermedio::class.java)
                 if(modulo != 4){
                     if(nivel < 5){
                        intent.putExtra("tiponivel", (modulo-1).toString())
                     }else{
                         if(modulo == 6){
-                            intent.putExtra("tiponivel", (modulo-1).toString())
+                            if(!db.primeraVezPasado(modulo, nivel)) {
+                                intent = Intent(context, Maravillas_Inter::class.java)
+                            }else{
+                                intent.putExtra("tiponivel", (modulo-1).toString())
+                            }
                         }else{
-                            intent.putExtra("tiponivel", modulo.toString())
+                            if(!db.primeraVezPasado(modulo, nivel)){
+                                intent = Intent(context, Maravillas_Inter::class.java)
+//                                context.startActivity(i)
+                            }else{
+                                intent.putExtra("tiponivel", modulo.toString())
+                            }
                         }
                     }
                 }else{
                     if(nivel < 10){
                         intent.putExtra("tiponivel", (modulo-1).toString())
                     }else{
-                        intent.putExtra("tiponivel", modulo.toString())
+                        if(!db.primeraVezPasado(modulo, nivel)) {
+                            intent = Intent(context, Maravillas_Inter::class.java)
+//                            context.startActivity(i)
+                        }else{
+                            intent.putExtra("tiponivel", modulo.toString())
+                        }
                     }
                 }
                 context.startActivity(intent)

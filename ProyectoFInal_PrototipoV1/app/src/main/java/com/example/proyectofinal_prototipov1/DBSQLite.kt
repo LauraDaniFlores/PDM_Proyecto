@@ -175,4 +175,23 @@ class DBSQLite(context: Context?) : SQLiteOpenHelper(context, TABLE_NAME, null, 
         return arrayOf("null", "null", "null", "false")
     }
 
+    fun primeraVezPasado(modulo: Int, nivel: Int): Boolean{
+        val db = readableDatabase
+        var rows = 0
+
+        var cursor = db.rawQuery(
+            "SELECT COUNT(*) " +
+                    "FROM " + TABLE_NAME + " WHERE modulo = $modulo AND nivel = $nivel AND primeravez = 'false'", null
+        )
+        while (cursor.moveToNext()){
+            rows = cursor.getInt(0)
+        }
+        cursor.close()
+        if(rows > 0){
+            return true
+        }else if(rows == 0){
+            return false
+        }
+        return false
+    }
 }
