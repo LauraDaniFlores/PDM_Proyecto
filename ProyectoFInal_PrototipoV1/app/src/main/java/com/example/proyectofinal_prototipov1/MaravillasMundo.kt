@@ -42,13 +42,14 @@ class MaravillasMundo: View {
 
     var mostrar:Boolean = false
     var maravilla: Int? = null
+    var arriba: Boolean = false
 
     // Texto
     var maravillasText = arrayOf("ChinChén Itzá", "Coliseo Romano", "Cristo Redendor", "Muralla China", "Taj Mahal", "Petra", "Machu Pichu")
     var paises = arrayOf("México", "Italia", "Brasil", "China", "India", "Jordania", "Perú")
     var datoCurioso = arrayOf(
         arrayOf("La pirámide de Kukulkan tiene 365 escalones, uno por cada día del año.", "El complejo arqueológico de Chichén Itzá fue declarado patrimonio de la Humanidad por la Unesco en 1988, lo que dio lugar a la más rigurosa protección de esta antigua ciudad maya.", "La pirámide de Chichen Itzá fue erigida para honrar a Kukulkán, la serpiente emplumada. Esta deidad maya encargada de fertilizar la tierra es la principal protagonista del templo."),
-        arrayOf("Se construyó en el siglo I y fue construido por el emperador Vespasiano y sus hijos Tito y Domiciano.", "Se estima que participaron entre 60,000 y 100,000 personas en su construcción.", "El Coliseo se construyó entre los años 72 y 80 d.C. Los juegos inaugurales del Coliseo se celebraron entre los años 80 y 81 d.C. El emperador Vespasiano inició la construcción del Coliseo, pero murió en el año 79 d.C., antes de que se terminara el piso superior. Su hijo, el emperador Tito, terminó el piso superior."),
+        arrayOf("Se construyó en el siglo I y fue construido por el emperador Vespasiano y sus hijos Tito y Domiciano.", "Se estima que participaron entre 60,000 y 100,000 personas en su construcción.", "El Coliseo se construyó entre los años 72 y 80 d.C. Los juegos inaugurales del Coliseo se celebraron entre los años 80 y 81 d.C.", "El emperador Vespasiano inició la construcción del Coliseo, pero murió en el año 79 d.C., antes de que se terminara el piso superior. Su hijo, el emperador Tito, terminó el piso superior."),
         arrayOf( " La estatua mide 38 metros de alto, 28 de ancho, pesa 1145 toneladas, y se alza a 710 metros sobre el nivel del mar.", "a estatua del Cristo Redentor es completamente hueca, a excepción de las manos.",
                 "De hecho, se puede entrar en el interior y salir por las manos o por la cabeza, aunque el acceso sólo está permitido a personal de mantenimiento y a miembros autorizados por la Arquidiócesis de Río.", "La estatua del Cristo Redentor fue construida en Francia y fue trasladada a Brasil por partes. Fueron necesarios cinco años de trabajo (de 1926 a 1931) para completar la obra. La construcción se hizo a la inversa, es decir, de la cabeza a los pies y no se registraron víctimas mortales, algo poco común para la época."),
         arrayOf("Su nombre original en chino es changcheng, que significa 'larga muralla'.", "Su construcción se extendió por más de 2,000 años.", "Es la estructura más larga construida por el hombre, con 21,196 kilómetros de longitud. \n" +
