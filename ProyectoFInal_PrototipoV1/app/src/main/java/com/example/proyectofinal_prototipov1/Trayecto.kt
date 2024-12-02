@@ -18,10 +18,6 @@ import java.text.SimpleDateFormat
 import java.time.format.DateTimeFormatter
 
 class Trayecto : ScrollView {
-    //Imagen de fondo
-    private var fondo: Drawable? = null
-    private var fondo1: Drawable? = null
-
     //Rectangulos
     private val cuadrado = Paint()
     private val circulo = Paint()
@@ -33,9 +29,6 @@ class Trayecto : ScrollView {
     private val textNivel = Paint()
     private val textModulo = Paint()
     private val ptext = Paint()
-
-    // Gif
-    private var gif: AnimationDrawable? = null
 
     // Modulo
     var modulo = arrayOf(true, false, false)
@@ -90,13 +83,13 @@ class Trayecto : ScrollView {
         circuloSelected.style = Paint.Style.FILL
         circuloSelected.color = ResourcesCompat.getColor(resources, R.color.azulagua, null)
 
+        // Llenará una matriz con los datos de la base de datos del mejor puntaje y tiempo
         var index = 0
         for(i in 0..5){
             for (j in 0..9){
                 if(i != 3)
                     if(j == 5) break
                 datos.set(index, db.Estadistica(i+1, j+1))
-//                db.Estadistica(i, j)
                 index++
             }
         }
@@ -108,29 +101,38 @@ class Trayecto : ScrollView {
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
         var altonivel = (alto/2)
-
-//        fondo!!.draw(canvas)
         val xPos = (ancho / 2)
+
+        // Título
         textNivel.color = Color.BLACK
         canvas.drawText("Trayecto", xPos, 120f, textNivel)
 
+        // Círculos de las tres pestañas de información
         var cx = ancho/2 - 200f
         var cy = 270f
         for(i in 0.. 2){
+            // Si esta seleccionada se pondrá de color azul
             if(modulo[i]){
                 circuloSelected.color = ResourcesCompat.getColor(resources, R.color.azulagua, null)
                 canvas.drawCircle(cx, cy, radio, circuloSelected)
             }else{
+                // Si no esta seleccionada se pondrá de color negro
                 canvas.drawCircle(cx, cy, radio, circulo)
             }
+            // Número
             canvas.drawText((i+1).toString(),cx-20, cy+20,textPaint)
             cx += 200f
         }
 
+        // Módulo
         var index = 0
+        // Alto
         var altoC = 600f
+        // Número de filas
         var k = 1
+        //
         var pos = 0
+        // Número del nivel 1 al 35
         var nivel = 0
 
         if(modulo[1]){
@@ -144,6 +146,7 @@ class Trayecto : ScrollView {
         }
 
         for(j in 0..k){
+            // Cambiar color dependiendo del módulo
             circuloSelected.color = colores[pestana][j]
             pos++
             nivel = 0
@@ -154,46 +157,28 @@ class Trayecto : ScrollView {
             for (i in 0..4){
                 index ++
                 nivel ++
+                // Rectángulos de información y el número
                 canvas.drawRoundRect(10f+(ancho/5*i), 500f+(altoC*j), (ancho/5)+(ancho/5*i)-5, 900f+(altoC*j), 20f, 20f, circuloSelected)
                 canvas.drawText((index).toString(),80f+(ancho/5*i), 570f+(altoC*j), textPaint)
+                // Si hay información entonces dibujar el texto del tiempo y puntaje
                 if(datos[index-1][3] == "true"){
                     canvas.drawText("Tiempo:",15f+(ancho/5*i), 650f+(altoC*j), ptext)
                     canvas.drawText(datos[index-1][0] + " seg",15f+(ancho/5*i), 690f+(altoC*j), ptext)
                     canvas.drawText("Puntaje:",15f+(ancho/5*i), 730f+(altoC*j), ptext)
                     canvas.drawText(datos[index-1][1],15f+(ancho/5*i), 770f+(altoC*j), ptext)
-//                    canvas.drawText("Fecha:",15f+(ancho/5*i), 1010f+(altoC*j), ptext)
-//                    var formatter = DateTimeFormatter.ofPattern("yyyy")
-//                    var formattedDate = datos[index-1][2].format(formatter)
-//                    canvas.drawText(formattedDate,15f+(ancho/5*i), 1040f+(altoC*j), ptext)
                 }
             }
         }
 
         invalidate()
     }
-    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
-        super.onSizeChanged(w, h, oldw, oldh)
-        val alto = measuredHeight.toFloat()
-        val ancho = measuredWidth.toFloat()
-        var anchonivel = (ancho/5).toInt()
-        var altonivel = (alto/2).toInt()
-        var altonivel1 = (altonivel/4).toInt()
 
-//        fondo = AppCompatResources.getDrawable(getContext(), R.drawable.asiaback)
-//        fondo!!.setBounds(0, 0, ancho.toInt(), 2000)
-
-        gif = AppCompatResources.getDrawable(
-            getContext(),
-            R.drawable.mundo_giratorio
-        ) as AnimationDrawable?
-
-        gif!!.setBounds((ancho/2-150).toInt(), (alto/4*3).toInt(), (ancho/2+150).toInt(), (alto/4*3+300).toInt())
-        gif!!.start()
-    }
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
 
+        // Dimensiones para los tres circulos
+        // Si se selecciona uno los otros se ponen en falso y ese en verdadero y se guarda la pestaña
         var cx = ancho/2 - 200f
         var cy = 270f
         for(i in 0.. 2){
@@ -211,6 +196,7 @@ class Trayecto : ScrollView {
         invalidate()
         return true
     }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val ancho = calcularAncho(widthMeasureSpec)
         val alto = calcularAlto(heightMeasureSpec)

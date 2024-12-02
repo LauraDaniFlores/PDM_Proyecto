@@ -58,11 +58,12 @@ class MaravillasMundo: View {
         arrayOf(" fue una de las ciudades más prósperas de Oriente Medio debido a su posición geográfica, gracias a la que confluyen hasta siete rutas de comercio.", "Petra es uno de los sitios arqueológicos en el que se mezclan las influencias de las tradiciones del antiguo Oriente y las de la arquitectura helenística.", "Fue bautizada como 'la ciudad para el día de mañana'", "El 80 % de la ciudad sigue enterrada."),
         arrayOf("Machu Picchu está conformada por 150 edificios; entre los cuales hay templos, santuarios, baños y casas. Así como también se pueden encontrar 100 tramos de escaleras hechas de piedra.", "Machu Picchu está dividida en 2 zonas: agrícola y urbana. Se estima que en esta ciudad escondida entre las montañas vivieron poco más de 1000 personas", "Machu Picchu nunca fue terminada, solo fue abandonada. Gracias a esto, los españoles no pudieron destruirla o modificarla como lo hicieron con otras ciudades incas."))
     var dato: String = ""
+
     //SQLite
     var db: DBSQLite = DBSQLite(context)
     var desbloqueados = arrayOf(false, false , false, false, false, false, false)
 
-
+    // Constructores
     constructor(context: Context?) : super(context){
         inicializa()
     }
@@ -70,13 +71,16 @@ class MaravillasMundo: View {
         inicializa()
     }
     constructor(context: Context?, attrs: AttributeSet?, detSyleAttr: Int) :
-            super (context, attrs, detSyleAttr)
+            super (context, attrs, detSyleAttr){ inicializa() }
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) :
-            super(context, attrs, defStyleAttr, defStyleRes)
+            super(context, attrs, defStyleAttr, defStyleRes){ inicializa() }
 
+    // Iniciailizan las variables
     private fun inicializa() {
+        // Declarar tipo de letra
         val customTypeface = resources.getFont(R.font.pact)
 
+        // Texto
         pText.textSize = 40f
         pText.style = Paint.Style.FILL
         pTextMas.textSize = 100f
@@ -89,6 +93,7 @@ class MaravillasMundo: View {
         pTextPequeno.textSize = 45f
         pTextPequeno.typeface = customTypeface
 
+        // Cuadro
         cuadro.style = Paint.Style.STROKE
         cuadro.strokeWidth = 20f
         cuadro.color = ResourcesCompat.getColor(resources, R.color.ic_launcher_background, null)
@@ -104,6 +109,8 @@ class MaravillasMundo: View {
 
         val typeface = getResources().getFont(R.font.kumbhsans_extrabold)
         pText.setTypeface(typeface)
+
+        // Obtener información de la base de datos cuales son las maravillas desbloquedas
         comprobarBaseDeDatos()
     }
 
@@ -113,107 +120,13 @@ class MaravillasMundo: View {
         }
     }
 
-    override fun onMeasure(widthMeasureSpect: Int, heightMeasureSpect: Int) {
-        val ancho = calcularAncho(widthMeasureSpect)
-        val alto = calcularAlto(heightMeasureSpect)
-
-        setMeasuredDimension(ancho, alto)
-    }
-
-    private fun calcularAlto (heightMeasureSpect: Int): Int{
-        var res = 100
-        val modo = MeasureSpec.getMode(heightMeasureSpect)
-        val limite = MeasureSpec.getSize(heightMeasureSpect)
-        if ( modo == MeasureSpec.AT_MOST || modo == MeasureSpec.EXACTLY){
-            res = limite
-        }
-        return res
-    }
-
-    private fun calcularAncho ( widthMeasureSpect: Int) : Int {
-        var res = 100
-        val modo = MeasureSpec.getMode(widthMeasureSpect)
-        val limite = MeasureSpec.getSize(widthMeasureSpect)
-        if ( modo == MeasureSpec.AT_MOST || modo == MeasureSpec.EXACTLY){
-            res = limite
-        }
-        return res
-    }
-
-    override fun onDraw(canvas: Canvas){
-        val alto = measuredHeight.toFloat()
-        val ancho = measuredWidth.toFloat()
-
-        canvas.drawRect(0f, 0f, ancho, alto, cuadroFondo)
-
-        ChinChenItza!!.draw(canvas)
-        Coliseo!!.draw(canvas)
-        CristoRedendor!!.draw(canvas)
-        MurallaChina!!.draw(canvas)
-        TajMajal!!.draw(canvas)
-        Hordania!!.draw(canvas)
-        MachuPichu!!.draw(canvas)
-
-        var xtext = (ancho/4-160)
-        var ytext = (alto/4 -50)
-        for(i in 0..6){
-            if(i == 3){
-                xtext = (ancho/2+210)
-                ytext = (alto/4 -50)
-            }else if(i == 6){
-                xtext = 440f
-                ytext = (alto - 300)
-            }else if(i == 5){
-                xtext = (ancho/2+260)
-            }
-
-            if(maravillasText[i].equals("Cristo Redendor")){
-                canvas.drawText(maravillasText[i], xtext, ytext+15, pText)
-            }else{
-                canvas.drawText(maravillasText[i], xtext, ytext, pText)
-            }
-            ytext += (alto/4 - 70)
-        }
-
-        var xPos = ancho/2
-
-        if(mostrar){
-            canvas.drawRoundRect(ancho/4-100, alto/4-200, (ancho/4)*3+100, (alto/4)*3, 50f, 50f, pRelleno)
-            canvas.drawRoundRect(ancho/4-100, alto/4-200, (ancho/4)*3+100, (alto/4)*3, 50f, 50f, cuadro)
-
-            canvas.drawText("Dato Curioso", xPos, alto/4, pTextMas)
-            light!!.draw(canvas)
-            cancel!!.draw(canvas)
-
-            val mTextLayout = StaticLayout(
-                dato,
-                pTextPequeno,
-                ((ancho/4)*3-150).toInt(),
-                Layout.Alignment.ALIGN_CENTER,
-                1.0f,
-                0.0f,
-                false
-            )
-            canvas.save()
-
-            // calculate x and y position where your text will be placed
-            var textX = ancho/4-50
-            var textY = alto/4+200
-
-            canvas.translate(textX, textY)
-            mTextLayout.draw(canvas)
-            canvas.restore()
-        }
-        invalidate()
-
-    }
-
     override fun onSizeChanged (w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
         //obtenemos las dimensiones del control
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
 
+        // Set las coordenadas de cada imagen y si no esta desbloqueda se pondrá de color blanco y negro
         ChinChenItza = AppCompatResources.getDrawable(getContext(), R.drawable.chinchenitza)
         if(!desbloqueados[0]){ ChinChenItza!!.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)}) }
         ChinChenItza!!.setBounds(20, 20, (ancho/2 - 50).toInt(), (alto/4 -100).toInt())
@@ -250,6 +163,78 @@ class MaravillasMundo: View {
 
     }
 
+    override fun onDraw(canvas: Canvas){
+        val alto = measuredHeight.toFloat()
+        val ancho = measuredWidth.toFloat()
+
+        canvas.drawRect(0f, 0f, ancho, alto, cuadroFondo)
+
+        // Dibujar las imagenes
+        ChinChenItza!!.draw(canvas)
+        Coliseo!!.draw(canvas)
+        CristoRedendor!!.draw(canvas)
+        MurallaChina!!.draw(canvas)
+        TajMajal!!.draw(canvas)
+        Hordania!!.draw(canvas)
+        MachuPichu!!.draw(canvas)
+
+        // Colocar el nombre de cada maravilla
+        var xtext = (ancho/4-160)
+        var ytext = (alto/4 -50)
+        for(i in 0..6){
+            if(i == 3){
+                xtext = (ancho/2+210)
+                ytext = (alto/4 -50)
+            }else if(i == 6){
+                xtext = 440f
+                ytext = (alto - 300)
+            }else if(i == 5){
+                xtext = (ancho/2+260)
+            }
+
+            if(maravillasText[i].equals("Cristo Redendor")){
+                canvas.drawText(maravillasText[i], xtext, ytext+15, pText)
+            }else{
+                canvas.drawText(maravillasText[i], xtext, ytext, pText)
+            }
+            ytext += (alto/4 - 70)
+        }
+
+        var xPos = ancho/2
+
+        // Ventana flotante del dato curioso. Depende de una variable booleana
+        if(mostrar){
+            canvas.drawRoundRect(ancho/4-100, alto/4-200, (ancho/4)*3+100, (alto/4)*3, 50f, 50f, pRelleno)
+            canvas.drawRoundRect(ancho/4-100, alto/4-200, (ancho/4)*3+100, (alto/4)*3, 50f, 50f, cuadro)
+
+            canvas.drawText("Dato Curioso", xPos, alto/4, pTextMas)
+            light!!.draw(canvas)
+            cancel!!.draw(canvas)
+
+            val mTextLayout = StaticLayout(
+                dato,
+                pTextPequeno,
+                ((ancho/4)*3-150).toInt(),
+                Layout.Alignment.ALIGN_CENTER,
+                1.0f,
+                0.0f,
+                false
+            )
+            canvas.save()
+
+            // calculate x and y position where your text will be placed
+            var textX = ancho/4-50
+            var textY = alto/4+200
+
+            canvas.translate(textX, textY)
+            mTextLayout.draw(canvas)
+            canvas.restore()
+        }
+        invalidate()
+
+    }
+
+
     override fun onTouchEvent(event: MotionEvent) : Boolean {
         //obtenemos las dimensiones del control
         val alto = measuredHeight.toFloat()
@@ -270,6 +255,7 @@ class MaravillasMundo: View {
                 xtextE = (ancho/2+200)
             }
 
+            // Dimensiones de cada maravilla, mostrar el dato curioso
             if(event.x in xtext..xtextE && event.y >= ytext && event.y <= ytextE && !mostrar && desbloqueados[i]) {
 //                Toast.makeText(context, "Maravilla " + i+1,
 //                    Toast.LENGTH_LONG).show();
@@ -283,6 +269,8 @@ class MaravillasMundo: View {
 
         }
 
+        // Dimensiones de la tacha del dato curioso
+        // Quitar
         if(mostrar && event.x in ((ancho/4)*3)..((ancho/4)*3+100) && event.y in (alto/4-200)..(alto/4-100)){
             mostrar = false
         }
@@ -294,6 +282,33 @@ class MaravillasMundo: View {
     fun dato(array: Array<String>): String{
         array.shuffle()
         return array[0]
+    }
+
+    override fun onMeasure(widthMeasureSpect: Int, heightMeasureSpect: Int) {
+        val ancho = calcularAncho(widthMeasureSpect)
+        val alto = calcularAlto(heightMeasureSpect)
+
+        setMeasuredDimension(ancho, alto)
+    }
+
+    private fun calcularAlto (heightMeasureSpect: Int): Int{
+        var res = 100
+        val modo = MeasureSpec.getMode(heightMeasureSpect)
+        val limite = MeasureSpec.getSize(heightMeasureSpect)
+        if ( modo == MeasureSpec.AT_MOST || modo == MeasureSpec.EXACTLY){
+            res = limite
+        }
+        return res
+    }
+
+    private fun calcularAncho ( widthMeasureSpect: Int) : Int {
+        var res = 100
+        val modo = MeasureSpec.getMode(widthMeasureSpect)
+        val limite = MeasureSpec.getSize(widthMeasureSpect)
+        if ( modo == MeasureSpec.AT_MOST || modo == MeasureSpec.EXACTLY){
+            res = limite
+        }
+        return res
     }
 
 }

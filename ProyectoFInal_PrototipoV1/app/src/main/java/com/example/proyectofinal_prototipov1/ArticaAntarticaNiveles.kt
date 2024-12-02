@@ -106,6 +106,7 @@ class ArticaAntarticaNiveles: View {
         fondo = AppCompatResources.getDrawable(getContext(), R.drawable.polos)
         fondo!!.setBounds(0, 0, ancho.toInt(), alto.toInt())
 
+        // Mostrar nivel desbloquedo o bloqueado
         if(dbBoolean[0]) {
             nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.iglue1)
         }else{

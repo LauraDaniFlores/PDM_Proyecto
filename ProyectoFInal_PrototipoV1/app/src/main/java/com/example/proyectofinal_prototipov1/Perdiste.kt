@@ -18,14 +18,15 @@ class Perdiste: View {
 
     private var nivel = 0
     private var modulo = 0
+    private var azul = 0
+
     private val text = Paint()
     private val text1 = Paint()
     private val pboton = Paint()
-    private var azul = 0
-    private var musicSuccess: MediaPlayer? = null
+
     //Sonido
     private var clickSound: MediaPlayer? = null
-
+    private var musicSuccess: MediaPlayer? = null
 
     constructor(context: Context?): super(context){
         inicializa()
@@ -33,6 +34,7 @@ class Perdiste: View {
     constructor(context: Context?, attrs: AttributeSet?): super(context, attrs){
         inicializa()
     }
+
     private fun inicializa() {
         azul = ResourcesCompat.getColor(resources, R.color.azulagua, null)
         text.isAntiAlias = true
@@ -61,14 +63,20 @@ class Perdiste: View {
         super.onDraw(canvas)
         val alto = measuredHeight.toInt()
         val ancho = measuredWidth.toInt()
+
+        // Dibujar fondo
         fondo!!.draw(canvas)
+
+        // Digujar botones
         canvas.drawRoundRect(100F, (alto/4*3+50).toFloat(), (ancho-100).toFloat(),
             (alto/4*3+200).toFloat(), 30f, 30f, pboton)
         canvas.drawRoundRect(100F, (alto/4*3+250).toFloat(), (ancho-100).toFloat(),
             (alto/4*3+400).toFloat(), 30f, 30f, pboton)
 
+        // Dibujar texto de los botones
         canvas.drawText("Volver a intentar", (ancho/2).toFloat(), ((alto/4*3+150).toFloat()), text)
         canvas.drawText("Menú", (ancho/2).toFloat(), ((alto/4*3+350).toFloat()), text)
+
         invalidate()
     }
 
@@ -76,6 +84,8 @@ class Perdiste: View {
         super.onSizeChanged(w, h, oldw, oldh)
         val alto = measuredHeight.toInt()
         val ancho = measuredWidth.toInt()
+
+        // Pintar fondo
         fondo = AppCompatResources.getDrawable(getContext(), R.drawable.derrota)
         fondo!!.setBounds(0, 0, ancho, alto)
     }
@@ -85,6 +95,8 @@ class Perdiste: View {
         val ancho = measuredWidth.toFloat()
 
         if(event.x >= 100f && event.x <= ancho-100 ){
+            // Dimensiones para el botón de intentar de nuevo
+            // Se regresa al juego jugado
             if(event.y >= (alto/4*3+50) && event.y <= (alto/4*3+200)){
                 clickSound?.seekTo(0)
                 clickSound?.start()
@@ -99,6 +111,9 @@ class Perdiste: View {
                     intent.putExtra("modulo", (modulo).toString())
                 }
                 context.startActivity(intent)
+
+            // Dimensiones para el botón de ir a menú
+            // Se regresa al módulo del juego jugado
             }else if(event.y >= (alto/4*3+250) && event.y <= (alto/4*3+400)){
                 clickSound?.seekTo(0)
                 clickSound?.start()

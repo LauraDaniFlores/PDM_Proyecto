@@ -21,7 +21,7 @@ import java.util.Date
 
 
 class Cards : View {
-
+    // Inicialización de variables para el canvas
     val pText = TextPaint()
     var pTextPequeno: TextPaint = TextPaint()
     var PtextoRespuesta: TextPaint = TextPaint()
@@ -35,6 +35,20 @@ class Cards : View {
     private var puntaje = 0
     private var tiempo = 0
 
+    // Variables para la lógica
+    var respuesta:Boolean = false
+    var acabo: Boolean = false
+    private var original = emptyArray<Array<String>>()
+
+    private var tema:String = "Océanos"
+
+    //Base de datos
+    var db: DBSQLite = DBSQLite(context)
+
+    //Sonido
+    private var clickSound: MediaPlayer? = null
+    private var musicError: MediaPlayer? = null
+
     //Listener
     var listener: OnChangeScoreListener? = null
     fun setListenerScore(l: OnChangeScoreListener){
@@ -45,23 +59,6 @@ class Cards : View {
     fun setOnTimeStotListener(l: OnTimeStopListener){
         listenertime = l
     }
-
-    //Base de datos
-    var db: DBSQLite = DBSQLite(context)
-
-    //Sonido
-    private var clickSound: MediaPlayer? = null
-    private var musicError: MediaPlayer? = null
-
-
-    var respuesta:Boolean = false
-    var acabo: Boolean = false
-//
-    private var original = emptyArray<Array<String>>()
-
-    private var tema:String = "Océanos"
-    private var preguntas = emptyArray<String>()
-    private var respuestaText =  emptyArray<String>()
 
     constructor(context: Context?) : super(context){
         inicializa()
@@ -145,6 +142,7 @@ class Cards : View {
             canvas.restore()
         }
 
+        // Si la respuesta es verdadera se mostrará de lo contrario no
         if(respuesta && original.size != 0){
             val mTextLayout = StaticLayout(
                 original[index].get(1),
@@ -175,6 +173,7 @@ class Cards : View {
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
 
+        // Colocar la imagen de siguiente en la pantalla
         siguiente = AppCompatResources.getDrawable(getContext(), R.drawable.siguiente1)
         siguiente!!.setBounds((ancho-240).toInt(), (alto/2).toInt()+50, (ancho).toInt()-60, (alto/2).toInt()+250)
     }
@@ -184,13 +183,16 @@ class Cards : View {
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
 
+        // Dimensiones del botón siguiente
         if(event.x >= (ancho-240).toInt() && event.x <= (ancho).toInt()-60 && event.y >= (alto/2).toInt()-50 && event.y <= (alto/2).toInt()+250 && !acabo ){
+            // Si la respuesta no es verdadera no se podrá pasar al siguiente
             if(respuesta){
                 clickSound?.seekTo(0)
                 clickSound?.start() // Reproduce el sonido
                 nextScreen = true
                 respuesta = false
                 index ++
+                // Puntaje por cada pregunta
                 puntaje += (100/original.size)+1
                 if(puntaje >= 100) {
                     puntaje = 100
@@ -203,12 +205,13 @@ class Cards : View {
                 musicError?.start()
             }
         }else if(event.x >= 60f && event.x <= ancho-60f){
+            // Dimensiones para descubrir la respuesta
             if(event.y >= (alto/2)+300f && event.y <= alto-200){
                 respuesta = !respuesta
             }
         }
 
-
+        // Si ya no hay más preguntas se acaba el juego
         if(index >= original.size){
             acabo = true
             respuesta = false
@@ -219,7 +222,7 @@ class Cards : View {
         return super.onTouchEvent(event)
     }
 
-
+    // Colocar el tema del juego y el array
     fun setArray(array: Array<Array<String>>, tema: Int){
         when (tema){
             1 -> this.tema = "CONTINENTES"
@@ -235,37 +238,12 @@ class Cards : View {
         original.shuffle()
     }
 
-
-    override fun onMeasure(widthMeasureSpect: Int, heightMeasureSpect: Int) {
-        val ancho = calcularAncho(widthMeasureSpect)
-        val alto = calcularAlto(heightMeasureSpect)
-
-        setMeasuredDimension(ancho, alto)
-    }
-
-    private fun calcularAlto (heightMeasureSpect: Int): Int{
-        var res = 100
-        val modo = MeasureSpec.getMode(heightMeasureSpect)
-        val limite = MeasureSpec.getSize(heightMeasureSpect)
-        if ( modo == MeasureSpec.AT_MOST || modo == MeasureSpec.EXACTLY){
-            res = limite
-        }
-        return res
-    }
-
-    private fun calcularAncho ( widthMeasureSpect: Int) : Int {
-        var res = 100
-        val modo = MeasureSpec.getMode(widthMeasureSpect)
-        val limite = MeasureSpec.getSize(widthMeasureSpect)
-        if ( modo == MeasureSpec.AT_MOST || modo == MeasureSpec.EXACTLY){
-            res = limite
-        }
-        return res
-    }
-
+    // Tiempo
     fun setTiempo(tiem: Int){
         tiempo = tiem
     }
+
+    // Ingresar datos a la DBSQlite
     fun insertardb(modulo: Int){
         var nivel = 1
         var nivelCom = 2
@@ -294,6 +272,33 @@ class Cards : View {
 
         context.startActivity(intent)
 
+    }
+
+    override fun onMeasure(widthMeasureSpect: Int, heightMeasureSpect: Int) {
+        val ancho = calcularAncho(widthMeasureSpect)
+        val alto = calcularAlto(heightMeasureSpect)
+
+        setMeasuredDimension(ancho, alto)
+    }
+
+    private fun calcularAlto (heightMeasureSpect: Int): Int{
+        var res = 100
+        val modo = MeasureSpec.getMode(heightMeasureSpect)
+        val limite = MeasureSpec.getSize(heightMeasureSpect)
+        if ( modo == MeasureSpec.AT_MOST || modo == MeasureSpec.EXACTLY){
+            res = limite
+        }
+        return res
+    }
+
+    private fun calcularAncho ( widthMeasureSpect: Int) : Int {
+        var res = 100
+        val modo = MeasureSpec.getMode(widthMeasureSpect)
+        val limite = MeasureSpec.getSize(widthMeasureSpect)
+        if ( modo == MeasureSpec.AT_MOST || modo == MeasureSpec.EXACTLY){
+            res = limite
+        }
+        return res
     }
 
 }
