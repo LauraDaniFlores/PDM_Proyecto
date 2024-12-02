@@ -18,9 +18,12 @@ class Cards_Inter: AppCompatActivity() {
 //            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
 //            insets
 //        }
-        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
 
+        // Inicializar variables del layout
+        var configuraciones = findViewById<Configuracion>(R.id.configuracion)
         var juego = findViewById<Cards>(R.id.cardsJuego)
+
+        // Arrays con la información de cada módulo
         var continentes = arrayOf(arrayOf("Son grandes masas de tierra emergidas que conforman la superficie terrestre y están separadas por océanos", "Continentes"), arrayOf("¿Cuál es el continente más grande y poblado del mundo?", "Asia"), arrayOf("¿Cuál es el segundo continente más grande?", "América"), arrayOf("¿Cuál es el tercer continente más grande?", "África"),
             arrayOf("¿El segundo continente más pequeño? Con el 9% de la población mundial", "Europa"), arrayOf("¿Cuál es el continente más pequeño? Con un 2% de la población mundial", "Oceanía"))
         var oceanos = arrayOf(arrayOf("Son una masa continua de agua salada que cubre más del 70% de la superficie de la Tierra", "Océanos"), arrayOf("Así son denominados a los océanos más pequeños", "Mares, golfos y bahías"), arrayOf("¿Cuál es el océano más grande del planeta?", "Océano Pacífico"), arrayOf("¿Cuál es el segundo océano más grande? Divide el continente americano del continente europeo y africano", "Océano Atlántico"),
@@ -31,13 +34,14 @@ class Cards_Inter: AppCompatActivity() {
             arrayOf("¿Cuáles son los idiomas más hablados de América? ", "Inglés y español"), arrayOf("Son los tres países más poblados y representan casi el 70% de la población", "Estados Unidos, Brasil y México "), arrayOf("¿En qué siglo los europeos exploraron y colonizaron las nuevas tierras?", "Siglo XV"))
         var asia = arrayOf(arrayOf("El continente más grande, con mayor cantidad de habitantes y el que presenta la mayor diversidad de culturas y lenguas del mundo", "Asia"), arrayOf("Es el único continente que comparte fronteras con otros dos: África y Europa", "Asia"), arrayOf("Son los dos países más poblados de Asia", "India y China"), arrayOf("¿Cuál es la religión predominante?", "Hinduísmo"),
             arrayOf("El pico más alto del planeta", "El monte Everest "), arrayOf("Es la cadena montañosa más alta del mundo", "Cordillera del Himalaya "), arrayOf("¿Cuál es el idioma más hablado?", "Chino mandarín, con más de 1.000 millones de personas "))
-
         var mexico1 = arrayOf(arrayOf("¿Cuántos estados tiene México?", "32 estados"), arrayOf("Capital de México", "Ciudad de México"), arrayOf("Capital de Jalisco", "Guadalajara"), arrayOf("¿Cuál es el estado más pequeño de México? ", "Tlaxcala"), arrayOf("¿Cuáles son los estados con mayor extensión territorial?", "Chihuahua, Sonora, Coahuila y Durango "), arrayOf("¿Cuáles son los tres países que colindan con México?", "Estados Unidos, Guatemala, Belice"), arrayOf("¿Cuál es el nombre oficial de México?", "Estados Unidos Mexicanos"))
         var mexico2 = arrayOf(arrayOf("Primer presidente de México", "Guadalupe Victoria"), arrayOf("¿Durante cuál gobierno se dio un impulso notable al ferrocarril en México?", "Porfirio Díaz (1884-1911) "),
             arrayOf("¿Qué son las leyes de reforma?", "Conjunto de leyes promulgadas en México para separar la iglesia y el estado"), arrayOf("¿En qué año fue la revolución mexicana?", "1910 a 1920"), arrayOf("¿Cúal fue el movimiento independentista que inició la independencia de México?", "El Grito de Dolores el 16 de septiembre de 1810"))
 
+        // Obtener el módulo del intent (de otra actividad)
         var modulo = getIntent().getStringExtra("modulo")
 
+        // Colocar array dependiendo del módulo
         if (modulo != null) {
             when(modulo.toInt()){
                 1 ->  juego.setArray(continentes, 1)
@@ -49,6 +53,8 @@ class Cards_Inter: AppCompatActivity() {
                 7 ->  juego.setArray(asia, 7)
             }
         }
+
+        // Colocar música dependiendo del módulo
         when (modulo!!.toInt()) {
             1 ->  configuraciones.setMusica("continentes")
             2 ->  configuraciones.setMusica("ocean")
@@ -59,11 +65,14 @@ class Cards_Inter: AppCompatActivity() {
         }
         configuraciones.setVolume()
 
+        // Listener del score
         juego.setListenerScore(object : OnChangeScoreListener{
             override fun SetonScoreChange(puntaje: Int){
                 configuraciones.actuaizarPuntaje(puntaje)
             }
         })
+
+        // Listener del tiempo
         juego.setOnTimeStotListener(object : OnTimeStopListener{
             override fun OnTimeStop(stop: Boolean) {
                 if(stop){

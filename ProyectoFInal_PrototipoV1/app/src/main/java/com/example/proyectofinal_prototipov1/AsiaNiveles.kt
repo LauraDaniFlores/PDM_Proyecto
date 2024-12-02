@@ -106,6 +106,7 @@ class AsiaNiveles : View {
         fondo = AppCompatResources.getDrawable(getContext(), R.drawable.asiaback)
         fondo!!.setBounds(0, 0, ancho.toInt(), alto.toInt())
 
+        // Mostrar nivel desbloquedo o bloqueado
         if(dbBoolean[0]) {
             nivel1 = AppCompatResources.getDrawable(getContext(), R.drawable.latern1)
         }else{

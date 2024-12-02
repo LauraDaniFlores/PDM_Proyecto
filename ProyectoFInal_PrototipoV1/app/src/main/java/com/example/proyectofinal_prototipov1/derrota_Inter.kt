@@ -10,6 +10,7 @@ class derrota_Inter: AppCompatActivity() {
         setContentView(R.layout.perdiste)
         var perdiste = findViewById<Perdiste>(R.id.perdiste)
 
+        // Inicializar componente del layout
         val nivel = getIntent().getStringExtra("nivel")?.toInt()
         val modulo = getIntent().getStringExtra("modulo")?.toInt()
 

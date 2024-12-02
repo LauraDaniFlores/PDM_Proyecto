@@ -21,9 +21,11 @@ class Memorama_Inter : AppCompatActivity() {
             insets
         }
 
+        // Inicializar variables de la vista
         var juego = findViewById<Memorama>(R.id.juego)
         var configuraciones = findViewById<Configuracion>(R.id.configuracion)
 
+        // Arrays de los nombres de las imágenes
         var continentes = arrayOf("mcontinente1", "mcontinente2", "mcontinente3", "mcontinente4", "mcontinente5")
         var aryan = arrayOf("maryan1", "maryan2", "maryan3", "maryan4", "maryan5")
         var america = arrayOf("mamerica1", "mamerica2", "mamerica3", "mamerica4", "mamerica5", "mamerica6", "mamerica7", "mamerica8")
@@ -32,8 +34,10 @@ class Memorama_Inter : AppCompatActivity() {
         var mexico2 = arrayOf("m2mex1", "m2mex2", "m2mex3", "m2mex4", "m2mex5", "m2mex6", "m2mex7", "m2mex8")
         var oceanos = arrayOf("mocean1", "mocean2", "mocean3", "mocean4", "mocean5")
 
+        // Obtener la información que nos manda el intent
         val modulo = getIntent().getStringExtra("modulo")
 
+        // Mandar el array correspondiente
         if (modulo != null) {
             when(modulo.toInt()){
                 1 ->  juego.setArray(continentes)
@@ -45,6 +49,8 @@ class Memorama_Inter : AppCompatActivity() {
                 7 ->  juego.setArray(asia)
             }
         }
+
+        // Mandar la música correspondiente
         when (modulo!!.toInt()) {
             1 ->  configuraciones.setMusica("continentes")
             2 ->  configuraciones.setMusica("ocean")
@@ -55,6 +61,7 @@ class Memorama_Inter : AppCompatActivity() {
         }
         configuraciones.setVolume()
 
+        // Listener del score y del tiempo
         juego.setListenerScore(object : OnChangeScoreListener{
             override fun SetonScoreChange(puntaje: Int){
                 configuraciones.actuaizarPuntaje(puntaje)
