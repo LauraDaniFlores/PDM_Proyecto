@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
 import java.util.Date
 import java.util.Vector
+import kotlin.math.log
 
 class DBSQLite(context: Context?) : SQLiteOpenHelper(context, TABLE_NAME, null, DATABASE_VERSION){
     companion object{
@@ -163,8 +164,9 @@ class DBSQLite(context: Context?) : SQLiteOpenHelper(context, TABLE_NAME, null, 
 
         var cursor = db.rawQuery(
             "SELECT tiempo, puntaje, fecha " +
-                    "FROM " + TABLE_NAME + " WHERE modulo = $moduloaux AND nivel = $niveles ORDER BY tiempo ASC", null
+                    "FROM " + TABLE_NAME + " WHERE modulo = $moduloaux AND nivel = $niveles AND puntaje = (SELECT max(puntaje) FROM "+ TABLE_NAME + " WHERE modulo = $moduloaux AND nivel = $niveles)  ORDER BY tiempo ASC", null
         )
+
         while (cursor.moveToNext()){
             rows = cursor.getInt(0)
             datos = arrayOf(cursor.getInt(0).toString(), cursor.getString(1), cursor.getString(2), "true")
