@@ -13,7 +13,7 @@ import android.view.View
 import androidx.appcompat.content.res.AppCompatResources
 
 class Configuracion : View {
-    //Imagen de fondo
+    //Imágenes de botones
     private var config: Drawable? = null
     private var casa: Drawable? = null
     private var musica: Drawable? = null
@@ -32,7 +32,7 @@ class Configuracion : View {
     }
 
 
-    //Rectangulos
+    //Rectángulos
     private val cuadrado = Paint()
 
     //Textos
@@ -66,24 +66,27 @@ class Configuracion : View {
     private var clickSound: MediaPlayer? = null
 
 
-
+    //Constructores
     constructor(context: Context?): super(context){
         inicializa()
     }
     constructor(context: Context?, attrs: AttributeSet?): super(context, attrs){
         inicializa()
+        //Tomar valores del app
         val a = getContext().obtainStyledAttributes(attrs, R.styleable.Configuracion)
         casaBol = a.getString(R.styleable.Configuracion_casa).toBoolean()
         pausarBol = a.getString(R.styleable.Configuracion_pausar).toBoolean()
         puntajetiempo = a.getString(R.styleable.Configuracion_tiempopuntaje).toBoolean()
         musicString = a.getString(R.styleable.Configuracion_musica).toString()
+
+        //Inicializar el nombre de la música
         music = MediaPlayer.create(context, resources.getIdentifier(musicString, "raw", context?.getPackageName()))
 //        music = MediaPlayer.create(context, R.raw.jojisantuary)
 //        music?.start()
+        //Reproducir la música indefinidamente
         music?.setLooping(true)
 
-//        music?.setVolume(30f,30f)
-
+        //Contar el tiempo
         val hilo1: Thread = object : Thread() {
             @Synchronized
             override  fun run(){
@@ -101,12 +104,13 @@ class Configuracion : View {
         hilo1.start()
     }
     private fun inicializa() {
+        //Inicializar el texto del tiempo y puntaje
         textPaint.isAntiAlias = true
         textPaint.textSize = 50f
         textPaint.textAlign = Paint.Align.LEFT
         textPaint.color = Color.BLACK
 
-        // Inicializar el MediaPlayer con el sonido deseado
+        // Inicializar el MediaPlayer con el sonido de tocar botones
         clickSound = MediaPlayer.create(context, R.raw.efectobtn)
 
     }
@@ -117,6 +121,8 @@ class Configuracion : View {
         val ancho = measuredWidth.toFloat()
         val margen = 50
         val margen1 = 25
+
+        //Pintar la imágenes dependiendo del app
         config!!.draw(canvas)
 
         var auxmin = 0
@@ -124,6 +130,8 @@ class Configuracion : View {
         var auxminstr = ""
         var auxsegstr = ""
         config!!.draw(canvas)
+
+        //Mostrar en la pantalla el tiempo en minutos y segundos
         if(puntajetiempo!!){
             tiempo!!.draw(canvas)
             puntaje!!.draw(canvas)
@@ -170,6 +178,7 @@ class Configuracion : View {
 
 //        canvas.drawText(pausaroplay.toString(),30f, 30f,textPaint)
 
+        //Tiempo imagen
         tiempo!!.setBounds(margen, margen1, margen + 75, margen1 + 75)
 
         invalidate()
@@ -181,6 +190,8 @@ class Configuracion : View {
         val cuadrado = 125
         val margen = 50
         val margen1 = 25
+
+        //Inicialización de todas las imágenes
         config = AppCompatResources.getDrawable(getContext(), R.drawable.configuraciones)
         config!!.setBounds( ancho.toInt() - cuadrado - margen, margen, ancho.toInt()-margen, margen + cuadrado)
         musica = AppCompatResources.getDrawable(getContext(), R.drawable.sonido)
@@ -210,6 +221,7 @@ class Configuracion : View {
 
         if (event.actionMasked == MotionEvent.ACTION_DOWN || event.actionMasked == MotionEvent.ACTION_POINTER_DOWN) {
             if (event.y >= margen && event.y <= margen + cuadrado) {
+                //Touch en botón de configuraciones, para desplegar todos los elementos
                 if (event.x >= ancho.toInt() - cuadrado - margen && event.x <= ancho.toInt() - margen) {
                     clickSound?.seekTo(0)
                     clickSound?.start()
@@ -219,7 +231,10 @@ class Configuracion : View {
                         desplegar = true
                     }
                 }
+
+                //Si los otros íconos se ven
                 if (desplegar) {
+                    //Touch en la casa, se para la música, se agrega sonido y se hace una actividad a la pantalla principal
                     if (event.x >= ancho.toInt() - (cuadrado * 3) - (margen * 3) && event.x <= ancho.toInt() - (margen * 3) - (cuadrado*2)) {
                         music?.stop()
                         clickSound?.seekTo(0)
@@ -228,6 +243,7 @@ class Configuracion : View {
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         context.startActivity(intent)
                     }
+                    //Touch en pausar (No se usa)
                     if(event.x >= ancho.toInt() - (cuadrado * 4) - (margen * 4) && event.x <= ancho.toInt() - (margen * 4) - (cuadrado * 3)){
                         if (pausaroplay) {
                             pausaroplay = false
@@ -235,6 +251,7 @@ class Configuracion : View {
                             pausaroplay = true
                         }
                     }
+                    //Touch en la música, se pausa o se despausa
                     if(event.x >= ancho.toInt() - (cuadrado * 2) - (margen * 2) && event.x <= ancho.toInt() - (margen * 2) - (cuadrado * 1)){
                         clickSound?.seekTo(0)
                         clickSound?.start()
@@ -279,10 +296,12 @@ class Configuracion : View {
     fun pausaJuego() : Boolean{
         return pausarBol
     }
+    //Pausar la música
     fun detenerMusica(){
         music?.pause()
 //        music?.release()
     }
+    //Despausar o empezar música
     fun startMusica(){
         music?.start()
     }
@@ -291,6 +310,8 @@ class Configuracion : View {
         music?.seekTo(num)
         music?.start()
     }
+
+    //Areglar el volumen más bajo
     fun setVolume(){
         music?.setVolume(0.3f, 0.3f)
     }
@@ -298,7 +319,7 @@ class Configuracion : View {
         var segundos = music?.currentPosition
         return segundos
     }
-
+    //Actualizar la variable puntaje
     fun actuaizarPuntaje(puntaje: Int) {
         score = puntaje
     }
@@ -308,10 +329,12 @@ class Configuracion : View {
     fun gettime() : Int{
         return time
     }
+    //Agregar el nombre de la música correspondiente
     fun setMusica(musica: String){
         music?.stop()
         musicString = musica
         music = MediaPlayer.create(context, resources.getIdentifier(musicString, "raw", context?.getPackageName()))
+        music?.seekTo(0)
         music?.start()
     }
 }

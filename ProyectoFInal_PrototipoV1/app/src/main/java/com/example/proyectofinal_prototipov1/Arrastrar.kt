@@ -16,7 +16,7 @@ import androidx.core.content.res.ResourcesCompat
 import java.util.Date
 
 class Arrastrar : View {
-    //Imagenes
+    //Imágenes
     private var imagen1: Drawable? = null
     private var imagen2: Drawable? = null
     private var imagen3: Drawable? = null
@@ -40,6 +40,7 @@ class Arrastrar : View {
     private var circulo = 100f
     private var tiempo5seg = 0
 
+    //Paint
     var margencua: Paint = Paint()
     var margenrojo: Paint = Paint()
     var margenverde: Paint = Paint()
@@ -49,7 +50,7 @@ class Arrastrar : View {
     var text: Paint = Paint()
     var text1: Paint = Paint()
 
-
+    //Colores
     private var azulagua: Int = 0
     private var verde: Int = 0
     private var rojo: Int = 0
@@ -73,8 +74,10 @@ class Arrastrar : View {
         listenertime = l
     }
 
+    //Base de datos
     var db: DBSQLite = DBSQLite(context)
 
+    //Constructores
     constructor(context: Context?) : super(context) {
         inicializa()
     }
@@ -83,65 +86,68 @@ class Arrastrar : View {
         inicializa()
     }
 
+    //Agregar los valores de los arrays
     fun setArray(images: Array<String>, ncc: Array<String>){
         imagenes = images
         nc = ncc
+
+        //Posiciones aleatorias
         ordenar()
     }
 
     private fun inicializa() {
+        //Inicializar los colores
         verde = ResourcesCompat.getColor(resources, R.color.verde, null)
         rojo = ResourcesCompat.getColor(resources, R.color.rojo, null)
         azulagua = ResourcesCompat.getColor(resources, R.color.azulagua, null)
 
+        //Incializar los marco de las imágenes
         margencua.style = Paint.Style.STROKE
         margencua.color = azulagua
         margencua.strokeWidth = 15f
 
+        //Imicializar los marco rojo de incorrecto
         margenrojo.style = Paint.Style.STROKE
         margenrojo.color = rojo
         margenrojo.strokeWidth = 15f
 
+        //Imicializar los margen verde de correcto
         margenverde.style = Paint.Style.STROKE
         margenverde.color = verde
         margenverde.strokeWidth = 15f
 
+        //Imicializar las etiqueta de comprobar
         rect.style = Paint.Style.FILL
         rect.color = azulagua
         rect.strokeWidth = 15f
 
+        //Imicializar los círculos del juego
         circle.style = Paint.Style.FILL
         circle.color = azulagua
         circle.strokeWidth = 15f
 
+        //Imicializar el texto de la etiqueta
         text.textSize = 55f
         text.color = Color.WHITE
         text.textAlign = Paint.Align.CENTER
         val customTypeface = resources.getFont(R.font.courier)
         text.typeface = customTypeface
 
+        //Imicializar el texto para pruebas
         text1.textSize = 55f
         text1.color = Color.BLACK
         text1.textAlign = Paint.Align.CENTER
         text1.typeface = customTypeface
 
-        val alto = measuredHeight.toFloat()
-        val ancho = measuredWidth.toFloat()
-        var poner = (ancho/8)
-//        for (i in 0..3){
-//            coordcirc[i][0] = poner * (3 + (i * 2))
-//        }
         //Inicializar el audio
         musicSuccess = MediaPlayer.create(context, R.raw.bien)
-//        musicSuccess?.start()
-
         musicError = MediaPlayer.create(context, R.raw.error)
-//        musicError?.start()
 
-
+        //Posiciones aleatorias
         ordenar()
     }
 
+    //Vector de número del 0 al 3 en aleatorio para las imágenes
     fun ordenar() {
         imagerandom.shuffle()
     }
@@ -153,7 +159,7 @@ class Arrastrar : View {
         var margen = 100
         var anchoimg = ((ancho - (margen*3))/2).toInt()
 
-//        imagen = AppCompatResources.getDrawable(getContext(), R.drawable.mapa)
+        //Dibujo de las imágenes respecto al valor aleatorio
         imagen1 = AppCompatResources.getDrawable(getContext(), context.getResources().getIdentifier(imagenes[imagerandom[0]], "drawable", context.getPackageName()))
         imagen1!!.setBounds(margen, 400, margen + anchoimg, 400 + anchoimg)
         imagen2 = AppCompatResources.getDrawable(getContext(), context.getResources().getIdentifier(imagenes[imagerandom[1]], "drawable", context.getPackageName()))
@@ -172,12 +178,15 @@ class Arrastrar : View {
         var margen = 100f
         var anchoimg = ((ancho - (margen*3))/2).toFloat()
 
+        //Fondo blanco
         canvas.drawColor(-1);
+        //Pintar imágenes
         imagen1!!.draw(canvas)
         imagen2!!.draw(canvas)
         imagen3!!.draw(canvas)
         imagen4!!.draw(canvas)
 
+        //Si el botón de comprobar ha sido presionado y los círculos están adentro de los cuadrados
         if(acabar){
             if(acomodado[0]){
                 canvas.drawRect(margen, 400f, margen + anchoimg, 400f + anchoimg, margenverde)
@@ -199,18 +208,21 @@ class Arrastrar : View {
             }else if(!acomodado[3]){
                 canvas.drawRect((margen*2) + anchoimg, 400+anchoimg+margen, (margen*2)+ (anchoimg*2), 400+(anchoimg*2)+margen, margenrojo)
             }
-
         }else{
+            //Se dibujan los margenes de color azul agua
             canvas.drawRect(margen, 400f, margen + anchoimg, 400f + anchoimg, margencua)
             canvas.drawRect((margen*2) + anchoimg, 400f, (margen*2)+ (anchoimg*2), 400 + anchoimg, margencua)
             canvas.drawRect(margen, 400+anchoimg+margen, margen + anchoimg, 400+(anchoimg*2)+margen, margencua)
             canvas.drawRect((margen*2) + anchoimg, 400+anchoimg+margen, (margen*2)+ (anchoimg*2), 400+(anchoimg*2)+margen, margencua)
         }
+
+        //Dibujo de los círculos en la pantalla
         for (i in 0..3){
             canvas.drawCircle(coordcirc[i][0], coordcirc[i][1], circulo, circle)
             canvas.drawText(nc[i].toString(), coordcirc[i][0], coordcirc[i][1]+20, text)
         }
 
+        //Botón de comprobar
         canvas.drawRect(margen, 400+(anchoimg*2)+(margen*2), ancho-margen, 400+(anchoimg*2)+(margen*2) + 200f, rect)
         canvas.drawText("Comprobar", ancho/2, 400+(anchoimg*2)+(margen*2) + 120f, text)
 //        canvas.drawText(adentro.contentToString(), ancho/2, 100f, text1)
@@ -219,6 +231,8 @@ class Arrastrar : View {
         invalidate()
 
     }
+
+    //Cuantos true existen en un vector de 4 posiciones
     fun comprobar(flags: Array<Boolean>) : Int{
         var suma = 0
         for (i in 0..3){
@@ -228,6 +242,7 @@ class Arrastrar : View {
         }
         return suma
     }
+
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
@@ -235,8 +250,10 @@ class Arrastrar : View {
         var anchoimg = ((ancho - (margen*3))/2).toFloat()
 
         if (event.actionMasked == MotionEvent.ACTION_DOWN || event.actionMasked == MotionEvent.ACTION_POINTER_DOWN) {
+            //Saber si estás arriba de uno de los círculos
             for(i in 0..3){
                 if(event.x >= coordcirc[i][0] - circulo && event.x <= coordcirc[i][0] + circulo && event.y >= coordcirc[i][1] - circulo && event.y <= coordcirc[i][1] + circulo){
+                    //Si estás arriba y cual posición del vector
                     sobrecirculo = true
                     sobrecirculoi = i
                     coormov[0] = coordcirc[i][0]
@@ -245,7 +262,9 @@ class Arrastrar : View {
             }
         }
         if (event.actionMasked == MotionEvent.ACTION_MOVE) {
+            //Si estás arriba de un círculo
             if(sobrecirculo){
+                //Con respecto de x que no se salga de la pantalla e ir actualizando la posición con el event.x
                 if((event.x + circulo) >= ancho){
                     coordcirc[sobrecirculoi][0] = ancho - circulo
                 }else if((event.x - circulo) <= 0f){
@@ -254,6 +273,7 @@ class Arrastrar : View {
                     coordcirc[sobrecirculoi][0] = event.x
                 }
 
+                //Con respecto de y que no se salga de la pantalla e ir actualizando la posición con el event.y
                 if((event.y + circulo) >= alto){
                     coordcirc[sobrecirculoi][1] = alto - circulo
                 }else if((event.y - circulo) <= 0f){
@@ -266,6 +286,7 @@ class Arrastrar : View {
         if (event.actionMasked == MotionEvent.ACTION_UP
             || event.actionMasked == MotionEvent.ACTION_POINTER_UP
             || event.actionMasked == MotionEvent.ACTION_CANCEL){
+            //Si le presionas al botón de comprobar
             if(event.x >= margen && event.x <= ancho-margen && event.y >= 400+(anchoimg*2)+(margen*2) && event.y <= 400+(anchoimg*2)+(margen*2) + 200f){
                 for(i in 0..3){
                     adentro[i] = true
@@ -278,12 +299,16 @@ class Arrastrar : View {
                     }else if(coordcirc[i][0] >= (margen*2) + anchoimg && coordcirc[i][0] <= (margen*2)+ (anchoimg*2) && coordcirc[i][1] >= 400+anchoimg+margen && coordcirc[i][1] <= 400+(anchoimg*2)+margen){
 
                     }else{
+                        //Si los círculos no están adentro del los cuadrados
                         adentro[i] = false
                     }
                 }
+                //Comprobar que los cuatro círculos estén adentro
                 if(comprobar(adentro) == 4){
+                    //Música de que es posible dar touch en el botón
                     musicSuccess?.seekTo(0)
                     musicSuccess?.start()
+                    //El acomodo sea correcto
                     for(i in 0..3){
                         if(coordcirc[i][0] >= margen && coordcirc[i][0] <= margen + anchoimg && coordcirc[i][1] >= 400f && coordcirc[i][1] <= 400 + anchoimg){
                             if(imagerandom[0] == i){
@@ -303,9 +328,12 @@ class Arrastrar : View {
                             }
                         }
                     }
+
                     acabar = true
                     var acabopuntos = comprobar(acomodado)
+                    //Contar cuantos puntos hizo
                     puntaje = acabopuntos*25
+                    //Avisar los listener de puntaje y de parar el tiempo
                     listener!!.SetonScoreChange(puntaje)
                     listenertime!!.OnTimeStop(true)
 
@@ -352,8 +380,11 @@ class Arrastrar : View {
     fun setTiempo(tiem: Int){
         tiempo = tiem
     }
+    //Insertar en la base de datos o ver la pantalla de derrota en la pantalla
     fun insertardb(modulo: Int){
+        //Si el puntaje es menor es una derrota y no se inserta en la base de datos
         if(puntaje < 50) {
+            //Nos esperamos tres segundos antes de visualizar la pantalla de derrota
             val hilo1: Thread = object : Thread() {
                 @Synchronized
                 override fun run() {
@@ -385,6 +416,7 @@ class Arrastrar : View {
                 moduloaux = 4
                 nivelaux = 10
             }
+            //Guardar en la base de datos
             if (modulo == 4) {
                 if (db.nivelDesbloqueado(moduloaux, nivelaux + 1)) {
                     db.guardarRegistro(moduloaux, nivelaux, tiempo, puntaje, Date(), false)
@@ -399,6 +431,7 @@ class Arrastrar : View {
                 }
             }
 
+            //Esperamos tres segundos antes de ir a la pantalla de felicitaciones
             val hilo1: Thread = object : Thread() {
                 @Synchronized
                 override fun run() {

@@ -18,7 +18,7 @@ import java.util.Date
 
 
 class ContinentesNiveles : View {
-    //Imagen de fondo
+    //Imágenes de fondo y niveles
     private var fondo: Drawable? = null
     private var nivel1: Drawable? = null
     private var nivel2: Drawable? = null
@@ -28,15 +28,10 @@ class ContinentesNiveles : View {
 
     //Sonido
     private var clickSound: MediaPlayer? = null
-    private var soundGoing = 0
 
     //SQLite
     var db: DBSQLite = DBSQLite(context)
     var dbBoolean = arrayOf(true, true, false, false)
-
-
-    //Rectangulos
-    private val cuadrado = Paint()
 
     //Textos
     private val textPaint = Paint()
@@ -51,14 +46,20 @@ class ContinentesNiveles : View {
     }
     constructor(context: Context?, attrs: AttributeSet?): super(context, attrs){
         inicializa()
-
     }
+
     private fun inicializa() {
         // Inicializar el MediaPlayer con el sonido deseado
         clickSound = MediaPlayer.create(context, R.raw.efectobtn)
+
+        //Inicializar el texto de prueba
         textPaint.isAntiAlias = true
         textPaint.textSize = 60f
         textPaint.color = Color.WHITE
+        val courier = resources.getFont(R.font.courier)
+        textPaint.typeface = courier
+
+        //Inicializar el texto que contendrá el nombre del módulo
         textNivel.isAntiAlias = true
         textNivel.textSize = 150f
         textNivel.color = Color.WHITE
@@ -67,18 +68,15 @@ class ContinentesNiveles : View {
         val customTypeface = resources.getFont(R.font.pact)
         textNivel.typeface = customTypeface
 
-        val courier = resources.getFont(R.font.courier)
-        textPaint.typeface = courier
-
-
-        cuadrado.style = Paint.Style.FILL
-        cuadrado.color = Color.RED
+        //Pruebas de registrar en base de datos
 //        db.guardarRegistro(1, 2, 10, 100, Date(), true)
 //        db.guardarRegistro(1, 1, 10, 100, Date(), true)
 
+        //Guardar niveles desbloqueados
         comprobarBaseDeDatos()
     }
 
+    //Comprobar cuales niveles están desbloqueados
     fun comprobarBaseDeDatos(){
         for (i in 2..5){
             dbBoolean[i-2] = db.nivelDesbloqueado(1, i)
@@ -92,6 +90,8 @@ class ContinentesNiveles : View {
         var anchonivel = ancho/5
         var altonivel = (alto/2)
         var altonivel1 = altonivel/4
+
+        //Dibujar imágenes
         fondo!!.draw(canvas)
         nivel1!!.draw(canvas)
         nivel2!!.draw(canvas)
@@ -99,9 +99,7 @@ class ContinentesNiveles : View {
         nivel4!!.draw(canvas)
         nivel5!!.draw(canvas)
 
-//        if(db.nivelDesbloqueado(1, 2)){
-//            canvas.drawText("Desbloqueado", ancho/2, 800f, textNivel)
-//        }
+        //Pintar nombre del módulo
         canvas.drawText("Continentes", ancho/2, 500f, textNivel)
 
         invalidate()
@@ -115,6 +113,7 @@ class ContinentesNiveles : View {
         var altonivel1 = (altonivel/4).toInt()
 
 
+        //Inicializar las imágenes, con candado o sin, dependiendo de la base de datos
         fondo = AppCompatResources.getDrawable(getContext(), R.drawable.continent)
         fondo!!.setBounds(0, 0, ancho.toInt(), alto.toInt())
 
@@ -158,33 +157,39 @@ class ContinentesNiveles : View {
         var altonivel = (alto/2).toInt()
         var altonivel1 = (altonivel/4).toInt()
 
+        //Actividades para irse al nivel del juego correspondiente y el módulo correspondiente
         //Nivel 1
         if (event.actionMasked == MotionEvent.ACTION_DOWN || event.actionMasked == MotionEvent.ACTION_POINTER_DOWN) {
             if (event.x >= ((ancho / 2) - 100) && event.x <= (ancho / 2) + 100 && event.y >= ((alto / 2) - 80) && event.y <= ((alto / 2) + 200 - 80)) {
+                clickSound?.seekTo(0) // Empieza desde el inicio
                 clickSound?.start() // Reproduce el sonido
                 val intent = Intent(context, Cards_Inter::class.java)
                 intent.putExtra("modulo", "1")
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 context.startActivity(intent)
             } else if (event.x >= (ancho - 200 - 40) && event.x <= (ancho - 40) && event.y >= (altonivel + altonivel1 - 120) && event.y <= (altonivel + altonivel1 - 120 + 200) && dbBoolean[0]) {
+                clickSound?.seekTo(0) // Empieza desde el inicio
                 clickSound?.start() // Reproduce el sonido
                 val intent = Intent(context, Memorama_Inter::class.java)
                 intent.putExtra("modulo", "1");
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 context.startActivity(intent)
             } else if (event.x >= (ancho - 200 - 40) && event.x <= (ancho - 40) && event.y >= (altonivel + altonivel1 + 300) && event.y <= (altonivel + altonivel1 + 300 + 200) && dbBoolean[1]) {
+                clickSound?.seekTo(0) // Empieza desde el inicio
                 clickSound?.start() // Reproduce el sonido
                 val intent = Intent(context, EscogerInterm::class.java)
                 intent.putExtra("modulo", "1");
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 context.startActivity(intent)
             } else if (event.x >= (150) && event.x <= (200 + 150) && event.y >= (altonivel + altonivel1 + 390) && event.y <= (altonivel + altonivel1 + 390 + 200) && dbBoolean[2]) {
+                clickSound?.seekTo(0) // Empieza desde el inicio
                 clickSound?.start()
                 val intent = Intent(context, Peguntados_Inter::class.java)
                 intent.putExtra("modulo","1");
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 context.startActivity(intent)
             } else if (event.x >= (40) && event.x <= (200 + 40) && event.y >= (altonivel + altonivel1 - 170) && event.y <= (altonivel + altonivel1 - 170 + 200) && dbBoolean[3]) {
+                clickSound?.seekTo(0) // Empieza desde el inicio
                 clickSound?.start()
                 val intent = Intent(context, Arrastrar_Inter::class.java)
                 intent.putExtra("modulo","1")
@@ -218,6 +223,7 @@ class ContinentesNiveles : View {
         }
         return res
     }
+
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         clickSound?.release()

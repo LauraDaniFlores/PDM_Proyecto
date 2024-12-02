@@ -17,14 +17,14 @@ import com.example.proyectofinal_prototipov1.DBSQLite.Companion.TABLE_NAME
 import java.util.Date
 
 class Escoger: View {
+    //Imagen del mapa
     private var imagen: Drawable? = null
-    private var america: Drawable? = null
 
+    //Paint
     var circle: Paint = Paint()
     var circlepeq: Paint = Paint()
     var circlepeq1: Paint = Paint()
     var circlepeq2: Paint = Paint()
-
 
     var boton: Paint = Paint()
     var margen: Paint = Paint()
@@ -32,7 +32,7 @@ class Escoger: View {
     var textmas: Paint = Paint()
     var puntajetext: Paint = Paint()
 
-
+    //Colores
     private var circleColor: Int = 0
     private var colorPeque: Int = 0
     private var verde: Int = 0
@@ -40,7 +40,7 @@ class Escoger: View {
     private var no: Int = 0
     private var azulagua: Int = 0
 
-
+    //Variables varias
     private var puntaje = 0
     private var tiempo = 0
     private var lenght = 4
@@ -58,6 +58,7 @@ class Escoger: View {
 //    var image = "articayantarticamapa"
 //    var coorimage = 732f
 
+    //Variables vacíos
     var numbers = emptyArray<Int>()
     var conti = emptyArray<String>()
     var coordx = emptyArray<Float>()
@@ -76,10 +77,10 @@ class Escoger: View {
         listenertime = l
     }
 
+    //Base de datos
     var db: DBSQLite = DBSQLite(context)
 
-
-
+    //Función para agregar los arrays desde la clase intermedia EscogerInterm
     fun setArrays(nombres: Array<String>, imagen: String?, coordx1: Array<Float>, coordy1: Array<Float>, coor: Float, num: Array<Int>){
         image = imagen
         conti = nombres
@@ -90,6 +91,7 @@ class Escoger: View {
         ordenar()
     }
 
+    //Constructores
     constructor(context: Context?): super(context){
         inicializa()
     }
@@ -99,7 +101,7 @@ class Escoger: View {
 
     private fun inicializa() {
         ordenar()
-        //asignamos los colores
+        //Asignamos los colores
         colorPeque = ResourcesCompat.getColor(resources, R.color.white, null)
         circleColor = ResourcesCompat.getColor(resources, R.color.black, null)
         verde = ResourcesCompat.getColor(resources, R.color.verde, null)
@@ -110,27 +112,33 @@ class Escoger: View {
         circle.color = circleColor
         circle.style = Paint.Style.FILL
         circle.strokeWidth = 5f
+
+        //Inicializar el círculo blanco
         circlepeq.color = colorPeque
         circlepeq.style = Paint.Style.FILL
         circlepeq.strokeWidth = 5f
 
+        //Incializar el círculo verde
         circlepeq1.color = verde
         circlepeq1.style = Paint.Style.FILL
         circlepeq1.strokeWidth = 5f
 
+        //Incializar el círculo rojo
         circlepeq2.color = rojo
         circlepeq2.style = Paint.Style.FILL
         circlepeq2.strokeWidth = 5f
 
+        //Incializar el cuadrado
         boton.style = Paint.Style.FILL
         boton.color = azulagua
         boton.strokeWidth = 5f
 
-
+        //Incializar un cuadrado, margen
         margen.style = Paint.Style.STROKE
         margen.color = azulagua
         margen.strokeWidth = 15f
 
+        //Inicializar el texto
         text.color = Color.argb(255, 100, 100, 100)
         text.textSize = 55f
         text.color = Color.WHITE
@@ -138,11 +146,11 @@ class Escoger: View {
         val customTypeface = resources.getFont(R.font.courier)
         text.typeface = customTypeface
 
+        //Inicializar texto
         textmas.textSize = 35f
         textmas.color = Color.WHITE
         textmas.textAlign = Paint.Align.CENTER
         textmas.typeface = customTypeface
-
 
         puntajetext.textSize = 35f
         puntajetext.color = Color.BLACK
@@ -150,7 +158,6 @@ class Escoger: View {
         //Inicializar el audio
         musicSuccess = MediaPlayer.create(context, R.raw.bien)
 //        musicSuccess?.start()
-
         musicError = MediaPlayer.create(context, R.raw.error)
 //        musicError?.start()
 
@@ -171,7 +178,9 @@ class Escoger: View {
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
 
+        //Fondo de color blanco
         canvas.drawColor(-1);
+        //Dibujar imagen y margen
         imagen!!.draw(canvas)
         canvas.drawRect(30f, 30f, ancho-30, coorimage!!.toFloat(), margen)
         lenght = conti.size - 1
@@ -188,7 +197,7 @@ class Escoger: View {
             h = 1
         }
 
-
+        //Dibujar el círculo negro, después el círculo blanco, verde o rojo
         for(i in 0..lenght){
             canvas.drawCircle (
                 coordx.get(numbers[i])!!,coordy.get(numbers[i])!!, 18f, circle
@@ -207,13 +216,14 @@ class Escoger: View {
                 )
             }
         }
-        canvas.drawRect (
-            30f,coorimage!! + 100f, ancho - 30f, coorimage!! + 100f + 180f, boton
-        )
+
+        //Dibujar la etiqueta con el nombre
+        canvas.drawRect (30f,coorimage!! + 100f, ancho - 30f, coorimage!! + 100f + 180f, boton)
         canvas.drawText(conti.get(numbers.get(no))!!, ancho/2, coorimage!! + 200f ,text)
 
+
+        //Dibujar las respuestas contestadas
         var j = 0
-//        var h = 0
         for(i in 0..no){
             if(estadoCon.get(numbers.get(i)) == 1){
 //                canvas.drawRoundRect(50f, coorimage + (300f + (h*50)), ((ancho/3)*j) - 50f, coorimage + (400f + (h*100)), 20f, 20f, boton)
@@ -227,16 +237,14 @@ class Escoger: View {
             }
         }
 
-//        canvas.drawText(numbers.contentToString(), 30f, 1500f,puntajetext)
-//        canvas.drawText(numbers.get(no).toString(), 30f, 1600f,puntajetext)
-//        canvas.drawText(estadoCon.contentToString(), 30f, 1700f,puntajetext)
-
         invalidate()
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
+        //Comprobar que se de un toque en cualquiera de los círculos
         for(i in 0..lenght){
             if(event.x >= (coordx.get(numbers[i])!! - 30f) && event.x <= (coordx.get(numbers[i])!! + 30f) && event.y >= (coordy.get(numbers[i])!! - 30f) && event.y <= (coordy.get(numbers[i])!! + 30f)){
+                //Se comprueba que no sea de color verde
                 if(estadoCon[numbers[i]] != 1) {
                     if (numbers.get(no) == numbers[i]) {
                         estadoCon[numbers[i]] = 1
@@ -253,6 +261,7 @@ class Escoger: View {
                         if(no < 5 || (no < 2 && lenght == 1)){
                             no++
                         }
+                        //Condiciones para ganar el juego
                         if(no == 5){
                             no = 4
 //                            Toast.makeText(context, "Ganaste", Toast.LENGTH_SHORT).show()
@@ -264,6 +273,7 @@ class Escoger: View {
                         }
                         limpiar()
                     } else {
+                        //Has dado en un círculo incorrecto
                         musicError?.seekTo(0)
                         musicError?.start()
                         estadoCon[numbers[i]] = 2
@@ -279,25 +289,22 @@ class Escoger: View {
                 }
             }
         }
-//        if(no == 5){
-//            no = 0
-//        }
-
         invalidate()
         return super.onTouchEvent(event)
     }
 
+    //Cambiar posiciones del vector
     fun ordenar() {
         numbers.shuffle()
     }
 
+    //Limpiar los puntos rojos
     fun limpiar(){
         for(i in 0..lenght){
             if(estadoCon[numbers[i]] == 2){
                 estadoCon[numbers[i]] = 0
             }
         }
-
         invalidate()
     }
 
@@ -325,9 +332,12 @@ class Escoger: View {
         return res
     }
 
+    //Tomar tiempo
     fun setTiempo(tiem: Int){
         tiempo = tiem
     }
+
+    //Insertar en la base de datos o mostrar la pantalla de derrota
     fun insertardb(modulo: Int){
         if(puntaje < 50) {
             val intent = Intent(context, derrota_Inter::class.java)

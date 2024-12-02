@@ -12,18 +12,21 @@ class FelicidadesInter: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.felicidades)
+
+        //Encontrar
         var felicidades = findViewById<Felicidades>(R.id.felicidades)
 
+        //Tomar los intents de las otras clases
         val nivel = getIntent().getStringExtra("nivel")?.toInt()
         val modulo = getIntent().getStringExtra("modulo")?.toInt()
         val puntaje = getIntent().getStringExtra("puntaje")?.toInt()
         val tiempo = getIntent().getStringExtra("tiempo")?.toInt()
 
-//        var felicidades = Felicidades(getApplicationContext())
-//        setContentView(felicidades)
+        //Pasar variables a la clase felicidades
         felicidades.setVariables(tiempo!!, puntaje!!, nivel!!, modulo!!)
-//        felicidades.setVariables(100, 100, 1, 1)
     }
+
+    //Función para que no puedas regresar
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
 

@@ -14,35 +14,49 @@ import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.content.res.ResourcesCompat
 
 class Felicidades: View {
+    //Imagen de fondo
     private var fondo: Drawable? = null
 
+    //Variables para la pantalla
     private var tiempo = 0
     private var puntaje = 0
     private var nivel = 0
     private var modulo = 0
+
+    //Paint
     private val text = Paint()
     private val text1 = Paint()
+
+    //Color
     private var azul = 0
+
+    //Sonido
     private var musicSuccess: MediaPlayer? = null
+
     //SQLite
     var db: DBSQLite = DBSQLite(context)
 
-
-
+    //Tomar variables
     fun setVariables(time: Int, score: Int, nive: Int, modul: Int){
         tiempo = time
         puntaje = score
         nivel = nive
         modulo = modul
     }
+
+    //Constructores
     constructor(context: Context?): super(context){
         inicializa()
     }
     constructor(context: Context?, attrs: AttributeSet?): super(context, attrs){
         inicializa()
     }
+
     private fun inicializa() {
+        //Inicializar color
         azul = ResourcesCompat.getColor(resources, R.color.azulagua, null)
+
+        //Inicializar el texto blanco
         text.isAntiAlias = true
         text.textSize = 60f
         text.color = Color.WHITE
@@ -50,6 +64,7 @@ class Felicidades: View {
         val customTypeface = resources.getFont(R.font.courier)
         text.typeface = customTypeface
 
+        //Inicializar el texto de color azul
         text1.isAntiAlias = true
         text1.textSize = 60f
         text1.color = azul
@@ -58,14 +73,18 @@ class Felicidades: View {
         musicSuccess = MediaPlayer.create(context, R.raw.success)
         musicSuccess?.start()
     }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+        //Dibujar imagen
         fondo!!.draw(canvas)
+
+        //Dibujar variables de nivel, módulo y puntaje
         canvas.drawText(nivel.toString(), 880f, 1350f, text1)
         canvas.drawText(modulo.toString(), 880f, 1480f, text1)
         canvas.drawText(puntaje.toString(), 880f, 2023f, text)
 
-
+        //Variables auxiliares para formato minutos y segundos del tiempo
         var auxmin = 0
         var auxseg = 0
         var auxminstr = "00"
@@ -105,6 +124,7 @@ class Felicidades: View {
         val ancho = measuredWidth.toFloat()
 
         if (event.actionMasked == MotionEvent.ACTION_DOWN || event.actionMasked == MotionEvent.ACTION_POINTER_DOWN) {
+            //Si toca la pantalla se irá a otra pantalla correspondiente
             if(x >= 0 && x <= ancho && y >= 0 && y <= alto){
                 var intent = Intent(context, ModulosIntermedio::class.java)
                 if(modulo != 4){
@@ -168,8 +188,5 @@ class Felicidades: View {
         }
         return res
     }
-    fun hacerIntent(){
-        val intent = Intent(context, Modulos::class.java)
-        context.startActivity(intent)
-    }
+
 }

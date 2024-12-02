@@ -13,7 +13,6 @@ import java.util.Date
 
 class EscogerInterm: AppCompatActivity() {
     var modulo: Int = 0
-//    var musica: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -24,11 +23,12 @@ class EscogerInterm: AppCompatActivity() {
             insets
         }
 
+        //Encontrar elementos del layout
         var configuraciones = findViewById<Configuracion>(R.id.configuracion)
-
         var escoger = findViewById<Escoger>(R.id.escoger)
+
+        //Tomar el intent de módulo
         modulo = getIntent().getStringExtra("modulo")?.toInt()!!
-//        musica = getIntent().getStringExtra("musica")?.toInt()!!
 
         var moduloaux = modulo
         if (modulo != null) {
@@ -39,6 +39,7 @@ class EscogerInterm: AppCompatActivity() {
             }
         }
 
+        //Agregar el nombre de la música correspondiente al módulo
         when (moduloaux.toInt()) {
             1 ->  configuraciones.setMusica("continentes")
             2 ->  configuraciones.setMusica("ocean")
@@ -49,12 +50,14 @@ class EscogerInterm: AppCompatActivity() {
         }
         configuraciones.setVolume()
 
+        //Listener para cambiar el puntaje en configuraciones
         escoger.setListenerScore(object : OnChangeScoreListener{
             override fun SetonScoreChange(puntaje: Int){
                 configuraciones.actuaizarPuntaje(puntaje)
             }
         })
 
+        //Listener para acabar el juego
         escoger.setOnTimeStotListener(object : OnTimeStopListener{
             override fun OnTimeStop(stop: Boolean) {
                 if(stop){
@@ -67,9 +70,8 @@ class EscogerInterm: AppCompatActivity() {
 
 //        modulo = 2
 
-//        Toast.makeText(this, "Intent " + modulo.toString(),
-//            Toast.LENGTH_LONG).show()
-
+        //Arrays de nombres de las etiquetas, coordenadas x de los puntos, coordenadas y de los puntos, nombre de la imagen,
+        //Coordenada y de donde acaba la imagen y el número de posibilidades en el array.
         var conti = arrayOf(arrayOf("América", "Europa", "Asia", "África", "Oceanía"), arrayOf("Pacífico", "Atlántico", "Índico", "Antártico", "Ártico"), arrayOf("Ártica", "Antártica"),
             arrayOf("Baja California", "Sonora", "Sinaloa", "Chihuahua", "Coahuila", "Durango", "Nuevo León", "Tamaulipas", "Zacatecas", "Jalisco", "Nayarit", "Guanajuato", "Michoacán", "Guerrero", "Oaxaca", "Chiapas"),
             arrayOf("EUA", "México", "Brasil", "Chile", "Colombia", "Venezuela", "Perú", "Bolivia", "Argentina"), arrayOf("Rusia", "China", "India", "Mongolia", "Kazajistán", "Irán", "Turquía", "Indonesia"))
@@ -82,10 +84,10 @@ class EscogerInterm: AppCompatActivity() {
         var coorimage = arrayOf(707f, 707f, 732f, 819f, 1185f, 784f)
         var numbers = arrayOf(arrayOf(0, 1, 2, 3, 4), arrayOf(0, 1, 2, 3, 4), arrayOf(0, 1), arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15), arrayOf(0, 1, 2, 3, 4, 5, 6, 7, 8), arrayOf(0, 1, 2, 3, 4, 5, 6, 7))
 
-
         escoger.setArrays(conti[modulo!!], image[modulo!!], coordx[modulo!!], coordy[modulo!!], coorimage[modulo!!], numbers[modulo!!])
 
     }
+
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
 //        Toast.makeText(applicationContext, "Back Button Pressed", Toast.LENGTH_SHORT).show()

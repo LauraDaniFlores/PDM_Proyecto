@@ -8,22 +8,24 @@ import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 
 class Manual : AppCompatActivity(){
-
-    var btn: ImageButton? = null
+    //Inicializar sonido
     private lateinit var mediaPlayer: MediaPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.manual)
 
+        //Encontrar botón del layout
         var btn = findViewById<ImageButton>(R.id.regreso)
+        //Evento al botón
+        btn.setOnClickListener(evento)
 
         // Inicializar MediaPlayer con el efecto de sonido
         mediaPlayer = MediaPlayer.create(this, R.raw.efectobtn)
 
-        btn.setOnClickListener(evento)
     }
 
+    //Evento del botón
     private val evento = View.OnClickListener { v ->
         // Reproducir el sonido
         if (mediaPlayer.isPlaying) {
@@ -31,6 +33,8 @@ class Manual : AppCompatActivity(){
             mediaPlayer.prepare()
         }
         mediaPlayer.start()
+
+        //Ir a la pantalla de inicio
         var intent: Intent? = null
         when (v.id ) {
             R.id.regreso ->  intent = Intent(this, MainActivity::class.java)

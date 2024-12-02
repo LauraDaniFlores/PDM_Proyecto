@@ -14,7 +14,7 @@ import androidx.appcompat.content.res.AppCompatResources
 import java.util.Date
 
 class MexicoNiveles : View {
-    //Imagen de fondo
+    //Imágenes para fondo y cada nivel
     private var fondo: Drawable? = null
     private var nivel1: Drawable? = null
     private var nivel2: Drawable? = null
@@ -31,10 +31,6 @@ class MexicoNiveles : View {
     //Sonido
     private var clickSound: MediaPlayer? = null
 
-
-    //Rectángulos
-    private val cuadrado = Paint()
-
     //Textos
     private val textPaint = Paint()
     private val textNivel = Paint()
@@ -43,18 +39,19 @@ class MexicoNiveles : View {
     var db: DBSQLite = DBSQLite(context)
     var dbBoolean = arrayOf(false, false, false, false, false, false, false, false, false, false)
 
+    //Constructor
     constructor(context: Context?) : super(context) {
         inicializa()
     }
-
     constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
         inicializa()
-
     }
 
     private fun inicializa() {
         // Inicializar el MediaPlayer con el sonido deseado
         clickSound = MediaPlayer.create(context, R.raw.efectobtn)
+
+        //Inicializar texto
         textPaint.isAntiAlias = true
         textPaint.textSize = 60f
         textPaint.color = Color.WHITE
@@ -69,16 +66,11 @@ class MexicoNiveles : View {
         val courier = resources.getFont(R.font.courier)
         textPaint.typeface = courier
 
-
-        cuadrado.style = Paint.Style.FILL
-        cuadrado.color = Color.RED
-
-//        db.guardarRegistro(2, 5, 10, 100, Date(), true)
-//        db.guardarRegistro(4, 1, 10, 100, Date(), true)
-
+        //Recuperar niveles que están desbloqueados
         comprobarBaseDeDatos()
-
     }
+
+    //Comprobar cuales niveles están desbloqueados, guardarlos en la variable dbBoolean
     fun comprobarBaseDeDatos(){
         for (i in 1..10){
             dbBoolean[i-1] = db.nivelDesbloqueado(4, i)
@@ -92,6 +84,8 @@ class MexicoNiveles : View {
         var anchonivel = ancho / 5
         var altonivel = (alto / 2)
         var altonivel1 = altonivel / 4
+
+        //Dibujar fondo y niveles
         fondo!!.draw(canvas)
         nivel1!!.draw(canvas)
         nivel2!!.draw(canvas)
@@ -104,6 +98,7 @@ class MexicoNiveles : View {
         nivel9!!.draw(canvas)
         nivel10!!.draw(canvas)
 
+        //Dibujar el nombre del módulo
         canvas.drawText("México", ancho / 2, 500f, textNivel)
         invalidate()
     }
@@ -116,7 +111,7 @@ class MexicoNiveles : View {
         var altonivel = (alto / 2).toInt()
         var altonivel1 = (altonivel / 4).toInt()
 
-
+        //Inicialización de las imágenes y saber si es candado o no
         fondo = AppCompatResources.getDrawable(getContext(), R.drawable.mexico)
         fondo!!.setBounds(0, 0, ancho.toInt(), alto.toInt())
 
@@ -258,6 +253,7 @@ class MexicoNiveles : View {
         var altonivel = (alto / 2).toInt()
         var altonivel1 = (altonivel / 4)
 
+        //Touch en alguno de los niveles, comprobar si está desbloqueado
         //Nivel 1
         if (event.x >= 50 && event.x <= 210 && event.y >= (altonivel + ((altonivel1 * 2)) - 100) && event.y <= (altonivel + ((altonivel1 * 2)) + 160) && dbBoolean[0]) {
             clickSound?.start()
@@ -352,6 +348,7 @@ class MexicoNiveles : View {
         }
         return res
     }
+
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         clickSound?.release()
