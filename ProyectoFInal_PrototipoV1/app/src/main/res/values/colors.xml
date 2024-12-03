@@ -14,4 +14,13 @@
     <color name="cafeAmer">#aa865c</color>
     <color name="cafeAsia">#eed6ba</color>
 
+    /*Colores continentes*/
+    <color name="fondocont">#52bc8c</color>
+
+    /*Felicidades y derrota*/
+    <color name="ganaperder">#0b2c33</color>
+
+    /*Creditos*/
+    <color name="cred">#e3eaf2</color>
+
 </resources>

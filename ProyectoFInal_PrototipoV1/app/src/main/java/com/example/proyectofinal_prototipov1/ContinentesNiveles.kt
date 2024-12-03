@@ -85,6 +85,8 @@ class ContinentesNiveles : View {
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+
+
         val alto = measuredHeight.toFloat()
         val ancho = measuredWidth.toFloat()
         var anchonivel = ancho/5

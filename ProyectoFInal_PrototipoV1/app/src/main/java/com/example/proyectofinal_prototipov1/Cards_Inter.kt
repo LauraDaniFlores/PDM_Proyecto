@@ -1,7 +1,10 @@
 package com.example.proyectofinal_prototipov1
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -13,11 +16,10 @@ class Cards_Inter: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.cards)
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
+
+        // Personalizar colores de la barra de estado y navegación
+        setCustomStatusBarAndNavigationBarColors("#ffffff", "#ffffff")
+        window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
 
         // Inicializar variables del layout
         var configuraciones = findViewById<Configuracion>(R.id.configuracion)
@@ -85,6 +87,18 @@ class Cards_Inter: AppCompatActivity() {
         })
 
     }
+
+    private fun setCustomStatusBarAndNavigationBarColors(statusBarColorHex: String, navigationBarColorHex: String) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.apply {
+                // Establece el color de la barra de estado (status bar)
+                statusBarColor = Color.parseColor(statusBarColorHex)
+                // Establece el color de la barra de navegación (navigation bar)
+                navigationBarColor = Color.parseColor(navigationBarColorHex)
+            }
+        }
+    }
+
     override fun onStop() {
         var configuraciones = findViewById<Configuracion>(R.id.configuracion)
         configuraciones.detenerMusica() // Liberar recursos

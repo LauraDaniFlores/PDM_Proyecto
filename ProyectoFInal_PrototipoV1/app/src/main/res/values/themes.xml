@@ -7,6 +7,29 @@
 
     <style name="Theme.ProyectoFInal_PrototipoV1" parent="Base.Theme.ProyectoFInal_PrototipoV1" />
 
+    <style name="Theme.App.TransparentStatusBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Hace que la barra de estado sea transparente -->
+        <item name="android:statusBarColor">@android:color/white</item>
+        <item name="android:windowLightStatusBar">true</item> <!-- Texto oscuro en la barra de estado, si lo deseas -->
+    </style>
+
+    <style name="Theme.App.TransparentStatusBarGaPe" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Hace que la barra de estado sea transparente -->
+        <item name="android:statusBarColor">@color/ganaperder</item>
+        <item name="android:windowLightStatusBar">true</item> <!-- Texto oscuro en la barra de estado, si lo deseas -->
+    </style>
+
+
+        <style name="Theme.App.TransparentStatusBarCreditos" parent="Theme.AppCompat.Light.NoActionBar">
+            <!-- Hace que la barra de estado sea transparente -->
+            <item name="android:statusBarColor">@color/cred</item>
+            <item name="android:windowLightStatusBar">true</item> <!-- Texto oscuro en la barra de estado, si lo deseas -->
+            <!-- Hace que la barra de navegación sea transparente -->
+            <item name="android:navigationBarColor">@color/cred</item>
+        </style>
+
+
+
     <style name="Theme.App.Starting" parent="Theme.ProyectoFInal_PrototipoV1">
         <item name="android:windowBackground">@drawable/splash_fondo</item>
        <!-- <item name="windowSplashScreenAnimatedIcon">@drawable/logonormal</item>-->

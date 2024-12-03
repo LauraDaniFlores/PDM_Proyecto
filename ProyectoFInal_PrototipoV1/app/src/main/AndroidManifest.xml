@@ -27,44 +27,58 @@
         <!-- MainActivity, se ejecuta después de DetailActivity -->
         <activity
             android:name=".MainActivity"
+            android:theme="@style/Theme.App.TransparentStatusBar"
             android:exported="false" />
 
         <activity android:name=".Modulos"
+            android:theme="@style/Theme.App.TransparentStatusBar"
             android:exported="false"/>
 
         <activity android:name=".CreditosAct"
+            android:theme="@style/Theme.App.TransparentStatusBarCreditos"
             android:exported="false"/>
 
         <activity android:name=".ModulosIntermedio"
+            android:theme="@style/Theme.App.TransparentStatusBar"
             android:exported="false"/>
 
         <activity android:name=".Memorama_Inter"
+            android:theme="@style/Theme.App.TransparentStatusBar"
             android:exported="false"/>
 
         <activity android:name=".Cards_Inter"
             android:exported="false"/>
 
         <activity android:name=".EscogerInterm"
+            android:theme="@style/Theme.App.TransparentStatusBar"
             android:exported="false"/>
 
         <activity android:name=".Maravillas_Inter"
+            android:theme="@style/Theme.App.TransparentStatusBar"
             android:exported="false"/>
 
         <activity android:name=".Trayecto_Inter"
+            android:theme="@style/Theme.App.TransparentStatusBar"
             android:exported="false"/>
 
-        <activity android:name=".Peguntados_Inter"/>
+        <activity android:name=".Peguntados_Inter"
+            android:theme="@style/Theme.App.TransparentStatusBar"
+            />
 
         <activity android:name=".FelicidadesInter"
+            android:theme="@style/Theme.App.TransparentStatusBarGaPe"
             android:exported="false"/>
 
         <activity android:name=".derrota_Inter"
+            android:theme="@style/Theme.App.TransparentStatusBarGaPe"
             android:exported="false"/>
 
         <activity android:name=".Manual"
+            android:theme="@style/Theme.App.TransparentStatusBar"
             android:exported="false"/>
 
         <activity android:name=".Arrastrar_Inter"
+            android:theme="@style/Theme.App.TransparentStatusBar"
             android:exported="false"/>
 
     </application>
