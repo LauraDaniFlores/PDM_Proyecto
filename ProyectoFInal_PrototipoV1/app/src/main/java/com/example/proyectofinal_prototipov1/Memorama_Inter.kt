@@ -1,6 +1,7 @@
 package com.example.proyectofinal_prototipov1
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -11,6 +12,7 @@ import com.dgfp.proyectojuego1.Memorama
 
 
 class Memorama_Inter : AppCompatActivity() {
+    private var modulo: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,11 +37,11 @@ class Memorama_Inter : AppCompatActivity() {
         var oceanos = arrayOf("mocean1", "mocean2", "mocean3", "mocean4", "mocean5")
 
         // Obtener la información que nos manda el intent
-        val modulo = getIntent().getStringExtra("modulo")
+        modulo = getIntent().getStringExtra("modulo")
 
         // Mandar el array correspondiente
         if (modulo != null) {
-            when(modulo.toInt()){
+            when(modulo!!.toInt()){
                 1 ->  juego.setArray(continentes)
                 2 ->  juego.setArray(oceanos)
                 3 ->  juego.setArray(aryan)
@@ -73,7 +75,7 @@ class Memorama_Inter : AppCompatActivity() {
                     configuraciones.detenerTiempo()
                     juego.setTiempo(configuraciones.gettime())
                     if (modulo != null) {
-                        juego.insertardb(modulo.toInt())
+                        juego.insertardb(modulo!!.toInt())
                     }
                 }
             }
@@ -81,6 +83,18 @@ class Memorama_Inter : AppCompatActivity() {
     }
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
+        val i = Intent(this@Memorama_Inter, ModulosIntermedio::class.java)
+        when (modulo!!.toInt()) {
+            1 -> i.putExtra("tiponivel", "0")
+            2 -> i.putExtra("tiponivel", "1")
+            3 -> i.putExtra("tiponivel", "2")
+            4,5 -> i.putExtra("tiponivel", "3")
+            6 -> i.putExtra("tiponivel", "4")
+            7 -> i.putExtra("tiponivel", "5")
+        }
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(i)
+
 //        Toast.makeText(applicationContext, "Back Button Pressed", Toast.LENGTH_SHORT).show()
     }
     override fun onStop() {

@@ -1,7 +1,9 @@
 package com.example.proyectofinal_prototipov1
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
+import android.media.MediaPlayer
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -11,8 +13,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.dgfp.proyectojuego1.Memorama
+import kotlin.properties.Delegates
 
 class Cards_Inter: AppCompatActivity() {
+    private var modulo: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.cards)
@@ -41,11 +46,11 @@ class Cards_Inter: AppCompatActivity() {
             arrayOf("¿Qué son las leyes de reforma?", "Conjunto de leyes promulgadas en México para separar la iglesia y el estado"), arrayOf("¿En qué año fue la revolución mexicana?", "1910 a 1920"), arrayOf("¿Cúal fue el movimiento independentista que inició la independencia de México?", "El Grito de Dolores el 16 de septiembre de 1810"))
 
         // Obtener el módulo del intent (de otra actividad)
-        var modulo = getIntent().getStringExtra("modulo")
+        modulo = getIntent().getStringExtra("modulo")
 
         // Colocar array dependiendo del módulo
         if (modulo != null) {
-            when(modulo.toInt()){
+            when(modulo!!.toInt()){
                 1 ->  juego.setArray(continentes, 1)
                 2 ->  juego.setArray(oceanos, 2)
                 3 ->  juego.setArray(aryan, 3)
@@ -106,6 +111,18 @@ class Cards_Inter: AppCompatActivity() {
     }
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
+        // Lanzar la actividad con el dato correspondiente
+        val i = Intent(this@Cards_Inter, ModulosIntermedio::class.java)
+        when (modulo!!.toInt()) {
+            1 -> i.putExtra("tiponivel", "0")
+            2 -> i.putExtra("tiponivel", "1")
+            3 -> i.putExtra("tiponivel", "2")
+            4,5 -> i.putExtra("tiponivel", "3")
+            6 -> i.putExtra("tiponivel", "4")
+            7 -> i.putExtra("tiponivel", "5")
+        }
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(i)
 //        Toast.makeText(applicationContext, "Back Button Pressed", Toast.LENGTH_SHORT).show()
     }
     override fun onStart() {

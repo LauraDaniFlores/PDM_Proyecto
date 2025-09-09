@@ -1,6 +1,7 @@
 package com.example.proyectofinal_prototipov1
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
@@ -87,6 +88,18 @@ class Arrastrar_Inter : AppCompatActivity() {
     //Botón de regreso
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
+        val i = Intent(this@Arrastrar_Inter, ModulosIntermedio::class.java)
+        when (modulo!!.toInt()) {
+            0 -> i.putExtra("tiponivel", "0")
+            1 -> i.putExtra("tiponivel", "1")
+            2 -> i.putExtra("tiponivel", "2")
+            3 -> i.putExtra("tiponivel", "3")
+            4 -> i.putExtra("tiponivel", "4")
+            5 -> i.putExtra("tiponivel", "5")
+        }
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(i)
+
 //        Toast.makeText(applicationContext, "Back Button Pressed", Toast.LENGTH_SHORT).show()
     }
 

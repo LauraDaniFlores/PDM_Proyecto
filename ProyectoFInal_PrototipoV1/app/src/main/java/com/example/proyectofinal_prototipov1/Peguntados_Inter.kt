@@ -348,6 +348,18 @@ class Peguntados_Inter : AppCompatActivity(), OnAnswerSelectedListener {
     }
     @SuppressLint("MissingSuperCall")
     override fun onBackPressed() {
+        val i = Intent(this@Peguntados_Inter, ModulosIntermedio::class.java)
+        when (modulo!!.toInt()) {
+            1 -> i.putExtra("tiponivel", "0")
+            2 -> i.putExtra("tiponivel", "1")
+            3 -> i.putExtra("tiponivel", "2")
+            4,5 -> i.putExtra("tiponivel", "3")
+            6 -> i.putExtra("tiponivel", "4")
+            7 -> i.putExtra("tiponivel", "5")
+        }
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(i)
+
 //        Toast.makeText(applicationContext, "Back Button Pressed", Toast.LENGTH_SHORT).show()
     }
 

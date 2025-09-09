@@ -1,5 +1,6 @@
 package com.example.proyectofinal_prototipov1
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.drawable.AnimationDrawable
 import android.media.MediaPlayer
@@ -48,4 +49,6 @@ class Trayecto_Inter : AppCompatActivity() {
         // Liberar recursos de MediaPlayer
         mediaPlayer.release()
     }
+
+
 }
